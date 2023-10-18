@@ -20,7 +20,6 @@ CREATE TABLE UserPedido (
 	PRIMARY KEY (user_id, id),
 	FOREIGN KEY (user_id) REFERENCES Usuario (mail),
     FOREIGN KEY (id) REFERENCES Pedido (id),
-    
 );
 
 CREATE TABLE ProdPedido (
@@ -78,3 +77,14 @@ CREATE TABLE Incompatible (
 	FOREIGN KEY (id_1, id_2) REFERENCES Producto (id),
 	PRIMARY KEY (id_1, id_2)
 );
+
+
+-- DROP TABLE IF EXISTS public.Incompatible CASCADE;
+-- DROP TABLE IF EXISTS public.Persona CASCADE;
+-- DROP TABLE IF EXISTS public.Producto CASCADE;
+-- DROP TABLE IF EXISTS public.ProdReseña CASCADE;
+-- DROP TABLE IF EXISTS public.Reseña CASCADE;
+-- DROP TABLE IF EXISTS public.Pedido CASCADE;
+-- DROP TABLE IF EXISTS public.ProdPedido CASCADE;
+-- DROP TABLE IF EXISTS public.UserPedido CASCADE;
+-- DROP TABLE IF EXISTS public.Usuario CASCADE;
