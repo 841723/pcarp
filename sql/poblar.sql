@@ -25,12 +25,12 @@ INSERT INTO Pedido_Usuario (id_usuario,id_pedido) VALUES (2,2);
 SELECT * FROM Pedido_Usuario;
 
 
-INSERT INTO Contenido_Pedidos (id_pedido,id_producto,cantidad) VALUES (1,1,2);
-INSERT INTO Contenido_Pedidos (id_pedido,id_producto,cantidad) VALUES (1,2,9);
-INSERT INTO Contenido_Pedidos (id_pedido,id_producto,cantidad) VALUES (2,2,35);
-SELECT * FROM Contenido_Pedidos;
+INSERT INTO Contenido_Pedido (id_pedido,id_producto,cantidad) VALUES (1,1,2);
+INSERT INTO Contenido_Pedido (id_pedido,id_producto,cantidad) VALUES (1,2,9);
+INSERT INTO Contenido_Pedido (id_pedido,id_producto,cantidad) VALUES (2,2,35);
+SELECT * FROM Contenido_Pedido;
 
 
-INSERT INTO Incompatibilidades (id_producto_1,id_producto_2) VALUES (1,2);
-SELECT * FROM Incompatibilidades;
+INSERT INTO Incompatibilidad (id_producto_1,id_producto_2) VALUES (1,2);
+SELECT * FROM Incompatibilidad;
 

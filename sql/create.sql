@@ -45,14 +45,14 @@ CREATE TABLE Pedido_Usuario (
 	PRIMARY KEY (id_usuario, id_pedido)
 );
 
-CREATE TABLE Contenido_Pedidos (
+CREATE TABLE Contenido_Pedido (
 	id_pedido		INT REFERENCES Pedido (id_pedido),
 	id_producto		INT REFERENCES Producto (id_producto),
     cantidad        INT NOT NULL,
 	PRIMARY KEY (id_pedido, id_producto)
 );
 
-CREATE TABLE Incompatibilidades (
+CREATE TABLE Incompatibilidad (
 	id_producto_1		INT REFERENCES Producto (id_producto),
 	id_producto_2		INT REFERENCES Producto (id_producto),
 	CHECK (id_producto_1 != id_producto_2),
@@ -60,8 +60,8 @@ CREATE TABLE Incompatibilidades (
 );
 
 
-DELETE FROM Incompatibilidades;
-DELETE FROM Contenido_Pedidos;
+DELETE FROM Incompatibilidad;
+DELETE FROM Contenido_Pedido;
 DELETE FROM Pedido_Usuario;
 
 

@@ -10,9 +10,9 @@
 
 DROP TABLE IF EXISTS public.Usuario CASCADE;
 DROP TABLE IF EXISTS public.Pedido_Usuario CASCADE;
-DROP TABLE IF EXISTS public.Contenido_Pedidos CASCADE;
+DROP TABLE IF EXISTS public.Contenido_Pedido CASCADE;
 DROP TABLE IF EXISTS public.Pedido CASCADE;
 DROP TABLE IF EXISTS public.Producto CASCADE;
 DROP TABLE IF EXISTS public.Resena CASCADE;
 DROP TABLE IF EXISTS public.Producto_Resena CASCADE;
-DROP TABLE IF EXISTS public.Incompatibilidades CASCADE;
+DROP TABLE IF EXISTS public.Incompatibilidad CASCADE;

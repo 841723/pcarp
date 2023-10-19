@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const {Client} = require('pg')
-const {sum} = require('./sum')
 const DAOusuario = require('./DAO/DAOusuario')
 
 const client = new Client ({
@@ -14,23 +13,45 @@ const client = new Client ({
 });
 
 client.connect();
-client.query(`SELECT * FROM public.usuario`, (err,res)=>{
-    var obj = [];
-    if (!err) {
-        // obj = res.rows;
-        // obj.forEach(element => {
-        //     console.log("nombre "+element.nombre+" apellido "+element.apellidos+" tiene password: "+element.contrasena+" y mail: "+element.mail);
-        // });
-        console.log(res.rows)
-    }
-    else {
-        console.log(err.message);
-    }
-    // client.end();
-});     
+// client.query(`SELECT * FROM public.usuario`, (err,res)=>{
+//     var obj = [];
+//     if (!err) {
+//         // obj = res.rows;
+//         // obj.forEach(element => {
+//         //     console.log("nombre "+element.nombre+" apellido "+element.apellidos+" tiene password: "+element.contrasena+" y mail: "+element.mail);
+//         // });
+//         console.log(res.rows)
+//     }
+//     else {
+//         console.log(err.message);
+//     }
+//     // client.end();
+// });     
 
-// const dao = new DAOusuario(client);
-// console.log(dao.obtenerTodos());
+const dao = new DAOusuario(client);
+
+// async function obtenerTodos() {
+//   try {
+//       const resultado = await dao.obtenerTodos();
+//       if (resultado) {
+//           return resultado
+//       } else {
+//           console.log('No se encontró ningún usuario con ese ID.');
+//           console.log(err.me);
+//       }
+//   } catch (error) {
+//       console.error('Ocurrió un error:', error);
+//   }
+// }
+
+// dao.obtenerTodos()
+//   .then((resultadoObtenido) => {
+//     console.log(resultadoObtenido); // Imprime el resultado cuando la promesa se resuelve
+//   })
+//   .catch((error) => {
+//     console.error(error); // Manejo de errores
+//   });
+
 
 // app.get('/', (req,res) => {
 
@@ -63,12 +84,12 @@ app.get('/consulta1', (req, res) => {
   
     console.log('Recibido:'+data);
 
-    client.query(data, (error, result) => {
-      if (error) {  // Si hay un error, se lanza una excepción.
-        throw error;
-      }
-      // Envía los resultados como respuesta al cliente en formato JSON.
-    //   res.send(result.rows);
-      res.json(result.rows);
+    dao.obtenerPorNombre(data)
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
     });
+    
   });

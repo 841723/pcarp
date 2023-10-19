@@ -1,4 +1,4 @@
-DELETE FROM Incompatibilidades;
+DELETE FROM Incompatibilidad;
 DELETE FROM Producto_Resena;
 DELETE FROM Pedido_Usuario;
 
