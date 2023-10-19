@@ -56,6 +56,7 @@ app.get('/consulta1', (req, res) => {
     const data = req.query.data; // Aquí obtendrás el string enviado
   
     console.log('Recibido:'+data);
+    
     client.query(data, (error, result) => {
       if (error) {  // Si hay un error, se lanza una excepción.
         throw error;

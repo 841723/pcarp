@@ -1,6 +1,5 @@
 DELETE FROM Incompatibilidades;
 DELETE FROM Producto_Resena;
-DELETE FROM Contenido_Pedidos;
 DELETE FROM Pedido_Usuario;
 
 

@@ -1,6 +1,6 @@
-INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('diego','roldan','dr0','raul@gmail.com');
-INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('abel','romeo','ab1','romeo@unizar.com');
-INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('pablo','moreno','enfadica','marti@poulsen.com');
+INSERT INTO Usuario (nombre,apellidos,contrasena,direccion,mail) VALUES ('diego','roldan','dr0','direccion de diego 3B','raul@gmail.com');
+INSERT INTO Usuario (nombre,apellidos,contrasena,direccion,mail) VALUES ('abel','romeo','ab1','direccion de abel 3B','romeo@unizar.com');
+INSERT INTO Usuario (nombre,apellidos,contrasena,direccion,mail) VALUES ('pablo','moreno','enfadica','direccion de pablo 3B','marti@poulsen.com');
 SELECT * FROM Usuario;
 
 
@@ -14,9 +14,9 @@ INSERT INTO Producto (nombre,precio,descripcion,stock) VALUES ('producto2',3.12,
 SELECT * FROM Producto;
 
 
-INSERT INTO Resena (id_usuario,contenido,estrellas) VALUES (1,'muy malo',1);
-INSERT INTO Resena (id_usuario,contenido,estrellas) VALUES (2,'oleee',5);
-INSERT INTO Resena (id_usuario,contenido,estrellas) VALUES (2,'bueno regulinchi',3);
+INSERT INTO Resena (id_usuario,id_producto,contenido,estrellas) VALUES (1,1,'muy malo',1);
+INSERT INTO Resena (id_usuario,id_producto,contenido,estrellas) VALUES (2,2,'oleee',5);
+INSERT INTO Resena (id_usuario,id_producto,contenido,estrellas) VALUES (2,2,'bueno regulinchi',3);
 SELECT * FROM Resena;
 
 
@@ -30,11 +30,6 @@ INSERT INTO Contenido_Pedidos (id_pedido,id_producto,cantidad) VALUES (1,2,9);
 INSERT INTO Contenido_Pedidos (id_pedido,id_producto,cantidad) VALUES (2,2,35);
 SELECT * FROM Contenido_Pedidos;
 
-
-INSERT INTO Producto_Resena (id_resena,id_producto) VALUES (1,1);
-INSERT INTO Producto_Resena (id_resena,id_producto) VALUES (2,2);
-INSERT INTO Producto_Resena (id_resena,id_producto) VALUES (3,2);
-SELECT * FROM Producto_Resena;
 
 INSERT INTO Incompatibilidades (id_producto_1,id_producto_2) VALUES (1,2);
 SELECT * FROM Incompatibilidades;
