@@ -1,6 +1,6 @@
 /*
  * File: 	crearTablas.sql
- * Authors: Diego Raul Cornudo Uruena,	841723
+ * Authors: Diego Raul Roldan Uruena,	841723
  * 			Pablo Moreno Munoz, 841972
  * 			Abel Romeo Lancina,	846088
  * Date: abril 2023
@@ -18,6 +18,7 @@ CREATE TABLE Usuario (
 CREATE TABLE Pedido (
   	id_pedido		SERIAL PRIMARY KEY,
 	fecha   		TIMESTAMP NOT NULL DEFAULT current_timestamp,
+	fecha_llegada   DATE CHECK (fecha_llegada>DATE(fecha)),
   	estado       	VARCHAR (9) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'pendiente' OR estado = 'enviado' OR estado = 'recibido')
 );
 

@@ -1,10 +1,11 @@
 INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('diego','roldan','dr0','raul@gmail.com');
 INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('abel','romeo','ab1','romeo@unizar.com');
+INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('pablo','moreno','enfadica','marti@poulsen.com');
 SELECT * FROM Usuario;
 
 
-INSERT INTO Pedido (fecha,estado) VALUES (current_timestamp,'pendiente');
-INSERT INTO Pedido (fecha,estado) VALUES (current_timestamp,'enviado');
+INSERT INTO Pedido (fecha,fecha_llegada,estado) VALUES (current_timestamp,current_date+2,'pendiente');
+INSERT INTO Pedido (fecha,fecha_llegada,estado) VALUES (current_timestamp,current_date+3,'enviado');
 SELECT * FROM Pedido;
 
 
