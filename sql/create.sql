@@ -10,14 +10,15 @@
 CREATE TABLE Usuario (
 	id_usuario 		SERIAL PRIMARY KEY,
 	nombre  		VARCHAR (20) NOT NULL,
-	contrasena 		VARCHAR (25) NOT NULL,
+	apellidos  		VARCHAR (30) NOT NULL,
+	contrasena 		VARCHAR (20) NOT NULL,
     mail            VARCHAR (50) NOT NULL UNIQUE
 );
 
 CREATE TABLE Pedido (
   	id_pedido		SERIAL PRIMARY KEY,
 	fecha   		TIMESTAMP NOT NULL DEFAULT current_timestamp,
-  	estado       	VARCHAR (20) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'pendiente' OR estado = 'enviado' OR estado = 'recibido')
+  	estado       	VARCHAR (9) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'pendiente' OR estado = 'enviado' OR estado = 'recibido')
 );
 
 CREATE TABLE Producto (
@@ -31,7 +32,7 @@ CREATE TABLE Producto (
 CREATE TABLE Resena (
 	id_resena  		    SERIAL PRIMARY KEY,
     id_usuario          SERIAL REFERENCES Usuario (id_usuario),
-	contenido 		    VARCHAR (50),
+	contenido 		    VARCHAR (200),
 	estrellas	        INT NOT NULL CHECK (estrellas >= 0 AND estrellas <= 5)
 );
 

@@ -1,24 +1,18 @@
-
-INSERT INTO Usuario (nombre,contrasena,mail) VALUES ('diego','roldan','raul@gmail.com');
-INSERT INTO Usuario (nombre,contrasena,mail) VALUES ('abel','romeo','romeo@unizar.com');
+INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('diego','roldan','dr0','raul@gmail.com');
+INSERT INTO Usuario (nombre,apellidos,contrasena,mail) VALUES ('abel','romeo','ab1','romeo@unizar.com');
 SELECT * FROM Usuario;
 
 
-DELETE FROM Pedido;
 INSERT INTO Pedido (fecha,estado) VALUES (current_timestamp,'pendiente');
 INSERT INTO Pedido (fecha,estado) VALUES (current_timestamp,'enviado');
 SELECT * FROM Pedido;
 
 
-DELETE FROM Producto;
-ALTER SEQUENCE Producto_id_producto_seq RESTART WITH 1;
 INSERT INTO Producto (nombre,precio,descripcion,stock) VALUES ('producto1',23.5,'',50);
 INSERT INTO Producto (nombre,precio,descripcion,stock) VALUES ('producto2',3.12,'',163);
 SELECT * FROM Producto;
 
 
-DELETE FROM Resena;
-ALTER SEQUENCE Resena_id_resena_seq RESTART WITH 1;
 INSERT INTO Resena (id_usuario,contenido,estrellas) VALUES (1,'muy malo',1);
 INSERT INTO Resena (id_usuario,contenido,estrellas) VALUES (2,'oleee',5);
 INSERT INTO Resena (id_usuario,contenido,estrellas) VALUES (2,'bueno regulinchi',3);

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const {Client} = require('pg')
+const {sum} = require('./sum')
 
 const client = new Client ({
     host:"bqnze3lsktl7tehwubei-postgresql.services.clever-cloud.com",
@@ -12,11 +13,11 @@ const client = new Client ({
 
 var obj = [];
 client.connect();
-client.query(`SELECT * FROM public.prueba`, (err,res)=>{
+client.query(`SELECT * FROM public.usuario`, (err,res)=>{
     if (!err) {
         obj = res.rows;
         obj.forEach(element => {
-            console.log("hay "+element.cantidad+" de "+element.nombre+" a precio de "+element.precio);
+            console.log("nombre "+element.nombre+" apellido "+element.apellidos+" tiene password: "+element.contrasena+" y mail: "+element.mail);
         });
     }
     else {
@@ -40,7 +41,22 @@ app.listen(3000, () => {
 
 app.get('/consulta1', (req, res) => {
     // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
-    client.query('SELECT * FROM public.prueba', (error, result) => {
+    client.query(`SELECT * FROM public.usuario`, (error, result) => {
+      if (error) {  // Si hay un error, se lanza una excepción.
+        throw error;
+      }
+      // Envía los resultados como respuesta al cliente en formato JSON.
+    //   res.send(result.rows);
+      res.json(result.rows);
+    });
+  });
+
+
+  app.get('/endpoint', (req, res) => {
+    const data = req.query.data; // Aquí obtendrás el string enviado
+  
+    console.log('Recibido:'+data);
+    client.query(data, (error, result) => {
       if (error) {  // Si hay un error, se lanza una excepción.
         throw error;
       }
