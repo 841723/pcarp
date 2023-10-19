@@ -5,4 +5,4 @@ class VOPedidoUsuario {
     }
 }
 
-module.export = VOPedidoUsuario
+module.exports   = VOPedidoUsuario

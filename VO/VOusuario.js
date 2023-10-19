@@ -10,4 +10,4 @@ class VOusuario {
     }
 }
 
-module.export = VOusuario
+module.exports = VOusuario

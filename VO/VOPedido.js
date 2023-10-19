@@ -7,4 +7,4 @@ class VOPedido {
     }
 }
 
-module.export = VOPedido
+module.exports = VOPedido

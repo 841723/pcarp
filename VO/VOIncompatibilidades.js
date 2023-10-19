@@ -4,4 +4,4 @@ class VOIncompatibilidades {
         this.idProducto2 = idProducto2;
     }
 }
-module.export=VOIncompatibilidades
+module.exports=VOIncompatibilidades

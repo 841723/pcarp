@@ -1,7 +1,7 @@
 const VOusuario=require ('../VO/VOusuario')
 
 class DAOusuario {
-
+    
     constructor(database) {
         this.database = database;
     }
@@ -10,15 +10,15 @@ class DAOusuario {
         try {
             // Realiza la consulta a la base de datos para obtener el usuario con el ID proporcionado
             const result = await this.database.query('SELECT * FROM usuarios');
-    
+            
             if (result.rows.length === 0) {
                 return null;
             }
     
-            const usuarioData = result.rows[0];
-            const VOusuario = new VOusuario(usuarioData.id, usuarioData.nombre, usuarioData.email);
+            const VOusuarios = result.rows.map((usuario) => new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contraseña,
+                 usuario.direccion,usuario.email));
 
-            return [];
+            return VOusuarios;
 
         } catch (error) {
             throw error;
@@ -30,14 +30,15 @@ class DAOusuario {
         // Implementación para obtener un usuario por su ID desde la base de datos
         try {
             // Realiza la consulta a la base de datos para obtener el usuario con el ID proporcionado
-            const result = await this.database.query('SELECT * FROM usuarios WHERE id = $1', [id]);
+            const result = await this.database.query('SELECT * FROM usuarios WHERE id_usuario = $1', [id]);
     
             if (result.rows.length === 0) {
                 return null;
             }
     
-            const usuarioData = result.rows[0];
-            const VOusuario = new VOusuario(usuarioData.id, usuarioData.nombre, usuarioData.email);
+            const usuario = result.rows[0];
+            const VOusuario = new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contraseña,
+                usuario.direccion,usuario.email);
 
             return [VOusuario];
 
@@ -60,4 +61,4 @@ class DAOusuario {
     
 }
 
-module.export = DAOusuario
+module.exports = DAOusuario

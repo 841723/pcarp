@@ -8,4 +8,4 @@ class VOResena {
     }
 }
 
-module.export = VOResena
+module.exports = VOResena

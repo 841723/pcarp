@@ -8,4 +8,4 @@ class VOProducto {
     }
 }
 
-module.export = VOProducto
+module.exports = VOProducto

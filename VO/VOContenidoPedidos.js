@@ -6,4 +6,4 @@ class VOContenidoPedidos {
     }
 }
 
-module.export = VOContenidoPedidos
+module.exports = VOContenidoPedidos
