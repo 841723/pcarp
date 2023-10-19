@@ -5,21 +5,16 @@ const {sum} = require('./sum')
 const DAOusuario = require('./DAO/DAOusuario')
 
 const client = new Client ({
-    // host:"bqnze3lsktl7tehwubei-postgresql.services.clever-cloud.com",
-    // user:"umqcsr9mkmjeb8mqysqs",
-    // password:"buGaOwptsN1AOfdrb1Um",
-    // port:"5432",
-    // database:"bqnze3lsktl7tehwubei"
-    host: 'bb0nb0yr1ryi57ymxpvb-postgresql.services.clever-cloud.com',
-  user: 'uuqrczahynsdtn5wrqec',
-  password: 'J1bhpliLfxZGbTMW4COmwfNygibFFb',
-  port: 5432,
-  database: 'bb0nb0yr1ryi57ymxpvb',
+    host:"bqnze3lsktl7tehwubei-postgresql.services.clever-cloud.com",
+    user:"umqcsr9mkmjeb8mqysqs",
+    password:"buGaOwptsN1AOfdrb1Um",
+    port:"5432",
+    database:"bqnze3lsktl7tehwubei"
+
 });
 
 client.connect();
-// client.query(`SELECT * FROM public.usuario`, (err,res)=>{
-client.query(`SELECT * FROM public.empleado`, (err,res)=>{
+client.query(`SELECT * FROM public.usuario`, (err,res)=>{
     var obj = [];
     if (!err) {
         // obj = res.rows;
