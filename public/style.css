@@ -1,11 +1,56 @@
 body {
-    background-color: burlywood;
+    background-color: #FF7F27;
+    color:black;
+}
+/* 
+* {
+    border: 1px solid black;
+} */
+
+
+.center {
+    background-color: white;
+    width: 75%;
+    margin-left: 12.5%;
+    min-height: 1000px;
+    height:auto;
+    padding: 30px;
+    margin-top: 20px;
 }
 
-.tab {
-    border: 2px solid;
+.center .message-box #message {
+    /* margin-left: 5%;
+    margin-top: 50px; */
+    width: 100%;
+}
+.center  #consultaBtn {
+    margin-top: 5px;
+    width: 200px;
 }
 
-.container {
-    border: 2px solid;
+#ulist {
+    list-style: none;
+    margin-top: 50px;
+    border: 2px solid black;
+    display: flex;
+    flex: auto;
+    flex-wrap: wrap;
 }
+
+#ulist li div {
+    border: 2px solid black;
+    width: 250px;
+    height: auto;
+    background-color: bisque;
+    border-radius: 2%;
+    margin: 5px;
+}
+
+#ulist li :hover {
+    background-color: rgb(252, 244, 235);
+}
+
+#ulist li div li {
+    list-style: none;
+}
+

@@ -1,6 +1,6 @@
 class VOProducto {
-    constructor(idProducto, nombre, precio, descripcion, stock) {
-        this.idProducto = idProducto;
+    constructor(id_producto, nombre, precio, descripcion, stock) {
+        this.id_producto = id_producto;
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;

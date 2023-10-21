@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const {Client} = require('pg')
-const DAOusuario = require('./DAO/DAOusuario')
+const DAOusuario = require('./DAO/DAOusuario');
+const DAOPedido = require('./DAO/DAOpedido');
 
 const client = new Client ({
     host:"bqnze3lsktl7tehwubei-postgresql.services.clever-cloud.com",
@@ -13,50 +14,6 @@ const client = new Client ({
 });
 
 client.connect();
-// client.query(`SELECT * FROM public.usuario`, (err,res)=>{
-//     var obj = [];
-//     if (!err) {
-//         // obj = res.rows;
-//         // obj.forEach(element => {
-//         //     console.log("nombre "+element.nombre+" apellido "+element.apellidos+" tiene password: "+element.contrasena+" y mail: "+element.mail);
-//         // });
-//         console.log(res.rows)
-//     }
-//     else {
-//         console.log(err.message);
-//     }
-//     // client.end();
-// });     
-
-const dao = new DAOusuario(client);
-
-// async function obtenerTodos() {
-//   try {
-//       const resultado = await dao.obtenerTodos();
-//       if (resultado) {
-//           return resultado
-//       } else {
-//           console.log('No se encontró ningún usuario con ese ID.');
-//           console.log(err.me);
-//       }
-//   } catch (error) {
-//       console.error('Ocurrió un error:', error);
-//   }
-// }
-
-// dao.obtenerTodos()
-//   .then((resultadoObtenido) => {
-//     console.log(resultadoObtenido); // Imprime el resultado cuando la promesa se resuelve
-//   })
-//   .catch((error) => {
-//     console.error(error); // Manejo de errores
-//   });
-
-
-// app.get('/', (req,res) => {
-
-//     res.end('hola mundo');
-// });
 
 app.use(express.static(__dirname +'/public'));
 
@@ -84,12 +41,32 @@ app.get('/consulta1', (req, res) => {
   
     console.log('Recibido:'+data);
 
-    dao.obtenerPorNombre(data)
-    .then((resultadoObtenido) => {
-      res.json(resultadoObtenido);
-    })
-    .catch((error) => {
-      console.error(error); // Manejo de errores
-    });
-    
+    // const daoU = new DAOusuario(client);
+    // daoU.obtenerPorNombre(data)
+    // .then((resultadoObtenido) => {
+    //   res.json(resultadoObtenido);
+    // })
+    // .catch((error) => {
+    //   console.error(error); // Manejo de errores
+    // });
+    const daoP = new DAOPedido(client);
+    if (data=="") {
+      console.log("data=")
+      daoP.obtenerTodos()
+      .then((resultadoObtenido) => {
+        res.json(resultadoObtenido);
+      })
+      .catch((error) => {
+        console.error(error); // Manejo de errores
+      });
+    }
+    else {
+      daoP.obtenerPorId(data)
+      .then((resultadoObtenido) => {
+        res.json(resultadoObtenido);
+      })
+      .catch((error) => {
+        console.error(error); // Manejo de errores
+      });
+    }
   });

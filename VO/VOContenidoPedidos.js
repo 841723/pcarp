@@ -1,7 +1,7 @@
 class VOContenidoPedidos {
-    constructor(idPedido, idProducto, cantidad) {
-        this.idPedido = idPedido;
-        this.idProducto = idProducto;
+    constructor(id_pedido, id_producto, cantidad) {
+        this.id_pedido = id_pedido;
+        this.id_producto = id_producto;
         this.cantidad = cantidad;
     }
 }

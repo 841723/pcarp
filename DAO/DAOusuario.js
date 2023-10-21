@@ -15,8 +15,8 @@ class DAOusuario {
                 return null;
             }
     
-            const VOusuarios = result.rows.map((usuario) => new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion));
-            return VOusuarios;
+            const res = result.rows.map((result) => new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion));
+            return [res];
 
         } catch (error) {
             throw error;

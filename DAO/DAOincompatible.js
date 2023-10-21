@@ -1,6 +1,6 @@
 const VOPedido = require('../VO/VOPedido');
 
-class DAOpedido {
+class DAOPedido {
     constructor(database) {
         this.database = database;
     }
@@ -13,7 +13,7 @@ class DAOpedido {
                 return null;
             }
 
-            const VOPedidos = result.rows.map((pedido) => new VOPedido(pedido.id_pedido, pedido.id_usuario, pedido.fecha, pedido.fecha_llegada, pedido.estado));
+            const VOPedidos = result.rows.map((pedido) => new VOPedido(pedido.id_pedido, pedido.fecha, pedido.fecha_llegada, pedido.estado));
 
             return VOPedidos;
         } catch (error) {
@@ -30,7 +30,7 @@ class DAOpedido {
             }
 
             const pedido = result.rows[0];
-            const res = new VOPedido(pedido.id_pedido, pedido.id_usuario, pedido.fecha, pedido.fecha_llegada, pedido.estado);
+            const res = new VOPedido(pedido.id_pedido, pedido.fecha, pedido.fecha_llegada, pedido.estado);
 
             return [res];
         } catch (error) {
@@ -39,8 +39,8 @@ class DAOpedido {
     }
     async insertar(pedido) {
         try {
-            const query = 'INSERT INTO pedido (id_uruario, fecha, fecha_llegada, estado) VALUES ($1, $2, $3, $4) RETURNING id_pedido';
-            const values = [pedido.id_usuario, pedido.fecha, pedido.fechaLlegada, pedido.estado];
+            const query = 'INSERT INTO pedido (fecha, fecha_llegada, estado) VALUES ($1, $2, $3) RETURNING id_pedido';
+            const values = [pedido.fecha, pedido.fechaLlegada, pedido.estado];
             const result = await this.database.query(query, values);
             return result.rows[0].id_pedido;
         } catch (error) {
@@ -50,8 +50,8 @@ class DAOpedido {
 
     async actualizar(pedido) {
         try {
-            const query = 'UPDATE pedido SET id_usuario = $1, fecha = $2, fecha_llegada = $3, estado = $4 WHERE id_pedido = $5';
-            const values = [pedido.id_usuario, pedido.fecha, pedido.fechaLlegada, pedido.estado, pedido.idPedido];
+            const query = 'UPDATE pedido SET fecha = $1, fecha_llegada = $2, estado = $3 WHERE id_pedido = $4';
+            const values = [pedido.fecha, pedido.fechaLlegada, pedido.estado, pedido.idPedido];
             await this.database.query(query, values);
         } catch (error) {
             throw error;
@@ -69,4 +69,4 @@ class DAOpedido {
     }
 }
 
-module.exports = DAOpedido;
+module.exports = DAOPedido;

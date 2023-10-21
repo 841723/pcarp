@@ -16,27 +16,168 @@
 <body>
 	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-	<div class="container">
-		<style>
-			.container {
-				width: 100%;
-				margin-top: 2px;
-				border: 0;
-			}
-			 .message-box #message{
-				width: 100%;
-			}
-
-		</style>
+	<nav class="navbar navbar-expand-lg navbar-white bg-white static-top" style="height: 140px;">
+		<div class="container">
+		  <a class="navbar-brand" href="#">
+			<img src="media/logo.jpg" alt="..." height="70">
+		  </a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ms-auto">
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">Home</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			  </li>
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  Dropdown
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+				  <li><a class="dropdown-item" href="#">Action</a></li>
+				  <li><a class="dropdown-item" href="#">Another action</a></li>
+				  <li>
+					<hr class="dropdown-divider">
+				  </li>
+				  <li><a class="dropdown-item" href="#">Something else here</a></li>
+				</ul>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	</nav>
+	  
+	<div class="center">
 		<form class="message-box">
 			<input type="text" id="message">
 		</form>
+
+		<button id="consultaBtn">Realizar Consulta</button>
+		<div id="resultados">
+			<ul id="ulist">
+				<!-- <li>
+					<div>
+						<ul>
+							<li><h5>Nombre</h5><pre>nombre</pre></li>
+							<li><h5>Apellido</h5><pre>apellido</pre></li>
+							<li><h5>Mail</h5><pre>mail</pre></li>
+							<li><h5>Direccion</h5><pre>direccion</pre></li>
+							<li><h5>Contraseña</h5><pre>contrasena</pre></li>
+						</ul>
+					</div>
+				</li> -->
+			</ul>
+		</div>
 	</div>
 
-	<button id="consultaBtn">Realizar Consulta</button>
-	<div id="resultados"></div>
 
-
+	<!-- Footer -->
+	<footer class="text-center text-black" style="background-color: #FFF; border: 0;">
+	  <!-- Grid container -->
+	  <div class="container">
+		<!-- Section: Links -->
+		<section class="mt-5">
+		  <!-- Grid row-->
+		  <div class="row text-center d-flex justify-content-center pt-5">
+			<!-- Grid column -->
+			<div class="col-md-2">
+			  <h6 class="text-uppercase font-weight-bold">
+				<a href="#!" class="text-black">About us</a>
+			  </h6>
+			</div>
+			<!-- Grid column -->
+  
+			<!-- Grid column -->
+			<div class="col-md-2">
+			  <h6 class="text-uppercase font-weight-bold">
+				<a href="#!" class="text-black">Products</a>
+			  </h6>
+			</div>
+			<!-- Grid column -->
+  
+			<!-- Grid column -->
+			<div class="col-md-2">
+			  <h6 class="text-uppercase font-weight-bold">
+				<a href="#!" class="text-black">Awards</a>
+			  </h6>
+			</div>
+			<!-- Grid column -->
+  
+			<!-- Grid column -->
+			<div class="col-md-2">
+			  <h6 class="text-uppercase font-weight-bold">
+				<a href="#!" class="text-black">Help</a>
+			  </h6>
+			</div>
+			<!-- Grid column -->
+  
+			<!-- Grid column -->
+			<div class="col-md-2">
+			  <h6 class="text-uppercase font-weight-bold">
+				<a href="#!" class="text-black">Contact</a>
+			  </h6>
+			</div>
+			<!-- Grid column -->
+		  </div>
+		  <!-- Grid row-->
+		</section>
+		<!-- Section: Links -->
+  
+		<hr class="my-5" />
+  
+		<!-- Section: Text -->
+		<section class="mb-5">
+		  <div class="row d-flex justify-content-center">
+			<div class="col-lg-8">
+			  <p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
+				distinctio earum repellat quaerat voluptatibus placeat nam,
+				commodi optio pariatur est quia magnam eum harum corrupti
+				dicta, aliquam sequi voluptate quas.
+			  </p>
+			</div>
+		  </div>
+		</section>
+		<!-- Section: Text -->
+  
+		<!-- Section: Social -->
+		<section class="text-center mb-5">
+		  <a href="" class="text-black me-4">
+			<i class="fab fa-facebook-f"></i>
+		  </a>
+		  <a href="" class="text-black me-4">
+			<i class="fab fa-twitter"></i>
+		  </a>
+		  <a href="" class="text-black me-4">
+			<i class="fab fa-google"></i>
+		  </a>
+		  <a href="" class="text-black me-4">
+			<i class="fab fa-instagram"></i>
+		  </a>
+		  <a href="" class="text-black me-4">
+			<i class="fab fa-linkedin"></i>
+		  </a>
+		  <a href="" class="text-black me-4">
+			<i class="fab fa-github"></i>
+		  </a>
+		</section>
+		<!-- Section: Social -->
+	  </div>
+	  <!-- Grid container -->
+  
+	  <!-- Copyright -->
+	  <div
+		   class="text-center p-3"
+		   style="background-color: rgba(0, 0, 0, 0.2)"
+		   >
+		© 2023 Copyright
+	  </div>
+	  <!-- Copyright -->
+	</footer>
+	<!-- Footer -->
 	<script src="./js/main.js"></script>
 
 </body>

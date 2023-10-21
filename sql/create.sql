@@ -13,23 +13,110 @@ CREATE TABLE Usuario (
 	apellidos  		VARCHAR (30) NOT NULL,
 	contrasena 		VARCHAR (20) NOT NULL,
 	direccion 		VARCHAR (30),
-    mail            VARCHAR (50) NOT NULL UNIQUE
+    mail            VARCHAR (50) NOT NULL UNIQUE,
+	es_admin		BOOLEAN NOT NULL
 );
 
 CREATE TABLE Pedido (
   	id_pedido		SERIAL PRIMARY KEY,
+	id_usuario		INT REFERENCES Usuario (id_usuario),
 	fecha   		TIMESTAMP NOT NULL DEFAULT current_timestamp,
 	fecha_llegada   DATE CHECK (fecha_llegada>DATE(fecha)),
-  	estado       	VARCHAR (9) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'pendiente' OR estado = 'enviado' OR estado = 'recibido')
+  	estado       	VARCHAR (9) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'procesando' OR estado = 'enviado' OR estado = 'entregado')
 );
 
 CREATE TABLE Producto (
   	id_producto     SERIAL PRIMARY KEY,
-	nombre 	        VARCHAR (20) NOT NULL,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
 	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
   	descripcion 	VARCHAR (70),
 	stock		    INT NOT NULL
 );
+
+CREATE TABLE placa_base (
+	id_producto     SERIAL PRIMARY KEY,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+  	descripcion 	VARCHAR (70),
+	stock		    INT NOT NULL
+	chipset			VARCHAR(15) NOT NULL;
+	tiene_m2		INT NOT NULL;
+);
+
+CREATE TABLE procesador (
+	id_producto     SERIAL PRIMARY KEY,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+  	descripcion 	VARCHAR (70),
+	stock		    INT NOT NULL
+	familia			VARCHAR(15) NOT NULL;
+);
+
+CREATE TABLE disco_duro (
+  	id_producto     SERIAL PRIMARY KEY,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+  	descripcion 	VARCHAR (70),
+	stock		    INT NOT NULL
+	tamano			INT NOT NULL;-- en GB
+	tecnologia		VARCHAR(3) NOT NULL (CHECK tecnologia='HDD' OR tecnologia='SSD' OR tecnologia='M2');
+);
+
+CREATE TABLE grafica (
+	id_producto     SERIAL PRIMARY KEY,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+  	descripcion 	VARCHAR (70),
+	stock		    INT NOT NULL
+	tipo 			VARCHAR(6)  NULL (CHECK tipo='Nvidia' OR tipo='AMD' OR tipo='intel');
+	memoria			INT NOT NULL; -- en GB
+);
+
+CREATE TABLE ram (
+	id_producto     SERIAL PRIMARY KEY,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+  	descripcion 	VARCHAR (70),
+	stock		    INT NOT NULL
+	tipo			VARCHAR(4)  NOT NULL (CHECK tipo='DDR5' OR tipo='DDR4' OR tipo='DDR3');
+	cantidad		INT NOT NULL; -- cantidad de ranuras que vienen
+	almacenamiento  INT NOT NULL; -- GB en cada ranura  
+);
+
+CREATE TABLE caja_torre (
+	id_producto     SERIAL PRIMARY KEY,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+  	descripcion 	VARCHAR (70),
+	stock		    INT NOT NULL
+);
+
+CREATE TABLE fuente_alimentacion (
+	id_producto     SERIAL PRIMARY KEY,
+	marca 			VARCHAR(10) NOT NULL;
+	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	precio	    	REAL NOT NULL CHECK (precio > 0),
+	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+  	descripcion 	VARCHAR (70),
+	stock		    INT NOT NULL
+	potencia		INT NOT NULL; -- en W
+);
+
+
 
 CREATE TABLE Resena (
 	id_resena  		    SERIAL PRIMARY KEY,
@@ -37,12 +124,6 @@ CREATE TABLE Resena (
     id_producto         INT REFERENCES Producto (id_producto),
 	contenido 		    VARCHAR (200),
 	estrellas	        INT NOT NULL CHECK (estrellas >= 0 AND estrellas <= 5)
-);
-
-CREATE TABLE Pedido_Usuario (
-  	id_usuario 		INT REFERENCES Usuario (id_usuario),
-    id_pedido		INT REFERENCES Pedido (id_pedido),
-	PRIMARY KEY (id_usuario, id_pedido)
 );
 
 CREATE TABLE Contenido_Pedido (
