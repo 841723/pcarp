@@ -1,6 +1,8 @@
 body {
+    font-family: 'Poppins', sans-serif;
     background-color: #FF7F27;
     color:black;
+    overflow-x: hidden;
 }
 /* 
 * {
@@ -27,7 +29,12 @@ body {
     margin-top: 5px;
     width: 200px;
 }
+.nav-link {
+    white-space: nowrap;
+  }  
 
+
+  
 #ulist {
     list-style: none;
     margin-top: 50px;
