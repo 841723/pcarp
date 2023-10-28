@@ -5,11 +5,11 @@ const DAOusuario = require('./DAO/DAOusuario');
 const DAOPedido = require('./DAO/DAOpedido');
 
 const client = new Client ({
-    host:"bqnze3lsktl7tehwubei-postgresql.services.clever-cloud.com",
+    host:"bjxc2jinqbwlt3blkcz6-postgresql.services.clever-cloud.com",
     user:"umqcsr9mkmjeb8mqysqs",
     password:"buGaOwptsN1AOfdrb1Um",
-    port:"5432",
-    database:"bqnze3lsktl7tehwubei"
+    port:"50013",
+    database:"bjxc2jinqbwlt3blkcz6"
 
 });
 

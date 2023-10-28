@@ -1,0 +1,16 @@
+id_usuario,nombre,apellidos,contrasena,direccion,mail,es_admin
+1,Maria,Jimenez,pass123,"Calle 123",maria@gmail.com,true
+2,Carlos,Ruiz,securepass,"Avenida 456",carlos@gmail.com,false
+3,Laura,Santos,pwd456,"Plaza Central",laura@gmail.com,false
+4,Manuel,Lopez,mykey123,"Calle Ancha",manuel@gmail.com,false
+5,Elena,Garcia,password,"Calle Estrecha",elena@gmail.com,false
+6,Javier,Perez,12345,"Avenida Principal",javier@gmail.com,true
+7,Luis,Rodriguez,secure123,"Paseo del Sol",luis@gmail.com,false
+8,Sofia,Fernandez,clave123,"Avenida del Norte",sofia@gmail.com,false
+9,Pablo,Navarro,pass1234,"Calle del Sur",pablo@gmail.com,true
+10,Ana,Martinez,securepwd,"Calle del Oeste",ana@gmail.com,false
+11,Daniel,Gomez,password123,"Calle del Este",daniel@gmail.com,false
+12,Isabel,Alvarez,passwd,"Calle Central",isabel@gmail.com,false
+13,Rafael,Moreno,clave1234,"Calle Principal",rafael@gmail.com,false
+14,Paula,Rodriguez,mysecurepass,"Avenida Central",paula@gmail.com,false
+15,Andres,Perez,1234pwd,"Paseo Principal",andres@gmail.com,false

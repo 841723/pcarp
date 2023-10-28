@@ -27,93 +27,73 @@ CREATE TABLE Pedido (
 
 CREATE TABLE Producto (
   	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
+	marca 			VARCHAR(10) NOT NULL,
+	modelo			VARCHAR(25) UNIQUE NOT NULL,
 	precio	    	REAL NOT NULL CHECK (precio > 0),
 	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
   	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
+	stock		    INT NOT NULL,
+	ventas			INT NOT NULL DEFAULT 0 CHECK (ventas >= 0),
+	tipo 			VARCHAR CHECK (tipo=='placa_base' ||
+								   tipo=='procesador' ||
+								   tipo=='disco_duro' ||
+								   tipo=='grafica' ||
+								   tipo=='ram' ||
+								   tipo=='ventilador' ||
+								   tipo=='caja_torre' ||
+								   tipo=='fuente_alimentacion')
 );
 
 CREATE TABLE placa_base (
-	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
-	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
-  	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
-	chipset			VARCHAR(15) NOT NULL;
-	tiene_m2		INT NOT NULL;
+	id_producto     INT REFERENCES Producto (id_producto),
+	
+	chipset			VARCHAR(15) NOT NULL,
+	tiene_m2		INT NOT NULL
 );
 
 CREATE TABLE procesador (
-	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
-	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
-  	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
-	familia			VARCHAR(15) NOT NULL;
+	id_producto     INT REFERENCES Producto (id_producto),
+	
+	familia			VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE disco_duro (
-  	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
-	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
-  	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
-	tamano			INT NOT NULL;-- en GB
-	tecnologia		VARCHAR(3) NOT NULL (CHECK tecnologia='HDD' OR tecnologia='SSD' OR tecnologia='M2');
+  	id_producto     INT REFERENCES Producto (id_producto),
+
+	tamano			INT NOT NULL,-- en GB
+	tecnologia		VARCHAR(3) NOT NULL (CHECK tecnologia='HDD' OR tecnologia='SSD' OR tecnologia='M2')
 );
 
 CREATE TABLE grafica (
-	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
-	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
-  	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
-	tipo 			VARCHAR(6)  NULL (CHECK tipo='Nvidia' OR tipo='AMD' OR tipo='intel');
-	memoria			INT NOT NULL; -- en GB
+	id_producto     INT REFERENCES Producto (id_producto),
+
+	tipo 			VARCHAR(6)  NULL (CHECK tipo='Nvidia' OR tipo='AMD' OR tipo='intel'),
+	memoria			INT NOT NULL -- en GB
 );
 
 CREATE TABLE ram (
-	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
-	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
-  	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
-	tipo			VARCHAR(4)  NOT NULL (CHECK tipo='DDR5' OR tipo='DDR4' OR tipo='DDR3');
-	cantidad		INT NOT NULL; -- cantidad de ranuras que vienen
-	almacenamiento  INT NOT NULL; -- GB en cada ranura  
+	id_producto     INT REFERENCES Producto (id_producto),
+	
+	tipo			VARCHAR(4)  NOT NULL (CHECK tipo='DDR5' OR tipo='DDR4' OR tipo='DDR3'),
+	cantidad		INT NOT NULL, -- cantidad de ranuras que vienen
+	almacenamiento  INT NOT NULL -- GB en cada ranura  
+);
+
+CREATE TABLE ventilador (
+    ID INT REFERENCES Producto (id_producto),
+    tipoDisipador VARCHAR(20),
+    nivelRuidoDBA DECIMAL(4, 2)
 );
 
 CREATE TABLE caja_torre (
-	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
-	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
-  	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
+	id_producto     INT REFERENCES Producto (id_producto),
+	tipo_placa VARCHAR(20)
 );
 
 CREATE TABLE fuente_alimentacion (
-	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL;
-	modelo			VARCHAR(25) UNIQUE NOT NULL;
-	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
-  	descripcion 	VARCHAR (70),
-	stock		    INT NOT NULL
-	potencia		INT NOT NULL; -- en W
+	id_producto     INT REFERENCES Producto (id_producto),
+
+	potencia		INT NOT NULL -- en W
 );
 
 
