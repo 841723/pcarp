@@ -1,7 +1,7 @@
 id_resena,id_usuario,id_producto,contenido,estrellas
 1,1,1,"Excelente producto, muy contento con la compra",5
 2,2,2,"Buen procesador, cumple con las expectativas",4
-3,3,3,"Envío rápido y producto en perfecto estado",5
+3,3,3,Envío rápido y producto en perfecto estado,5
 4,4,4,"Gran tarjeta gráfica, corre todos los juegos",5
 5,5,5,"Buena memoria RAM, mi PC va mucho más rápido",4
 6,6,6,"Placa base de alta calidad, sin problemas",5

@@ -30,18 +30,18 @@ CREATE TABLE Producto (
 	marca 			VARCHAR(10) NOT NULL,
 	modelo			VARCHAR(25) UNIQUE NOT NULL,
 	precio	    	REAL NOT NULL CHECK (precio > 0),
-	descuento    	REAL CHECK (descuento > 0 && descuento < 100), -- en porcentaje
+	descuento    	REAL CHECK ((descuento >= 0 ) AND (descuento < 100)), -- en porcentaje
   	descripcion 	VARCHAR (70),
 	stock		    INT NOT NULL,
 	ventas			INT NOT NULL DEFAULT 0 CHECK (ventas >= 0),
-	tipo 			VARCHAR CHECK (tipo=='placa_base' ||
-								   tipo=='procesador' ||
-								   tipo=='disco_duro' ||
-								   tipo=='grafica' ||
-								   tipo=='ram' ||
-								   tipo=='ventilador' ||
-								   tipo=='caja_torre' ||
-								   tipo=='fuente_alimentacion')
+	tipo 			VARCHAR CHECK (tipo='placa_base' OR
+								   tipo='procesador' OR
+								   tipo='disco_duro' OR
+								   tipo='grafica' OR
+								   tipo='ram' OR
+								   tipo='ventilador' OR
+								   tipo='caja_torre' OR
+								   tipo='fuente_alimentacion')
 );
 
 CREATE TABLE placa_base (
@@ -61,20 +61,20 @@ CREATE TABLE disco_duro (
   	id_producto     INT REFERENCES Producto (id_producto),
 
 	tamano			INT NOT NULL,-- en GB
-	tecnologia		VARCHAR(3) NOT NULL (CHECK tecnologia='HDD' OR tecnologia='SSD' OR tecnologia='M2')
+	tecnologia		VARCHAR(3) NOT NULL CHECK ((tecnologia='HDD') OR (tecnologia='SSD') OR (tecnologia='M2'))
 );
 
 CREATE TABLE grafica (
 	id_producto     INT REFERENCES Producto (id_producto),
 
-	tipo 			VARCHAR(6)  NULL (CHECK tipo='Nvidia' OR tipo='AMD' OR tipo='intel'),
+	tipo 			VARCHAR(6)  NULL CHECK ((tipo='Nvidia') OR (tipo='AMD') OR (tipo='intel')),
 	memoria			INT NOT NULL -- en GB
 );
 
 CREATE TABLE ram (
 	id_producto     INT REFERENCES Producto (id_producto),
 	
-	tipo			VARCHAR(4)  NOT NULL (CHECK tipo='DDR5' OR tipo='DDR4' OR tipo='DDR3'),
+	tipo			VARCHAR(4)  NOT NULL CHECK ((tipo='DDR5') OR (tipo='DDR4') OR (tipo='DDR3')),
 	cantidad		INT NOT NULL, -- cantidad de ranuras que vienen
 	almacenamiento  INT NOT NULL -- GB en cada ranura  
 );
@@ -120,7 +120,7 @@ CREATE TABLE Incompatibilidad (
 	PRIMARY KEY (id_producto_1, id_producto_2)
 );
 
-
+/*
 DELETE FROM Incompatibilidad;
 DELETE FROM Contenido_Pedido;
 DELETE FROM Pedido_Usuario;
@@ -136,4 +136,4 @@ DELETE FROM Pedido;
 ALTER SEQUENCE Pedido_id_pedido_seq RESTART WITH 1;
 
 DELETE FROM Usuario;
-ALTER SEQUENCE Usuario_id_usuario_seq RESTART WITH 1;
+ALTER SEQUENCE Usuario_id_usuario_seq RESTART WITH 1;*/
