@@ -22,13 +22,13 @@ CREATE TABLE Pedido (
 	id_usuario		INT REFERENCES Usuario (id_usuario),
 	fecha   		TIMESTAMP NOT NULL DEFAULT current_timestamp,
 	fecha_llegada   DATE CHECK (fecha_llegada>DATE(fecha)),
-  	estado       	VARCHAR (9) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'procesando' OR estado = 'enviado' OR estado = 'entregado')
+  	estado       	VARCHAR (10) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'procesando' OR estado = 'enviado' OR estado = 'entregado')
 );
 
 CREATE TABLE Producto (
   	id_producto     SERIAL PRIMARY KEY,
-	marca 			VARCHAR(10) NOT NULL,
-	modelo			VARCHAR(25) UNIQUE NOT NULL,
+	marca 			VARCHAR(25) NOT NULL,
+	modelo			VARCHAR(50) UNIQUE NOT NULL,
 	precio	    	REAL NOT NULL CHECK (precio > 0),
 	descuento    	REAL CHECK ((descuento >= 0 ) AND (descuento < 100)), -- en porcentaje
   	descripcion 	VARCHAR (70),
@@ -67,7 +67,7 @@ CREATE TABLE disco_duro (
 CREATE TABLE grafica (
 	id_producto     INT REFERENCES Producto (id_producto),
 
-	tipo 			VARCHAR(6)  NULL CHECK ((tipo='Nvidia') OR (tipo='AMD') OR (tipo='intel')),
+	tipo 			VARCHAR(6)  NULL CHECK ((tipo='NVIDIA') OR (tipo='AMD') OR (tipo='intel')),
 	memoria			INT NOT NULL -- en GB
 );
 
@@ -81,7 +81,7 @@ CREATE TABLE ram (
 
 CREATE TABLE ventilador (
     ID INT REFERENCES Producto (id_producto),
-    tipoDisipador VARCHAR(20),
+    tipoDisipador VARCHAR(35),
     nivelRuidoDBA DECIMAL(4, 2)
 );
 

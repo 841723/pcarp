@@ -1,6 +1,6 @@
 id_producto,marca,modelo,precio,descuento,descripcion,stock,ventas,tipo
 1,Intel,Core i7,249.99,0.0,Procesador de 8ª generación,60,30,procesador
-2,AMD,Ryzen 5,149.99,0.0,Procesador de 4ª generación,45,20,procesador
+2,AMD,Ryzen 5,149.99,0.0,Procesador de 6ª generación,45,20,procesador
 3,Intel,Core i3,119.99,0.0,Procesador de 10ª generación,80,50,procesador
 4,AMD,Ryzen 7,299.99,0.0,Procesador de 4ª generación,40,15,procesador
 5,AMD,Ryzen 5,149.99,0.0,Procesador de 4ª generación,55,25,procesador
@@ -14,21 +14,21 @@ id_producto,marca,modelo,precio,descuento,descripcion,stock,ventas,tipo
 13,AMD,Ryzen 7,299.99,0.0,Procesador de 5ª generación,60,40,procesador
 14,Intel,Core i7,249.99,0.0,Procesador de 8ª generación,70,50,procesador
 15,AMD,Ryzen 3,99.99,0.0,Procesador de 4ª generación,80,55,procesador
-101,Marca1,Modelo1,59.99,0.0,Disco duro HDD de 1TB,50,30,disco_duro
-102,Marca2,Modelo2,79.99,0.0,Disco SSD de 500GB,80,45,disco_duro
-103,Marca3,Modelo3,69.99,0.0,Disco duro HDD de 2TB,60,35,disco_duro
-104,Marca4,Modelo4,79.99,0.0,Disco M.2 de 1TB,70,40,disco_duro
-105,Marca5,Modelo5,89.99,0.0,Disco SSD de 1TB,55,20,disco_duro
-106,Marca6,Modelo6,49.99,0.0,Disco duro HDD de 500GB,90,70,disco_duro
-107,Marca7,Modelo7,59.99,0.0,Disco duro HDD de 1TB,75,25,disco_duro
-108,Marca8,Modelo8,69.99,0.0,Disco SSD de 250GB,80,55,disco_duro
-109,Marca9,Modelo9,79.99,0.0,Disco SSD de 500GB,65,30,disco_duro
-110,Marca10,Modelo10,79.99,0.0,Disco duro HDD de 2TB,70,40,disco_duro
-111,Marca11,Modelo11,59.99,0.0,Disco duro HDD de 1TB,85,15,disco_duro
-112,Marca12,Modelo12,69.99,0.0,Disco SSD de 250GB,60,20,disco_duro
-113,Marca13,Modelo13,89.99,0.0,Disco M.2 de 1TB,75,35,disco_duro
-114,Marca14,Modelo14,79.99,0.0,Disco SSD de 500GB,90,60,disco_duro
-115,Marca15,Modelo15,49.99,0.0,Disco duro HDD de 500GB,100,70,disco_duro
+101,"WD","Blue 1TB HDD",49.99,0.0,"Disco duro de 1TB, tecnología HDD",100,55,disco_duro
+102,"Samsung","EVO 500GB SSD",89.99,10.0,"Disco SSD de 500GB, tecnología SSD",150,75,disco_duro
+103,"Seagate","Barracuda 2TB HDD",69.99,0.0,"Disco duro de 2TB, tecnología HDD",80,45,disco_duro
+104,"Samsung","970 EVO 1TB M.2 SSD",129.99,15.0,"Disco SSD M.2 de 1TB, tecnología M.2",60,30,disco_duro
+105,"Crucial","BX500 1TB SSD",79.99,5.0,"Disco SSD de 1TB, tecnología SSD",120,60,disco_duro
+106,"Seagate","FireCuda 500GB HDD",59.99,0.0,"Disco duro de 500GB, tecnología HDD",90,40,disco_duro
+107,"WD","Black 1TB HDD",54.99,0.0,"Disco duro de 1TB, tecnología HDD",110,50,disco_duro
+108,"SanDisk","Ultra 250GB SSD",69.99,0.0,"Disco SSD de 250GB, tecnología SSD",180,90,disco_duro
+109,"Kingston","A2000 500GB SSD",74.99,0.0,"Disco SSD de 500GB, tecnología SSD",140,70,disco_duro
+110,"Seagate","BarraCuda 2TB HDD",79.99,0.0,"Disco duro de 2TB, tecnología HDD",75,35,disco_duro
+111,"WD","Blue 1TB HDD",49.99,0.0,"Disco duro de 1TB, tecnología HDD",95,45,disco_duro
+112,"Crucial","BX500 250GB SSD",64.99,0.0,"Disco SSD de 250GB, tecnología SSD",130,65,disco_duro
+113,"Samsung","970 EVO 1TB M.2 SSD",129.99,0.0,"Disco SSD M.2 de 1TB, tecnología M.2",70,35,disco_duro
+114,"SanDisk","Ultra 500GB SSD",84.99,0.0,"Disco SSD de 500GB, tecnología SSD",160,80,disco_duro
+115,"WD","Green 500GB HDD",54.99,0.0,"Disco duro de 500GB, tecnología HDD",100,50,disco_duro
 201,NVIDIA,GeForce GTX 1660,279.99,0.0,Tarjeta gráfica de NVIDIA con 8GB GDDR5,60,25,grafica
 202,AMD,Radeon RX 570,249.99,0.0,Tarjeta gráfica de AMD con 4GB GDDR5,45,15,grafica
 203,NVIDIA,GeForce RTX 3060 Ti,379.99,0.0,Tarjeta gráfica de NVIDIA con 12GB GDDR6,30,40,grafica
