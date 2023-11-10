@@ -1,10 +1,13 @@
 class VOProducto {
-    constructor(id_producto, nombre, precio, descripcion, stock) {
+    constructor(id_producto, marca, modelo, precio, descripcion, stock, tipo) {
         this.id_producto = id_producto;
-        this.nombre = nombre;
+        this.marca = marca;
+        this.modelo = modelo;
         this.precio = precio;
         this.descripcion = descripcion;
         this.stock = stock;
+        this.ventas = 0;
+        this.tipo = tipo;
     }
 }
 

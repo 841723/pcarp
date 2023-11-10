@@ -1,4 +1,4 @@
-const VOusuario=require ('../VO/VOusuario')
+const VOusuario=require ('../VO/VOUsuario')
 
 class DAOusuario {
     
@@ -16,7 +16,7 @@ class DAOusuario {
             }
     
             const res = result.rows.map((result) => new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion));
-            return [res];
+            return res;
 
         } catch (error) {
             throw error;

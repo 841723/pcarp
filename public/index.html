@@ -52,6 +52,17 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> Paseo de la Independencia 56 50004 Zaragoza España</a></li>
 					</ul>
 					<ul class="header-links pull-right">
+						<div id="adminText">ADMIN</div>
+
+							<script>
+								// Obtén el rol del usuario desde el servidor o cualquier otra fuente
+								const rolUsuario = 'admin'; // hay que hacer un getUser para ver si es admin
+
+								// Mostrar el texto "ADMIN" solo si el usuario es un administrador
+								if (rolUsuario === 'admin') {
+									document.getElementById('adminText').style.display = 'block';
+								}
+						  	</script>
 						<li><a href="login.html"><i class="fa fa-user-o"></i> Mi Cuenta</a></li>
 					</ul>
 				</div>

@@ -1,4 +1,4 @@
-const VOPedido = require('../VO/VOPedido');
+const VOpedido = require('../VO/VOPedido');
 
 class DAOpedido {
     constructor(database) {
@@ -13,9 +13,9 @@ class DAOpedido {
                 return null;
             }
 
-            const VOPedidos = result.rows.map((pedido) => new VOPedido(pedido.id_pedido, pedido.id_usuario, pedido.fecha, pedido.fecha_llegada, pedido.estado));
+            const res = result.rows.map((pedido) => new VOpedido(pedido.id_pedido, pedido.id_usuario, pedido.fecha, pedido.fecha_llegada, pedido.estado));
 
-            return VOPedidos;
+            return res;
         } catch (error) {
             throw error;
         }
@@ -30,7 +30,7 @@ class DAOpedido {
             }
 
             const pedido = result.rows[0];
-            const res = new VOPedido(pedido.id_pedido, pedido.id_usuario, pedido.fecha, pedido.fecha_llegada, pedido.estado);
+            const res = new VOpedido(pedido.id_pedido, pedido.id_usuario, pedido.fecha, pedido.fecha_llegada, pedido.estado);
 
             return [res];
         } catch (error) {
@@ -39,7 +39,7 @@ class DAOpedido {
     }
     async insertar(pedido) {
         try {
-            const query = 'INSERT INTO pedido (id_uruario, fecha, fecha_llegada, estado) VALUES ($1, $2, $3, $4) RETURNING id_pedido';
+            const query = 'INSERT INTO pedido (id_usuario, fecha, fecha_llegada, estado) VALUES ($1, $2, $3, $4) RETURNING id_pedido';
             const values = [pedido.id_usuario, pedido.fecha, pedido.fechaLlegada, pedido.estado];
             const result = await this.database.query(query, values);
             return result.rows[0].id_pedido;

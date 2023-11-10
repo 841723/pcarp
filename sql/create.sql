@@ -7,7 +7,7 @@
  * Coms: Sentencias que crean las tablas de la base de datos de obras cinematográficas
 */
 
-CREATE TABLE Usuario (
+CREATE TABLE usuario (
 	id_usuario 		SERIAL PRIMARY KEY,
 	nombre  		VARCHAR (20) NOT NULL,
 	apellidos  		VARCHAR (30) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE Usuario (
 	es_admin		BOOLEAN NOT NULL
 );
 
-CREATE TABLE Pedido (
+CREATE TABLE pedido (
   	id_pedido		SERIAL PRIMARY KEY,
 	id_usuario		INT REFERENCES Usuario (id_usuario),
 	fecha   		TIMESTAMP NOT NULL DEFAULT current_timestamp,
@@ -25,7 +25,7 @@ CREATE TABLE Pedido (
   	estado       	VARCHAR (10) NOT NULL DEFAULT 'pendiente' CHECK (estado = 'procesando' OR estado = 'enviado' OR estado = 'entregado')
 );
 
-CREATE TABLE Producto (
+CREATE TABLE producto (
   	id_producto     SERIAL PRIMARY KEY,
 	marca 			VARCHAR(25) NOT NULL,
 	modelo			VARCHAR(50) UNIQUE NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE fuente_alimentacion (
 
 
 
-CREATE TABLE Resena (
+CREATE TABLE resena (
 	id_resena  		    SERIAL PRIMARY KEY,
     id_usuario          INT REFERENCES Usuario (id_usuario),
     id_producto         INT REFERENCES Producto (id_producto),
@@ -106,14 +106,14 @@ CREATE TABLE Resena (
 	estrellas	        INT NOT NULL CHECK (estrellas >= 0 AND estrellas <= 5)
 );
 
-CREATE TABLE Contenido_Pedido (
+CREATE TABLE contenido_pedido (
 	id_pedido		INT REFERENCES Pedido (id_pedido),
 	id_producto		INT REFERENCES Producto (id_producto),
     cantidad        INT NOT NULL,
 	PRIMARY KEY (id_pedido, id_producto)
 );
 
-CREATE TABLE Incompatibilidad (
+CREATE TABLE incompatibilidad (
 	id_producto_1		INT REFERENCES Producto (id_producto),
 	id_producto_2		INT REFERENCES Producto (id_producto),
 	CHECK (id_producto_1 != id_producto_2),

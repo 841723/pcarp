@@ -1,4 +1,4 @@
-const VOPedido = require('../VO/VOProducto');
+const VOproducto = require('../VO/VOProducto');
 
 class DAOproducto {
     constructor(database) {
@@ -13,9 +13,9 @@ class DAOproducto {
                 return null;
             }
 
-            const VOProductos = result.rows.map((producto) => new VOProducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.stock));
+            const res = result.rows.map((producto) => new VOproducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.stock));
 
-            return VOPedidos;
+            return res;
         } catch (error) {
             throw error;
         }
@@ -30,7 +30,7 @@ class DAOproducto {
             }
 
             const producto = result.rows[0];
-            const res = new VOProducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.stock);
+            const res = new VOproducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.stock);
 
             return res;
         } catch (error) {

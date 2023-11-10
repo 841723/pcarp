@@ -1,16 +1,15 @@
-// VOrocesador.js
-const ProductoVO = require('./VOproducto');
+// VOProcesador.js
+const VOProducto = require('./VOProducto');
 
-// Definición del constructor para el Value Object Procesador
-function ProcesadorVO(idProducto, marca, modelo, precio, descuento, descripcion, stock, ventas, tipo, familia) {
-  // Llama al constructor del objeto base (Producto)
-  ProductoVO.call(this, idProducto, marca, modelo, precio, descuento, descripcion, stock, ventas, tipo);
+// Definición de la clase para el Value Object Procesador
+class VOProcesador extends VOProducto {
+  constructor(id, marca, modelo, precio, descuento, descripcion, stock, ventas, familia) {
+    // Llama al constructor de la clase base (VOProducto)
+    super(id, marca, modelo, precio, descuento, descripcion, stock, ventas, 'procesador');
 
-  this.familia = familia;
+    this.familia = familia;
+  }
 }
 
-// Establece la herencia prototípica
-VOprocesador.prototype = Object.create(VOProducto.prototype);
-
-// Exporta el constructor para su uso en otros archivos
-module.exports = ProcesadorVO;
+// Exporta la clase para su uso en otros archivos
+module.exports = VOProcesador;

@@ -1,4 +1,4 @@
-const VOcontenido_pedidos = require('../VO/VOcontenido_pedidos');
+const VOcontenido_pedido = require('../VO/VOContenidoPedidos');
 
 class DAOcont_pedido {
     constructor(database) {
@@ -13,9 +13,9 @@ class DAOcont_pedido {
                 return null;
             }
 
-            const VOcontenido_pedido = result.rows.map((contenido_pedido) => new VOcontenido_pedido(contenido_pedido.id_contenido_pedido, contenido_pedido.fecha, contenido_pedido.fecha_llegada, contenido_pedido.estado));
+            const res = result.rows.map((contenido_pedido) => new VOcontenido_pedido(contenido_pedido.id_contenido_pedido, contenido_pedido.fecha, contenido_pedido.fecha_llegada, contenido_pedido.estado));
 
-            return VOcontenido_pedidos;
+            return res;
         } catch (error) {
             throw error;
         }

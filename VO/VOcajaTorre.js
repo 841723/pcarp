@@ -1,9 +1,15 @@
-class VOCajaTorre {
-    constructor(id_pedido, id_producto, cantidad) {
-        this.id_pedido = id_pedido;
-        this.id_producto = id_producto;
-        this.cantidad = cantidad;
-    }
+// VOCajaTorre.js
+const VOProducto = require('./VOProducto');
+
+// Definición de la clase para el Value Object CajaTorre
+class VOCajaTorre extends VOProducto {
+  constructor(id, marca, modelo, precio, descuento, descripcion, stock, ventas, familia) {
+    // Llama al constructor de la clase base (VOProducto)
+    super(id, marca, modelo, precio, descuento, descripcion, stock, ventas, 'caja_torre');
+
+    this.familia = familia;
+  }
 }
 
-module.exports = VOContenidoPedidos
+// Exporta la clase para su uso en otros archivos
+module.exports = VOCajaTorre;

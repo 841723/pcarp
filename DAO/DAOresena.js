@@ -1,4 +1,4 @@
-const VOResena = require('../VO/VOResena');
+const VOresena = require('../VO/VOResena');
 
 class DAOresena {
     constructor(database) {
@@ -13,9 +13,9 @@ class DAOresena {
                 return null;
             }
 
-            const VOResena = result.rows.map((resena) => new VOResena(resena.id_resena, resena.id_usuario, resena.id_producto, resena.contenido, resena.estrellas));
+            const res = result.rows.map((resena) => new VOresena(resena.id_resena, resena.id_usuario, resena.id_producto, resena.contenido, resena.estrellas));
 
-            return VOResenas;
+            return res;
         } catch (error) {
             throw error;
         }
@@ -30,7 +30,7 @@ class DAOresena {
             }
 
             const resena = result.rows[0];
-            const res = new VOResena(resena.id_resena, resena.id_usuario, resena.id_producto, resena.contenido, resena.estrellas);
+            const res = new VOresena(resena.id_resena, resena.id_usuario, resena.id_producto, resena.contenido, resena.estrellas);
 
             return [res];
         } catch (error) {

@@ -2149,3 +2149,11 @@ textarea.input {
     margin-top: 10px;
   }
 }
+
+#adminText {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  color: #fb7319;
+  display: none; /* Se oculta inicialmente */
+}
