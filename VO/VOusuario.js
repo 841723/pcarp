@@ -1,4 +1,4 @@
-class VOusuario {
+class VOUsuario {
     constructor(id_usuario,nombre,apellidos,contrasena,mail,direccion) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
@@ -47,4 +47,4 @@ class VOusuario {
     // }
 }
 
-module.exports = VOusuario
+module.exports = VOUsuario
