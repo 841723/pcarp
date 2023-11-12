@@ -35,7 +35,8 @@ buttons.forEach(button => {
       const url = `/user_mail?data=${stringCodificado}`;
       console.log(url);
       fetch(url)
-
+      var contra = document.getElementById('pass-login').value
+      
       .then(response => response.json())
       .then(data => {
           console.log(data);  
@@ -44,7 +45,8 @@ buttons.forEach(button => {
             const pw = document.querySelector(".login .password[type='password']");
             console.log(pw);
             console.log(pw.value);
-            if (data.contrasena == pw.value) {
+            // if (data.contrasena == pw.value) {
+            if (contra == pw.value) {
               console.log("contraseña correcta");
               window.location.href = "user.html";
             }
