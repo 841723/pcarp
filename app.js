@@ -3,6 +3,7 @@ const app = express();
 const {Client} = require('pg')
 const DAOusuario = require('./DAO/DAOusuario');
 const DAOPedido = require('./DAO/DAOpedido');
+const DAOProducto = require('./DAO/DAOproducto');
 
 const client = new Client ({
     host:"bjxc2jinqbwlt3blkcz6-postgresql.services.clever-cloud.com",
@@ -39,16 +40,7 @@ app.get('/consulta1', (req, res) => {
   app.get('/endpoint', (req, res) => {
     const data = req.query.data; // Aquí obtendrás el string enviado
   
-    console.log('Recibido:'+data);
 
-    // const daoU = new DAOusuario(client);
-    // daoU.obtenerPorNombre(data)
-    // .then((resultadoObtenido) => {
-    //   res.json(resultadoObtenido);
-    // })
-    // .catch((error) => {
-    //   console.error(error); // Manejo de errores
-    // });
     const daoP = new DAOPedido(client);
     if (data=="") {
       console.log("data=")
@@ -70,3 +62,28 @@ app.get('/consulta1', (req, res) => {
       });
     }
   });
+
+  app.get('/hot_deals', (req, res) => {
+    const daoP = new DAOProducto(client);
+    daoP.obtenerMasVendidos(5)
+      .then((resultadoObtenido) => {
+        res.json(resultadoObtenido);
+      })
+      .catch((error) => {
+        console.error(error); // Manejo de errores
+      });
+  });
+
+  app.get('/user_mail', (req, res) => {
+    const data = req.query.data; // Aquí obtendrás el string enviado
+    const daoU = new DAOusuario(client);
+
+    daoU.obtenerPorMail(data)
+      .then((resultadoObtenido) => {
+        res.json(resultadoObtenido);
+      })
+      .catch((error) => {
+        console.error(error); // Manejo de errores
+      });
+  });
+

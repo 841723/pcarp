@@ -67,6 +67,16 @@ class DAOproducto {
             throw error;
         }
     }
-}
 
-module.exports = DAOProducto;
+    async obtenerMasVendidos(cantidad) {
+        try {
+            const query = 'SELECT * FROM producto ORDER BY ventas DESC LIMIT $1';
+            const values = [cantidad];
+            const result = await this.database.query(query, values);
+            return result.rows;
+        } catch (error) {
+            throw error;
+        }
+    }
+}
+module.exports = DAOproducto;

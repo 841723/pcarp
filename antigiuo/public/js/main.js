@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Realiza una solicitud GET al servidor para obtener los resultados de la consulta.
       ask_for(message.value);
     });
-  });
+});
    
   
 ask_for("")

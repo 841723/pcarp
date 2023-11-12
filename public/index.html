@@ -52,17 +52,19 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> Paseo de la Independencia 56 50004 Zaragoza España</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<div id="adminText">ADMIN</div>
+						<div id="adminText" class="fa fa-lock"> ADMIN</div>
+						<!-- <li><a><i class="fa fa-lock"></i> admin</a></li> -->
 
 							<script>
 								// Obtén el rol del usuario desde el servidor o cualquier otra fuente
-								const rolUsuario = 'admin'; // hay que hacer un getUser para ver si es admin
+								const rolUsuario = 'pauli'; // hay que hacer un getUser para ver si es admin
 
 								// Mostrar el texto "ADMIN" solo si el usuario es un administrador
 								if (rolUsuario === 'admin') {
 									document.getElementById('adminText').style.display = 'block';
 								}
 						  	</script>
+
 						<li><a href="login.html"><i class="fa fa-user-o"></i> Mi Cuenta</a></li>
 					</ul>
 				</div>
@@ -115,7 +117,7 @@
 								<div>
 									<a href="wish.html">
 										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
+										<span>Lista de deseos</span>
 									</a>
 								</div>
 								<!-- /Wishlist -->
@@ -124,7 +126,7 @@
 								<div class="dropdown">
 									<a href="checkout.html" >
 										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
+										<span>Carrito</span>
 									</a>
 								<!-- /Cart -->
 
@@ -157,7 +159,7 @@
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
 						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Hot Deals</a></li>
+						<li><a href="store.html">Hot Deals</a></li>
 						<li><a href="#">Procesadores</a></li>
 						<li><a href="#">Placas Base</a></li>
 						<li><a href="#">Tarjetas Gráficas</a></li>
@@ -257,153 +259,8 @@
 							<div class="products-tabs">
 								<!-- tab -->
 								<div id="tab1" class="tab-pane active">
-									<div class="products-slick" data-nav="#slick-nav-1">
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="https://m.media-amazon.com/images/I/61NsdQqTUzL._AC_UF894,1000_QL80_.jpg" alt="Producto 1">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Procesador</p>
-												<h3 class="product-name"><a href="#">Intel Core i7</a></h3>
-												<h4 class="product-price">$249.99 <del class="product-old-price">$299.99</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>añadir al carrito</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="https://cdn.wallapop.com/images/10420/fa/m9/__/c10420p924827569/i3422953591.jpg?pictureSize=W320" alt="Producto 2">
-												<div class="product-label">
-													<span class="sale">-10%</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Disco Duro</p>
-												<h3 class="product-name"><a href="#">Samsung EVO 500GB SSD</a></h3>
-												<h4 class="product-price">$89.99 <del class="product-old-price">$99.99</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> añadir al carrito</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="https://m.media-amazon.com/images/I/71KY3rqh7VL.jpg" alt="Producto 3">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Tarjeta Gráfica</p>
-												<h3 class="product-name"><a href="#">NVIDIA GeForce GTX 1660</a></h3>
-												<h4 class="product-price">$279.99</h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-											</div>
-											</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="https://thumb.pccomponentes.com/w-530-530/articles/16/164467/1.jpg" alt="Producto 4">
-												<div class="product-label">
-													<span class="sale">-10%</span>
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class ="product-body">
-												<p class="product-category">Memoria RAM</p>
-												<h3 class="product-name"><a href="#">Crucial Ballistix 16GB DDR4</a></h3>
-												<h4 class="product-price">$119.99 <del class="product-old-price">$139.99</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Añadir a la lista de deseos</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-											</div>
-										</div>
-										<!-- /product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="https://www.coolmod.com/images/product/large/gigabyte-z590i-aorus-ultra-socket-1200-placa-base-001.jpg" alt="Producto 704">
-												<div class="product-label">
-													<span class="sale">-10%</span>
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class = "product-body">
-												<p class="product-category">Placa Base</p>
-												<h3 class="product-name"><a href="#">GIGABYTE Z590I AORUS ULTRA</a></h3>
-												<h4 class="product-price">$189.99 <del class="product-old-price">$209.99</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-half"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Añadir a la lista de deseos</span></button>
-												
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-											</div>
-										</div>
-
-										<!-- product -->
+									<div id="hot-deal" class="products-slick" data-nav="#slick-nav-1">
 										
-										<!-- /product -->
 									</div>
 									<div id="slick-nav-1" class="products-slick-nav"></div>
 								</div>
@@ -794,8 +651,8 @@
 		<script src="js/slick.min.js"></script>
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/main.js"></script>
-		<script src="js/users.js"></script>
+		<!-- <script src="js/main.js"></script> -->
+		<script src="./js/user.js"></script>
 
 	</body>
 </html>

@@ -69,4 +69,4 @@ class DAOPedido {
     }
 }
 
-module.exports = DAOPedido;
+module.exports = DAOpedido;

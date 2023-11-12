@@ -67,7 +67,7 @@ function crearTarjeta(item) {
     btn_wishlist.appendChild(i_heart);
     span_tooltip = document.createElement('span');
     span_tooltip.classList.add("tooltipp");
-    span_tooltip.textContent = "add to wishlist";
+    span_tooltip.textContent = "añadir a la lista de deseos";
     btn_wishlist.appendChild(span_tooltip);
     div_btns.appendChild(btn_wishlist);
 
@@ -93,6 +93,23 @@ function crearTarjeta(item) {
     
     return div_product
 }   
+
+
+function hot_deals () {
+    fetch("hot_deals")
+    .then(response => response.json())
+    .then(data => {
+        div_hot_deals = document.getElementById('hot-deal');
+        data.forEach(item => {
+            const div_product = crearTarjeta(item);
+            div_hot_deals.appendChild(div_product);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+hot_deals();
+
 
 
 //   <div class="product">

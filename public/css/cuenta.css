@@ -1,0 +1,103 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+button{
+    margin-bottom: 20px;
+}
+
+#zona-actual {
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+    padding: 10px;
+    margin-right: 20px;
+    border: 5px solid #ccc;
+    border-radius: 5px;
+}
+
+#datos-personales {
+    flex-grow: 1;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+
+form {
+    display: grid;
+    grid-gap: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+/* styles.css */
+
+/* Estilos para la información de cada pedido */
+.pedido-info {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el botón "Ver Detalles" */
+.ver-detalles {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para cada elemento de la lista de pedidos */
+.pedido {
+    list-style: none;
+}
+
+/* Estilos para la zona de pedidos */
+#zona-pedidos {
+    margin-top: 20px;
+}
+
+/* Estilos para la lista de pedidos */
+#lista-pedidos {
+    padding: 0;
+}
+
+/* Estilos específicos para el pie de página */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

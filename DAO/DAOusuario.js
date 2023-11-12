@@ -89,6 +89,23 @@ class DAOusuario {
             throw error;
         }
     }
+
+    async obtenerPorMail(mail) {
+        try {
+            // Realiza la consulta a la base de datos para obtener el usuario con el ID proporcionado
+            const result = await this.database.query('SELECT * FROM usuario WHERE mail = $1', [mail]);
+    
+            if (result.rows.length === 0) {
+                return null;
+            }
+            const usuario = result.rows[0];
+            const res = new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion);
+            return [res];
+
+        } catch (error) {
+            throw error;
+        }
+    }
     
 }
 

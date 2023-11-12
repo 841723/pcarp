@@ -43,12 +43,25 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +34 654 790 552</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> cornudo@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 50040 Longares Road</a></li>
+						<li><a href="#"><i class="fa fa-phone"></i> 968 977 977</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> cornudo@pcarp.es</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> Paseo de la Independencia 56 50004 Zaragoza España</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<div id="adminText" class="fa fa-lock"> ADMIN</div>
+						<!-- <li><a><i class="fa fa-lock"></i> admin</a></li> -->
+
+							<script>
+								// Obtén el rol del usuario desde el servidor o cualquier otra fuente
+								const rolUsuario = 'pauli'; // hay que hacer un getUser para ver si es admin
+
+								// Mostrar el texto "ADMIN" solo si el usuario es un administrador
+								if (rolUsuario === 'admin') {
+									document.getElementById('adminText').style.display = 'block';
+								}
+						  	</script>
+
+						<li><a href="login.html"><i class="fa fa-user-o"></i> Mi Cuenta</a></li>
 					</ul>
 				</div>
 			</div>
@@ -56,6 +69,7 @@
 
 			<!-- MAIN HEADER -->
 			<div id="header">
+				<!-- container -->
 				<div class="container">
 					<!-- row -->
 					<div class="row">
@@ -63,7 +77,7 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="index.html" class="logo">
-									<img src="./media/edu.jpg" alt="">
+									<img src="./media/logo.png" alt="">
 								</a>
 							</div>
 						</div>
@@ -106,44 +120,10 @@
 
 								<!-- Cart -->
 								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									<a href="checkout.html" >
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
 									</a>
-									<div class="cart-dropdown">
-										<div class="cart-list">
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product01.png" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product02.png" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
-										</div>
-										<div class="cart-summary">
-											<small>3 Item(s) selected</small>
-											<h5>SUBTOTAL: $2940.00</h5>
-										</div>
-										<div class="cart-btns">
-											<a href="#">View Cart</a>
-											<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-								</div>
 								<!-- /Cart -->
 
 								<!-- Menu Toogle -->
@@ -230,7 +210,7 @@
 									<label for="category-1">
 										<span></span>
 										Procesadores
-										<small>(12)</small>
+										<!-- <small>(12)</small> -->
 									</label>
 								</div>
 						
@@ -239,25 +219,16 @@
 									<label for ="category-2">
 										<span></span>
 										Discos Duros
-										<small>(15)</small>
+										<!-- <small>(15)</small> -->
 									</label>
 								</div>
 
 								<div class="input-checkbox">
-									<input type="checkbox" id="category-6">
-									<label for="category-6">
-										<span></span>
-										Placa Base
-										<small>(8)</small>
-									</label>
-								</div>
-						
-								<div class="input-checkbox">
 									<input type="checkbox" id="category-3">
 									<label for="category-3">
 										<span></span>
-										Tarjetas Gráficas
-										<small>(10)</small>
+										Placa Base
+										<!-- <small>(8)</small> -->
 									</label>
 								</div>
 						
@@ -265,8 +236,8 @@
 									<input type="checkbox" id="category-4">
 									<label for="category-4">
 										<span></span>
-										Memoria RAM
-										<small>(9)</small>
+										Tarjetas Gráficas
+										<!-- <small>(10)</small> -->
 									</label>
 								</div>
 						
@@ -274,8 +245,8 @@
 									<input type="checkbox" id="category-5">
 									<label for="category-5">
 										<span></span>
-										Ventiladores
-										<small>(7)</small>
+										Memoria RAM
+										<!-- <small>(9)</small> -->
 									</label>
 								</div>
 						
@@ -283,31 +254,35 @@
 									<input type="checkbox" id="category-6">
 									<label for="category-6">
 										<span></span>
+										Ventiladores
+										<!-- <small>(7)</small> -->
+									</label>
+								</div>
+						
+								<div class="input-checkbox">
+									<input type="checkbox" id="category-7">
+									<label for="category-7">
+										<span></span>
 										Cajas/Torres
-										<small>(8)</small>
+										<!-- <small>(8)</small> -->
 									</label>
 								</div>
 								<div class="input-checkbox">
-									<input type="checkbox" id="category-6">
-									<label for="category-6">
+									<input type="checkbox" id="category-8">
+									<label for="category-8">
 										<span></span>
 										Fuente de Alimentación
-										<small>(8)</small>
+										<!-- <small>(8)</small> -->
 									</label>
 								</div>
 								<div class="input-checkbox">
-									<input type="checkbox" id="category-6">
-									<label for="category-6">
+									<input type="checkbox" id="category-9">
+									<label for="category-9">
 										<span></span>
 										Placa Base
-										<small>(8)</small>
+										<!-- <small>(8)</small> -->
 									</label>
 								</div>
-								
-								
-								<!-- Repite el código para las categorías restantes aquí -->
-								<!-- Asegúrate de actualizar los números y los nombres de las categorías -->
-								
 							</div>
 						</div>
 						
@@ -315,7 +290,7 @@
 
 						<!-- aside Widget -->
 						<div class="aside">
-							<h3 class="aside-title">Price</h3>
+							<h3 class="aside-title">Precio</h3>
 							<div class="price-filter">
 								<div id="price-slider"></div>
 								<div class="input-number price-min">
@@ -335,7 +310,7 @@
 
 						<!-- aside Widget -->
 						<div class="aside">
-							<h3 class="aside-title">Brand</h3>
+							<h3 class="aside-title">Marca</h3>
 							<div class="checkbox-filter">
 								<div class="input-checkbox">
 									<input type="checkbox" id="brand-1">
@@ -440,12 +415,12 @@
 											<i class="fa fa-star"></i>
 										</div>
 										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">añadir a la lista de deseos</span></button>
 											
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> añadir al carrito</button>
 									</div>
 								</div>
 							</div>
@@ -461,7 +436,7 @@
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
+										<p class="product-category">Category1</p>
 										<h3 class="product-name"><a href="#">product name goes here</a></h3>
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 										<div class="product-rating">
@@ -492,7 +467,7 @@
 										<img src="./img/product03.png" alt="">
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
+										<p class="product-category">Category2</p>
 										<h3 class="product-name"><a href="#">product name goes here</a></h3>
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 										<div class="product-rating">
@@ -544,7 +519,7 @@
 										<img src="./img/product05.png" alt="">
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
+										<p class="product-category">CategoryAA</p>
 										<h3 class="product-name"><a href="#">product name goes here</a></h3>
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 										<div class="product-rating">

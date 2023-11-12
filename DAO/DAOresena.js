@@ -59,4 +59,4 @@ class DAOresena {
     }
 }
 
-module.exports = DAOResena;
+module.exports = DAOresena;
