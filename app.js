@@ -105,3 +105,20 @@ app.get('/consulta1', (req, res) => {
     daoU.insertar_mail_pass(mail,pass)
     res.redirect('/login.html');
   });
+
+
+  app.get('/search_products', (req, res) => {
+    const tipo = req.query.tipo; // Aquí obtendrás el string enviado
+    const cantidad = req.query.cantidad; // Aquí obtendrás el string enviado
+    const order   = req.query.order; // Aquí obtendrás el string enviado
+    const daoP = new DAOProducto(client);
+
+    daoP.obtenerPorTipo(tipo,cantidad,order)
+  
+      .then((resultadoObtenido) => {
+        res.json(resultadoObtenido);
+      })
+      .catch((error) => {
+        console.error(error); // Manejo de errores
+      });
+  });

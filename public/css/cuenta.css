@@ -24,7 +24,7 @@ button{
     margin-bottom: 20px;
 }
 
-#zona-actual {
+.menu {
     display: flex;
     flex-direction: column;
     background-color: #eee;
@@ -64,7 +64,7 @@ footer {
 
 /* Estilos para el botón "Ver Detalles" */
 .ver-detalles {
-    background-color: #4CAF50;
+    background-color: #fb7319;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -100,4 +100,17 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+/* Estilo para el botón "Guardar Cambios" */
+.save {
+    /* position: absolute; */
+    align-self: flex-end;
+    padding: 10px;
+    background-color: #fb7319;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: 200px;
 }

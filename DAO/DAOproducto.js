@@ -89,5 +89,45 @@ class DAOproducto {
             throw error;
         }
     }
+
+    async obtenerPorTipo(tipo,cantidad,order) {
+        try {
+            console.log(tipo,cantidad,order);
+            if (tipo == "none" ) {
+                if (order != "none") {
+                    console.log("1");
+                    const query = 'SELECT * FROM producto ORDER BY $1 LIMIT $2';
+                    const values = [order,cantidad];
+                    const result = await this.database.query(query, values);
+                    return result.rows;
+                } 
+                else {
+                    console.log("2");
+                    const query = 'SELECT * FROM producto ORDER BY RANDOM() LIMIT $1';
+                    const values = [cantidad];
+                    const result = await this.database.query(query, values);
+                    return result.rows;
+                }
+            }
+            else { 
+                if (order != "none") {
+                    console.log("3");
+                    const query = 'SELECT * FROM producto WHERE tipo = $1 ORDER BY $3 LIMIT $2';
+                    const values = [tipo,cantidad,order];
+                    const result = await this.database.query(query, values);
+                    return result.rows;
+                }
+                else {
+                    console.log("4");
+                    const query = 'SELECT * FROM producto WHERE tipo = $1 ORDER BY RANDOM() LIMIT $2';
+                    const values = [tipo,cantidad];
+                    const result = await this.database.query(query, values);
+                    return result.rows;
+                }
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 module.exports = DAOproducto;
