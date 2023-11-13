@@ -17,7 +17,8 @@
 }
 
 .logo {
-    width: 100px; /* Ajusta el tamaño del logo según tus necesidades */
+    width: 12%; /* Ajusta el tamaño del logo según tus necesidades */
+    min-width: 100px;
 }
 
 

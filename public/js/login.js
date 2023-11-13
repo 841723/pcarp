@@ -29,40 +29,78 @@ link.addEventListener("click", e => {
 buttons.forEach(button => {
   button.addEventListener("click", () => {
     if (button.parentElement.parentElement.parentElement.classList.contains("login")) {
-
+      
       const email = document.querySelector(".login .input[type='email']").value;
       const stringCodificado = encodeURIComponent(email);
       const url = `/user_mail?data=${stringCodificado}`;
-      console.log(url);
-      fetch(url)
-      var contra = document.getElementById('pass-login').value
+      const passElement = document.getElementById('pass-login')
+      contra = passElement.value
+      if (contra == "") {
+        alert("no se ha introducido ninguna contrasena");
+        return;
+      }
       
+      fetch(url)
       .then(response => response.json())
       .then(data => {
-          console.log(data);  
           if (data!=null) {
-                      
-            const pw = document.querySelector(".login .password[type='password']");
-            console.log(pw);
-            console.log(pw.value);
-            // if (data.contrasena == pw.value) {
-            if (contra == pw.value) {
-              console.log("contraseña correcta");
+            if (contra == data.contrasena) {
+              alert("contrasena correcta");
               window.location.href = "user.html";
             }
             else { 
-              console.log("contraseña incorrecta");
+              alert("la contrasena es incorrecta");
             }
           }
           else {
-            console.log("usuario no encontrado");
+            alert("usuario no encontrado");
           }
       })
       .catch(error => console.error('Error:', error));    
     }
+    else if (button.parentElement.parentElement.parentElement.classList.contains("signup")) {
+      const passElement = document.getElementById('pass-signup').value
+      const passElement2 = document.getElementById('pass-signup-2').value
+      const email = document.querySelector(".signup .input[type='email']").value;
+
+      if (ExistsUserMail(email)) {
+        alert("ya existe un usuario con ese email");
+      } 
+      else {
+        if (passElement == "" || passElement2 == "" || email == "") {
+          alert("no se ha introducido algun campo");
+        }
+        else if (passElement != passElement2) {
+          alert("no coinciden las contraseñas");
+        }
+         else {
+          const mailCodificado = encodeURIComponent(email);
+          const passCodificado = encodeURIComponent(passElement);
+          const url = `/create_user_by_mail?mail=${mailCodificado}&pass=${passCodificado}`;
+          fetch(url)
+          alert("usuario creado correctamente")
+        }
+      }
+    }
   })
 })
 
+
+function ExistsUserMail(email) {
+  const stringCodificado = encodeURIComponent(email);
+  const url = `/user_mail?data=${stringCodificado}`;
+  fetch(url)
+  .then(response => response.json())
+  .then(data => {
+      if (data!=null) {
+        return true;
+      }
+      else {
+        return false;
+      }
+  })
+  .catch(error => console.error('Error:', error));    
+}
 
 /* <div class="form login">
 <div class="form-content">

@@ -43,7 +43,6 @@ app.get('/consulta1', (req, res) => {
 
     const daoP = new DAOPedido(client);
     if (data=="") {
-      console.log("data=")
       daoP.obtenerTodos()
       .then((resultadoObtenido) => {
         res.json(resultadoObtenido);
@@ -87,3 +86,11 @@ app.get('/consulta1', (req, res) => {
       });
   });
 
+  app.get('/create_user_by_mail', (req, res) => { 
+    const mail = req.query.mail; // Aquí obtendrás el string enviado
+    const pass = req.query.pass; // Aquí obtendrás el string enviado
+    const daoU = new DAOusuario(client);
+
+    daoU.insertar_mail_pass(mail,pass)
+    res.redirect('/login.html');
+  });

@@ -59,16 +59,14 @@ class DAOusuario {
         }
     }
   
-    async insertar(usuario) {
+    async insertar_mail_pass(mail,pass) {
         try {
-            const query = 'INSERT INTO usuario (nombre, apellidos, contraseña, direccion, mail VALUES ($1, $2, $3, $4, $5)';
-            const values = [usuario.nombre, usuario.apellidos, usuario.contrasena, usuario.direccion, usuario.mail];
-            await this.database.query(query, values);
-
+            await this.database.query("INSERT INTO usuario (nombre, apellidos, contrasena, direccion, mail,es_admin) VALUES ('', '', $2, '', $1,false)", [mail,pass]);
         } catch (error) {
             throw error;
         }
     }
+    
 
     async actualizar(usuario) {
         try {
@@ -100,7 +98,7 @@ class DAOusuario {
             }
             const usuario = result.rows[0];
             const res = new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion);
-            return [res];
+            return res;
 
         } catch (error) {
             throw error;
