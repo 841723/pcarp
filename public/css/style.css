@@ -807,6 +807,7 @@ textarea.input {
 
 .product {
   position: relative;
+  width: 280px;
   margin: 15px 0px;
   -webkit-box-shadow: 0px 0px 0px 0px #E4E7ED, 0px 0px 0px 1px #E4E7ED;
   box-shadow: 0px 0px 0px 0px #E4E7ED, 0px 0px 0px 1px #E4E7ED;
@@ -848,9 +849,9 @@ textarea.input {
 }
 
 .product .product-img .product-label>span.sale {
-  background-color: #FFF;
+  background-color: #fb7319;
   border-color: #fb7319;
-  color: #fb7319;
+  color: #FFF;
 }
 
 .product .product-img .product-label>span.new {
@@ -1116,13 +1117,14 @@ textarea.input {
 	Products slick
 \*----------------------------*/
 
-.products-slick .slick-list {
+.products-carrousel  {
   padding-bottom: 60px;
   margin-bottom: -60px;
-  z-index: 2;
+  display: flex;
+  justify-content: space-between;
 }
 
-.products-slick .product.slick-slide {
+/* .products-slick .product.slick-slide {
   margin: 15px;
 }
 
@@ -1161,7 +1163,7 @@ textarea.input {
 
 .products-slick-nav .slick-prev:before, .products-slick-nav .slick-next:before {
   font-size: 14px;
-}
+} */
 
 /*=========================================================
 	07 -> PRODUCTS PAGE
@@ -2150,6 +2152,9 @@ textarea.input {
   }
 }
 
+/*=========================================================
+  14 -> CUSTOM
+===========================================================*/
 #adminText {
   position: fixed;
   top: 10px;
@@ -2157,3 +2162,13 @@ textarea.input {
   color: #fb7319;
   display: none; /* Se oculta inicialmente */
 }
+
+
+.usercontent [data-content] {
+  display: none;
+}
+
+.usercontent .active[data-content] {
+  display: block;
+}
+

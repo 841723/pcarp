@@ -46,7 +46,7 @@ buttons.forEach(button => {
           if (data!=null) {
             if (contra == data.contrasena) {
               alert("contrasena correcta");
-              window.location.href = "user.html";
+              window.location.href = "/";
             }
             else { 
               alert("la contrasena es incorrecta");

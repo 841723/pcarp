@@ -1,4 +1,4 @@
-function crearTarjeta(item) {
+function crearTarjeta(item,new_product) {
     div_product = document.createElement('div');
     div_product.classList.add("product");
 
@@ -12,9 +12,18 @@ function crearTarjeta(item) {
     div_cart.classList.add("add-to-cart");
 
     img_product = document.createElement('img');
-    img_product.src = "./media/box.png";
+    img_product.src = foto(item["tipo"]);
     img_product.alt = "Producto 1";
     div_img.appendChild(img_product);
+    if (new_product) {
+        div_product_label = document.createElement('div');
+        div_product_label.classList.add("product-label");
+        span_new = document.createElement('span');
+        span_new.classList.add("new");
+        span_new.textContent = "NUEVO";
+        div_product_label.appendChild(span_new);
+        div_img.appendChild(div_product_label);
+    }
     if (item["descuento"] != 0) {
         div_product_label = document.createElement('div');
         div_product_label.classList.add("product-label");
@@ -31,7 +40,10 @@ function crearTarjeta(item) {
     
     h3_nombre = document.createElement('h3');
     h3_nombre.classList.add("product-name");
-    h3_nombre.textContent = item["nombre"];
+    ah3_nombre = document.createElement('a');
+    ah3_nombre.href = "#";
+    ah3_nombre.textContent = item["modelo"];
+    h3_nombre.appendChild(ah3_nombre);
 
     h4_precio = document.createElement('h4');
     h4_precio.classList.add("product-price");
@@ -94,21 +106,54 @@ function crearTarjeta(item) {
     return div_product
 }   
 
-
-function hot_deals () {
-    fetch("hot_deals")
+function foto(tipo) {
+    switch (tipo) {
+        case "procesador":
+            return "https://thumb.pccomponentes.com/w-300-300/articles/1064/10644154/1324-intel-core-i5-13400f-25-ghz-46-ghz.jpg";
+        case "placa_base":
+            return "https://thumb.pccomponentes.com/w-530-530/articles/30/302203/1879-msi-mpg-b550-gaming-plus.jpg";
+        case "grafica":
+            return "https://thumb.pccomponentes.com/w-300-300/articles/1070/10706590/18-gigabyte-geforce-rtx-4070-gaming-oc-12-gb-gddr6x-dlss3-9c6abf07-81c0-4863-95cb-2ae6467fc76d.jpg";
+        case "ram":
+            return "https://thumb.pccomponentes.com/w-300-300/articles/1071/10711396/1323-corsair-vengeance-rgb-ddr5-6000mhz-pc5-48000-32gb-2x16gb-cl36-negro.jpg";
+        case "disco_duro":
+            return "https://thumb.pccomponentes.com/w-300-300/articles/28/281064/seagate-ironwolf-nas-8-tb-sata3-caracteristicas.jpg";
+        case "caja_torre":
+            return "https://thumb.pccomponentes.com/w-300-300/articles/33/332443/1398-tempest-umbra-rgb-torre-atx-negra-caracteristicas.jpg";
+        case "ventilador":
+            return "https://thumb.pccomponentes.com/w-300-300/articles/51/516914/1499-tempest-fan-120mm-argb-black-pwm.jpg";
+        case "fuente_alimentacion":
+            return "https://thumb.pccomponentes.com/w-300-300/articles/1074/10745583/3516-msi-mag-a750gl-pcie5-750w-80-plus-gold-modular-mejor-precio.jpg";
+    }
+}
+function new_products () {
+    fetch("new_products")
     .then(response => response.json())
     .then(data => {
-        div_hot_deals = document.getElementById('hot-deal');
+        new_products = document.getElementById('new_products_user');
         data.forEach(item => {
-            const div_product = crearTarjeta(item);
-            div_hot_deals.appendChild(div_product);
+            const div_product = crearTarjeta(item,true);
+            new_products.appendChild(div_product); 
         });
     })
     .catch(error => console.error('Error:', error));
 }
 
-hot_deals();
+function top_selling () {
+    fetch("top_selling")
+    .then(response => response.json())
+    .then(data => {
+        top_selling_user = document.getElementById('top_selling_user');
+        data.forEach(item => {
+            const div_product = crearTarjeta(item,false);
+            top_selling_user.appendChild(div_product); 
+        });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+new_products();
+top_selling();
 
 
 

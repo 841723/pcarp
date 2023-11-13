@@ -78,5 +78,16 @@ class DAOproducto {
             throw error;
         }
     }
+
+    async obtenerRandom(cantidad) {
+        try {
+            const query = 'SELECT * FROM producto ORDER BY RANDOM() LIMIT $1';
+            const values = [cantidad];
+            const result = await this.database.query(query, values);
+            return result.rows;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 module.exports = DAOproducto;

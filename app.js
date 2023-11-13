@@ -62,9 +62,20 @@ app.get('/consulta1', (req, res) => {
     }
   });
 
-  app.get('/hot_deals', (req, res) => {
+  app.get('/top_selling', (req, res) => {
     const daoP = new DAOProducto(client);
-    daoP.obtenerMasVendidos(5)
+    daoP.obtenerMasVendidos(4)
+      .then((resultadoObtenido) => {
+        res.json(resultadoObtenido);
+      })
+      .catch((error) => {
+        console.error(error); // Manejo de errores
+      });
+  });
+  
+  app.get('/new_products', (req, res) => {
+    const daoP = new DAOProducto(client);
+    daoP.obtenerRandom(4)
       .then((resultadoObtenido) => {
         res.json(resultadoObtenido);
       })
