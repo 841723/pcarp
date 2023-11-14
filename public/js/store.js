@@ -1,4 +1,4 @@
-function crearTarjeta(item,new_product) {
+function crearTarjeta(item) {
     div_first = document.createElement('div');
     div_first.classList.add("col-md-4");
     div_first.classList.add("col-xs-6");
@@ -19,7 +19,7 @@ function crearTarjeta(item,new_product) {
     img_product.src = foto(item["tipo"]);
     img_product.alt = "Producto 1";
     div_img.appendChild(img_product);
-    if (new_product) {
+    if (Math.random() >= 0.80 && item["descuento"] == 0) {
         div_product_label = document.createElement('div');
         div_product_label.classList.add("product-label");
         span_new = document.createElement('span');
@@ -67,12 +67,27 @@ function crearTarjeta(item,new_product) {
         
     div_stars = document.createElement('div');
     div_stars.classList.add("product-rating");
+    num_stars = randomStars(50,25);
     for (let i = 0; i < 5; i++) {
         i_star = document.createElement('i');
         i_star.classList.add("fa");
-        i_star.classList.add("fa-star");
+        if (num_stars > 1) {
+            i_star.classList.add("fa-star");
+            num_stars--;
+        } 
+        else if (num_stars == 0.5) {
+            i_star.classList.add("fa-star-half-o");
+            num_stars--;
+        } 
+        else {
+            i_star.classList.add("fa-star-o");
+        }
         div_stars.appendChild(i_star);
     }
+    function randomStars(max, min) {
+        return Math.floor(Math.random() * (max - min + 1) + min) / 5 * 5;
+    }
+    
     div_btns = document.createElement('div');
     div_btns.classList.add("product-btns");
     btn_wishlist = document.createElement('button');
@@ -137,15 +152,35 @@ function hot_deals () {
     number_productos = num_show_prod.options[num_show_prod.selectedIndex].text
     sort_by_show = document.getElementById('sort_by_show')
     order_by = sort_by_show.options[sort_by_show.selectedIndex].text
+
+    price_max = document.getElementById('price-max').value
+    price_min = document.getElementById('price-min').value
+    if (price_max == "") { price_max = 999999 }
+    if (price_min == "") { price_min = 0 }
+
     if (order_by == "Popular") { order_by = "ventas" }
-    if (order_by == "Mas baratos primero") { order_by = "precio ASC" }
-    if (order_by == "Mas caros primero") { order_by = "precio DESC" }
-    search_products("none",number_productos,order_by)
+    if (order_by == "Mas baratos primero") { order_by = "precio_asc" }
+    if (order_by == "Mas caros primero") { order_by = "precio_desc" }
+
+    selected_brands = document.getElementById('checkbox-marcas').querySelectorAll('input[type=checkbox]:checked');
+    console.log(selected_brands)
+    brands_names = []
+    for (let i = 0; i < selected_brands.length; i++) {
+        // console.log(selected_brands[i].parentElement.textContent.trim())
+        brands_names.push(selected_brands[i].parentElement.textContent.trim())
+    }
+    console.log(brands_names)
+    
+
+    search_products("none",number_productos,order_by,price_max,price_min,brands_names)
 }
    
 
-function search_products (tipo,cantidad,order) {
-    const url = `/search_products?tipo=${tipo}&cantidad=${cantidad}&order=${order}`;
+function search_products (tipo,cantidad,order,precio_max,precio_min,brands_names) {
+    stringCodificado = encodeURI("tipo="+tipo+"&cantidad="+cantidad+"&order="+order+
+                                 "&precio_max="+precio_max+"&precio_min="+precio_min+"&brands_names="+brands_names);
+    console.log(stringCodificado)
+    const url = `/search_products?${stringCodificado}`;
     
     fetch(url)
     .then(response => response.json())
@@ -153,9 +188,22 @@ function search_products (tipo,cantidad,order) {
         product_container = document.getElementById('product-container');
         product_container.innerHTML = ""
         data.forEach(item => {
-            const div_product = crearTarjeta(item,false);
+            const div_product = crearTarjeta(item);
             product_container.appendChild(div_product); 
         });
+        if (data.length == 0) {
+        
+        }
+        else if (data.length % 3 != 0) {
+            for (let i = 0; i < 3 - (data.length % 3); i++) {
+     
+                const empty_div = crearTarjeta(data[0],false);
+                product_container.appendChild(empty_div); 
+            }
+        }
+        // codigo en js que indica cuantos objetos hay en la lista data
+        showing_number = document.getElementById('showing-number');
+        showing_number.textContent = "Mostrando " + data.length + " productos";
     })
     .catch(error => console.error('Error:', error));
 }
@@ -165,7 +213,12 @@ function search_products (tipo,cantidad,order) {
 num_show_prod = document.getElementById('num_show_prod')
 num_show_prod.addEventListener('change', () => {
     selectedOptionText = num_show_prod.options[num_show_prod.selectedIndex].text;
-    console.log(selectedOptionText); // Imprime el texto de la opción seleccionada
+    hot_deals();
+});
+
+sort_by_show = document.getElementById('sort_by_show')
+sort_by_show.addEventListener('change', () => {
+    selectedOptionText = sort_by_show.options[sort_by_show.selectedIndex].text;
     hot_deals();
 });
 

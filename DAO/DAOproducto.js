@@ -90,40 +90,48 @@ class DAOproducto {
         }
     }
 
-    async obtenerPorTipo(tipo,cantidad,order) {
+    async obtenerPorTipo(tipo,cantidad,order,precio_max,precio_min,brands_names) {
         try {
-            console.log(tipo,cantidad,order);
+            var order_query = "";
+            switch (order) {
+                case "precio_asc":
+                    order_query = 'ORDER BY precio ASC'
+                    break
+                case "precio_desc":
+                    order_query = 'ORDER BY precio DESC'
+                    break;
+                case "ventas":
+                    order_query = 'ORDER BY ventas DESC'
+                    break;
+                default:
+                    order_query = 'ORDER BY RANDOM()'
+                    break;
+            }
+
+            var precio_query = 'precio>'+precio_min+' AND precio<'+precio_max;
+
+            if (brands_names.length != 0) {
+                
+                
+                brands_names = brands_names.split(',').join("','");
+                var brands_query = 'marca IN (\''+brands_names+'\')';
+                console.log(brands_query)
+            }
+            else {
+                var brands_query = 'marca IS NOT NULL';
+            }
+
             if (tipo == "none" ) {
-                if (order != "none") {
-                    console.log("1");
-                    const query = 'SELECT * FROM producto ORDER BY $1 LIMIT $2';
-                    const values = [order,cantidad];
-                    const result = await this.database.query(query, values);
-                    return result.rows;
-                } 
-                else {
-                    console.log("2");
-                    const query = 'SELECT * FROM producto ORDER BY RANDOM() LIMIT $1';
-                    const values = [cantidad];
-                    const result = await this.database.query(query, values);
-                    return result.rows;
-                }
+                const query = 'SELECT * FROM producto WHERE ' + precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT $1';
+                const values = [cantidad];
+                const result = await this.database.query(query, values);
+                return result.rows;
             }
             else { 
-                if (order != "none") {
-                    console.log("3");
-                    const query = 'SELECT * FROM producto WHERE tipo = $1 ORDER BY $3 LIMIT $2';
-                    const values = [tipo,cantidad,order];
-                    const result = await this.database.query(query, values);
-                    return result.rows;
-                }
-                else {
-                    console.log("4");
-                    const query = 'SELECT * FROM producto WHERE tipo = $1 ORDER BY RANDOM() LIMIT $2';
-                    const values = [tipo,cantidad];
-                    const result = await this.database.query(query, values);
-                    return result.rows;
-                }
+                const query = 'SELECT * FROM producto WHERE tipo = $1 AND '+ precio_query + ' AND ' + brands_names + ' ' + order_query + ' LIMIT $2';
+                const values = [tipo,cantidad];
+                const result = await this.database.query(query, values);
+                return result.rows;
             }
         } catch (error) {
             throw error;

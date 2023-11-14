@@ -111,9 +111,12 @@ app.get('/consulta1', (req, res) => {
     const tipo = req.query.tipo; // Aquí obtendrás el string enviado
     const cantidad = req.query.cantidad; // Aquí obtendrás el string enviado
     const order   = req.query.order; // Aquí obtendrás el string enviado
+    const precio_max = req.query.precio_max; // Aquí obtendrás el string enviado
+    const precio_min = req.query.precio_min; // Aquí obtendrás el string enviado
+    const brands_names = req.query.brands_names; // Aquí obtendrás el string enviado
     const daoP = new DAOProducto(client);
 
-    daoP.obtenerPorTipo(tipo,cantidad,order)
+    daoP.obtenerPorTipo(tipo,cantidad,order,precio_max,precio_min,brands_names)
   
       .then((resultadoObtenido) => {
         res.json(resultadoObtenido);
