@@ -1,3 +1,13 @@
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -21,7 +31,7 @@ main {
 }
 
 button{
-    margin-bottom: 20px;
+    margin: 15px;
 }
 
 .menu {
@@ -32,6 +42,8 @@ button{
     margin-right: 20px;
     border: 5px solid #ccc;
     border-radius: 5px;
+    max-height: 200px; /* Ajusta según sea necesario */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
 }
 
 #datos-personales {
@@ -113,4 +125,45 @@ footer {
     border-radius: 5px;
     cursor: pointer;
     max-width: 200px;
+}
+
+.option {
+    padding: 10px;
+    background-color: #fb7319;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: 200px;
+    padding: 15px;
+    border-radius: 10px;
+}
+.logo {
+    width: 12%; /* Ajusta el tamaño del logo según tus necesidades */
+    min-width: 100px;
+}
+
+.input-field {
+    position: relative;
+}
+
+.password-container {
+    position: relative;
+    display: inline-block; /* Asegura que el contenedor solo tome el ancho del contenido */
+}
+
+.eye-icon{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+}
+.text {
+    max-width: 600px;
+    overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+    float: right; /* Hace que el elemento flote a la izquierda */
+    margin-left: 0
 }
