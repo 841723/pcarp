@@ -56,7 +56,7 @@ function mostrarForgot() {
 
 buttons.forEach(button => {
   button.addEventListener("submit", () => {
-    if (button.parentElement.parentElement.parentElement.classList.contains("login")) {
+    if (button.parentElement.parentElement.parentElement.parentElement.classList.contains("form login")) {
       
       const email = document.querySelector(".login .input[type='email']").value;
       const stringCodificado = encodeURIComponent(email);
@@ -87,7 +87,7 @@ buttons.forEach(button => {
       })
       .catch(error => console.error('Error:', error));    
     }
-    else if (button.parentElement.parentElement.parentElement.classList.contains("signup")) {
+    else if (button.parentElement.parentElement.parentElement.parentElement.classList.contains("signup")) {
       const passElement = document.getElementById('pass-signup').value
       const passElement2 = document.getElementById('pass-signup-2').value
       const email = document.querySelector(".signup .input[type='email']").value;
@@ -115,6 +115,36 @@ buttons.forEach(button => {
   })
 })
 
+function logUser(){
+  const email = document.querySelector(".login .input[type='email']").value;
+  const stringCodificado = encodeURIComponent(email);
+  const url = `/user_mail?data=${stringCodificado}`;
+  const passElement = document.getElementById('pass-login')
+  contra = passElement.value
+  if (contra == "") {
+    alert("no se ha introducido ninguna contrasena");
+    return;
+  }
+  
+  fetch(url)
+  .then(response => response.json())
+  .then(data => {
+      if (data!=null) {
+        if (contra == data.contrasena) {
+          alert("contrasena correcta");
+          sessionStorage.setItem('userToken', true);
+          window.location.href = "/";
+        }
+        else { 
+          alert("la contrasena es incorrecta");
+        }
+      }
+      else {
+        alert("usuario no encontrado");
+      }
+  })
+  .catch(error => console.error('Error:', error));    
+}
 
 function ExistsUserMail(email) {
   const stringCodificado = encodeURIComponent(email);
