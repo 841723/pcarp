@@ -19,12 +19,40 @@ pwShowHide.forEach(eyeIcon => {
   })
 })      
 
-links.forEach(link => {
-link.addEventListener("click", e => {
-  e.preventDefault(); //preventing form submit
-    forms.classList.toggle("show-signup");
-  })
-})
+// links.forEach(link => {
+// link.addEventListener("click", e => {
+//   e.preventDefault(); //preventing form submit
+//     forms.classList.toggle("show-signup");
+//   })
+// })
+
+function mostrarSignup() {
+  var login = document.getElementById("login");
+  var signup = document.getElementById("signup");
+  var forgot = document.getElementById("forgot-password");
+  login.style.display = "none";
+  signup.style.display = "block";
+  forgot.style.display = "none";
+}
+
+function mostrarLogin() {
+  var login = document.getElementById("login");
+  var signup = document.getElementById("signup");
+  var forgot = document.getElementById("forgot-password");
+  login.style.display = "block";
+  signup.style.display = "none";
+  forgot.style.display = "none";
+}
+ 
+function mostrarForgot() {
+  var login = document.getElementById("login");
+  var signup = document.getElementById("signup");
+  var forgot = document.getElementById("forgot-password");
+  login.style.display = "none";
+  signup.style.display = "none";
+  forgot.style.display = "block";
+}
+
 
 buttons.forEach(button => {
   button.addEventListener("submit", () => {
@@ -172,3 +200,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 </div> */
+
+mostrarLogin();

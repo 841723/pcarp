@@ -21,8 +21,6 @@
     min-width: 100px;
 }
 
-
-
 .container{
     height: 100vh;
     width: 100%;
@@ -32,26 +30,17 @@
     background-color: #ffff;
     column-gap: 30px;
 }
+
 .form{
     position: absolute;
     max-width: 430px;
+    margin-top: 5%;
     width: 100%;
     padding: 30px;
     border-radius: 6px;
     background: #fb7319;
 }
-.form.signup{
-    opacity: 0;
-    pointer-events: none;
-}
-.forms.show-signup .form.signup{
-    opacity: 1;
-    pointer-events: auto;
-}
-.forms.show-signup .form.login{
-    opacity: 0;
-    pointer-events: none;
-}
+
 header{
     font-size: 28px;
     font-weight: 600;
