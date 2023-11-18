@@ -19,13 +19,6 @@ pwShowHide.forEach(eyeIcon => {
   })
 })      
 
-// links.forEach(link => {
-// link.addEventListener("click", e => {
-//   e.preventDefault(); //preventing form submit
-//     forms.classList.toggle("show-signup");
-//   })
-// })
-
 function mostrarSignup() {
   var login = document.getElementById("login");
   var signup = document.getElementById("signup");
@@ -54,66 +47,66 @@ function mostrarForgot() {
 }
 
 
-buttons.forEach(button => {
-  button.addEventListener("submit", () => {
-    if (button.parentElement.parentElement.parentElement.parentElement.classList.contains("form login")) {
+// buttons.forEach(button => {
+//   button.addEventListener("submit", () => {
+//     if (button.parentElement.parentElement.parentElement.parentElement.classList.contains("form login")) {
       
-      const email = document.querySelector(".login .input[type='email']").value;
-      const stringCodificado = encodeURIComponent(email);
-      const url = `/user_mail?data=${stringCodificado}`;
-      const passElement = document.getElementById('pass-login')
-      contra = passElement.value
-      if (contra == "") {
-        alert("no se ha introducido ninguna contrasena");
-        return;
-      }
+//       const email = document.querySelector(".login .input[type='email']").value;
+//       const stringCodificado = encodeURIComponent(email);
+//       const url = `/user_mail?data=${stringCodificado}`;
+//       const passElement = document.getElementById('pass-login')
+//       contra = passElement.value
+//       if (contra == "") {
+//         alert("no se ha introducido ninguna contrasena");
+//         return;
+//       }
       
-      fetch(url)
-      .then(response => response.json())
-      .then(data => {
-          if (data!=null) {
-            if (contra == data.contrasena) {
-              alert("contrasena correcta");
-              sessionStorage.setItem('userToken', true);
-              window.location.href = "/";
-            }
-            else { 
-              alert("la contrasena es incorrecta");
-            }
-          }
-          else {
-            alert("usuario no encontrado");
-          }
-      })
-      .catch(error => console.error('Error:', error));    
-    }
-    else if (button.parentElement.parentElement.parentElement.parentElement.classList.contains("signup")) {
-      const passElement = document.getElementById('pass-signup').value
-      const passElement2 = document.getElementById('pass-signup-2').value
-      const email = document.querySelector(".signup .input[type='email']").value;
+//       fetch(url)
+//       .then(response => response.json())
+//       .then(data => {
+//           if (data!=null) {
+//             if (contra == data.contrasena) {
+//               alert("contrasena correcta");
+//               sessionStorage.setItem('userToken', true);
+//               window.location.href = "/";
+//             }
+//             else { 
+//               alert("la contrasena es incorrecta");
+//             }
+//           }
+//           else {
+//             alert("usuario no encontrado");
+//           }
+//       })
+//       .catch(error => console.error('Error:', error));    
+//     }
+//     else if (button.parentElement.parentElement.parentElement.parentElement.classList.contains("signup")) {
+//       const passElement = document.getElementById('pass-signup').value
+//       const passElement2 = document.getElementById('pass-signup-2').value
+//       const email = document.querySelector(".signup .input[type='email']").value;
 
-      if (ExistsUserMail(email)) {
-        alert("ya existe un usuario con ese email");
-      } 
-      else {
-        if (passElement == "" || passElement2 == "" || email == "") {
-          alert("no se ha introducido algun campo");
-        }
-        else if (passElement != passElement2) {
-          alert("no coinciden las contraseñas");
-        }
-         else {
-          const mailCodificado = encodeURIComponent(email);
-          const passCodificado = encodeURIComponent(passElement);
-          const url = `/create_user_by_mail?mail=${mailCodificado}&pass=${passCodificado}`;
-          fetch(url)
-          alert("usuario creado correctamente")
+//       if (ExistsUserMail(email)) {
+//         alert("ya existe un usuario con ese email");
+//       } 
+//       else {
+//         if (passElement == "" || passElement2 == "" || email == "") {
+//           alert("no se ha introducido algun campo");
+//         }
+//         else if (passElement != passElement2) {
+//           alert("no coinciden las contraseñas");
+//         }
+//          else {
+//           const mailCodificado = encodeURIComponent(email);
+//           const passCodificado = encodeURIComponent(passElement);
+//           const url = `/create_user_by_mail?mail=${mailCodificado}&pass=${passCodificado}`;
+//           fetch(url)
+//           alert("usuario creado correctamente")
 
-        }
-      }
-    }
-  })
-})
+//         }
+//       }
+//     }
+//   })
+// })
 
 function logUser(){
   const email = document.querySelector(".login .input[type='email']").value;
@@ -144,6 +137,58 @@ function logUser(){
       }
   })
   .catch(error => console.error('Error:', error));    
+}
+
+function signupUser() {
+  const passElement = document.getElementById('pass-signup').value
+  const passElement2 = document.getElementById('pass-signup-2').value
+  const email = document.querySelector(".signup .input[type='email']").value;
+
+  if (ExistsUserMail(email)) {
+    alert("ya existe un usuario con ese email");
+  } 
+  else {
+    if (passElement == "" || passElement2 == "" || email == "") {
+      alert("no se ha introducido algun campo");
+    }
+    else if (passElement != passElement2) {
+      alert("no coinciden las contraseñas");
+    }
+     else {
+      const mailCodificado = encodeURIComponent(email);
+      const passCodificado = encodeURIComponent(passElement);
+      const url = `/create_user_by_mail?mail=${mailCodificado}&pass=${passCodificado}`;
+      fetch(url)
+      alert("usuario creado correctamente")
+
+    }
+  }
+}
+
+function updatePass() {
+  const passElement = document.getElementById('pass-signup').value
+  const passElement2 = document.getElementById('pass-signup-2').value
+  const email = document.getElementById('mail-forgot').value;
+  console.log("email: "+email);
+  if (ExistsUserMail(email)) {
+    console.log("existe un usuario con ese email");
+    if (passElement == "" || passElement2 == "" || email == "") {
+      alert("no se ha introducido algun campo");
+    }
+    else if (passElement != passElement2) {
+      alert("no coinciden las contraseñas");
+    }
+     else {
+      const mailCodificado = encodeURIComponent(email);
+      const passCodificado = encodeURIComponent(passElement);
+      const url = `/update_pass_by_mail?mail=${mailCodificado}&pass=${passCodificado}`;
+      fetch(url)
+      alert("usuario actualizado correctamente")
+    }
+  }  else{
+    console.log("no existe un usuario con ese email");
+    alert("no existe un usuario con ese email");
+  }
 }
 
 function ExistsUserMail(email) {

@@ -68,10 +68,21 @@ class DAOusuario {
     }
     
 
-    async actualizar(usuario) {
+    async actualizar(mail,nombre,apellidos,direccion,pass) {
+        // Implementación para actualizar un usuario en la base de datos
         try {
-            const query = 'UPDATE usuarios SET nombre = $1, apellidos = $2, contrasena = $3, direccion = $4, email = $5 WHERE id_usuario = $6';
-            const values = [usuario.nombre, usuario.apellidos, usuario.contrasena, usuario.direccion, usuario.mail, usuario.id_usuario];
+            const query = 'UPDATE usuario SET nombre = $2, apellidos = $3, direccion = $4, contrasena = $5 WHERE email = $1';
+            const values = [mail, nombre, apellidos, direccion, pass];
+            await this.database.query(query, values);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async actualizar_pass(mail,pass) {
+        try{
+            const query = 'UPDATE usuario SET contrasena = $2 WHERE mail = $1';
+            const values = [mail, pass];
             await this.database.query(query, values);
         } catch (error) {
             throw error;

@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="field button-field">
-                                <button type="submit">Signup</button>
+                                <button type="submit" onclick="signupUser()">Signup</button>
                             </div>
                         </form>
 
@@ -88,20 +88,20 @@
                         <header>Forgot Password</header>
                         <form action="#">
                             <div class="field input-field">
-                                <input type="email" placeholder="Email" class="input">
+                                <input type="email" placeholder="Email" class="input" id="mail-forgot">
                             </div>
 
                             <div class="field input-field">
-                                <input type="password" placeholder="New password" class="password" id="pass-signup">
+                                <input type="password" placeholder="New password" class="password" id="pass-forgot">
                                 <i class='bx bx-hide eye-icon'></i>
                             </div>
 
                             <div class="field input-field">
-                                <input type="password" placeholder="Confirm new password" class="password" id="pass-signup-2">
+                                <input type="password" placeholder="Confirm new password" class="password" id="pass-forgot-2">
                             </div>
 
                             <div class="field button-field">
-                                <button type="submit">Change password</button>
+                                <button type="submit" onclick="updatePass()">Change password</button>
                             </div>
                         </form>
 

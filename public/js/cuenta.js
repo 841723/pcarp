@@ -18,12 +18,12 @@ function mostrarContrasena() {
   var x = document.getElementById("pass-save");
   var icono = document.querySelector('.eye-icon');
 
-  if (x.type === "password") {
+  if (x.type === "pass") {
       x.type = "text";
       icono.classList.remove('bx-hide');
       icono.classList.add('bx-show');
   } else {
-      x.type = "password";
+      x.type = "pass";
       icono.classList.remove('bx-show');
       icono.classList.add('bx-hide');
   }
@@ -82,6 +82,22 @@ function organizarPedidos(pedidos) {
           pedidosEntregados.appendChild(li);
       }
   });
+}
+
+function updateUser(){
+  const email = document.querySelector(".signup .input[type='email']").value;
+  const nombre = document.getElementById('nombre').value
+  const apellidos = document.getElementById('apellidos').value
+  const direccion = document.getElementById('direccion').value
+  const pass = document.getElementById('pass').value
+  const mailCodificado = encodeURIComponent(email);
+  const nombreCodificado = encodeURIComponent(nombre);
+  const apellidosCodificado = encodeURIComponent(apellidos);
+  const direccionCodificado = encodeURIComponent(direccion);
+  const passCodificado = encodeURIComponent(pass);
+  const url = `/update_user_by_mail?mail=${mailCodificado}&nombre=${nombreCodificado}&apellidos=${apellidosCodificado}&direccion=${direccionCodificado}&pass=${passCodificado}`;
+  fetch(url)
+  alert("usuario actualizado correctamente")
 }
 
 // Función para cancelar un pedido solicitado

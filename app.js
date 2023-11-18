@@ -106,6 +106,32 @@ app.get('/consulta1', (req, res) => {
     res.redirect('/login.html');
   });
 
+  app.get('/update_pass_by_mail', (req, res) => { 
+    const mail = req.query.mail; // Aquí obtendrás el string enviado
+    const pass = req.query.pass; // Aquí obtendrás el string enviado
+    const daoU = new DAOusuario(client);
+
+    daoU.actualizar_pass(mail,pass)
+    res.redirect('/login.html');
+  });
+
+  app.get('/update_user_by_mail', (req, res) => {
+    const mail = req.query.mail; // Aquí obtendrás el string enviado
+    const nombre = req.query.nombre; // Aquí obtendrás el string enviado
+    const apellidos = req.query.apellidos; // Aquí obtendrás el string enviado
+    const direccion = req.query.direccion; // Aquí obtendrás el string enviado
+    const pass = req.query.pass; // Aquí obtendrás el string enviado
+    // const daoU = new DAOusuario(client);
+
+    // daoU.
+    actualizar(mail,nombre,apellidos,direccion,pass)
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+  });
 
   app.get('/search_products', (req, res) => {
     const tipo = req.query.tipo; // Aquí obtendrás el string enviado
