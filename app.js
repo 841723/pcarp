@@ -87,7 +87,6 @@ app.get('/consulta1', (req, res) => {
   app.get('/user_mail', (req, res) => {
     const data = req.query.data; // Aquí obtendrás el string enviado
     const daoU = new DAOusuario(client);
-
     daoU.obtenerPorMail(data)
       .then((resultadoObtenido) => {
         res.json(resultadoObtenido);

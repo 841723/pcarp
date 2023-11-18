@@ -191,12 +191,13 @@ function updatePass() {
   }
 }
 
-function ExistsUserMail(email) {
+async function ExistsUserMail(email) {
   const stringCodificado = encodeURIComponent(email);
   const url = `/user_mail?data=${stringCodificado}`;
-  fetch(url)
-  .then(response => response.json())
+  await fetch(url)
+  // .then(response => response.json())
   .then(data => {
+    console.log("en exisitEmail"+data);
       if (data!=null) {
         return true;
       }
