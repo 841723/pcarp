@@ -115,16 +115,20 @@ footer {
 }
 
 /* Estilo para el botón "Guardar Cambios" */
-.save {
-    /* position: absolute; */
-    align-self: flex-end;
+.button-container {
+    display: flex;
+}
+
+.save,
+.save2 {
     padding: 10px;
     background-color: #fb7319;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    max-width: 200px;
+    width: 300px;
+    margin-right: 10px; /* Espaciado entre los botones, ajusta según sea necesario */
 }
 
 .option {

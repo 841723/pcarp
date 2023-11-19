@@ -46,7 +46,8 @@ function mostrarForgot() {
   forgot.style.display = "block";
 }
 
-function logUser(){
+async function logUser(){
+  event.preventDefault();
   const email = document.querySelector(".login .input[type='email']").value;
   const stringCodificado = encodeURIComponent(email);
   const url = `/user_mail?data=${stringCodificado}`;
@@ -57,13 +58,15 @@ function logUser(){
     return;
   }
   
-  fetch(url)
+  await fetch(url)
   .then(response => response.json())
   .then(data => {
       if (data!=null) {
         if (contra == data.contrasena) {
-          alert("contrasena correcta");
           sessionStorage.setItem('userToken', true);
+          console.log(sessionStorage.getItem('userToken'));
+          sessionStorage.setItem('email', email);
+          alert("contrasena correcta");
           window.location.href = "/";
         }
         else { 
@@ -78,6 +81,7 @@ function logUser(){
 }
 
 function signupUser() {
+  event.preventDefault();
   const passElement = document.getElementById('pass-signup').value
   const passElement2 = document.getElementById('pass-signup-2').value
   const email = document.querySelector(".signup .input[type='email']").value;
@@ -97,6 +101,7 @@ function signupUser() {
       const passCodificado = encodeURIComponent(passElement);
       const url = `/create_user_by_mail?mail=${mailCodificado}&pass=${passCodificado}`;
       fetch(url)
+      sessionStorage.setItem('email', email);
       alert("usuario creado correctamente")
 
     }
@@ -104,10 +109,10 @@ function signupUser() {
 }
 
 function updatePass() {
+  event.preventDefault();
   const passElement = document.getElementById('pass-forgot').value
   const passElement2 = document.getElementById('pass-forgot-2').value
   const email = document.getElementById('mail-forgot').value;
-  console.log("email: "+email);
   if (ExistsUserMail(email)) {
     console.log("existe un usuario con ese email");
     if (passElement == "" || passElement2 == "" || email == "") {
@@ -137,7 +142,6 @@ async function ExistsUserMail(email) {
   await fetch(url)
   // .then(response => response.json())
   .then(data => {
-    console.log("en exisitEmail"+data);
       if (data!=null) {
         return true;
       }
@@ -148,41 +152,5 @@ async function ExistsUserMail(email) {
   .catch(error => console.error('Error:', error));    
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  const loginForm = document.querySelector('.login form');
-  const signupForm = document.querySelector('.signup form');
-
-  loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('pass-login').value;
-
-      // Aquí debes realizar una consulta a tu base de datos para verificar el usuario y la contraseña
-      // Si la consulta es exitosa, puedes generar un token y almacenarlo en una variable global
-
-      // EJEMPLO: Supongamos que la consulta fue exitosa
-      const userToken = generateToken(); // Implementa tu función para generar un token
-      console.log('Login successful. Token:', userToken);
-  });
-
-  signupForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const signupEmail = document.getElementById('signup-email').value;
-      const signupPassword = document.getElementById('pass-signup').value;
-      const signupPassword2 = document.getElementById('pass-signup-2').value;
-
-      // Verificar que las contraseñas coincidan
-      if (signupPassword !== signupPassword2) {
-          alert('Las contraseñas no coinciden');
-          return;
-      }
-
-      // Aquí debes realizar una operación de inserción en tu base de datos con los datos del usuario
-      // EJEMPLO: Supongamos que la inserción fue exitosa
-      sessionStorage.setItem('userToken', userToken);
-      console.log('Registro exitoso');
-  });
-
-});
 
 mostrarLogin();

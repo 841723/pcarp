@@ -83,23 +83,62 @@ function organizarPedidos(pedidos) {
   });
 }
 
-function updateUser(){
-  console.log("updateUseraaaaaaa");
+async function updateUser(){
+  event.preventDefault();
   const email = document.getElementById("email").value;
-  const nombre = document.getElementById('nombre').value
-  const apellidos = document.getElementById('apellidos').value
-  const direccion = document.getElementById('direccion').value
-  const pass = document.getElementById('pass').value
-  console.log("updateUser");
-  console.log(email + " " + nombre + " " + apellidos + " " + direccion + " " + pass);
+  const nombre = document.getElementById('nombre').value;
+  const apellidos = document.getElementById('apellidos').value;
+  const direccion = document.getElementById('direccion').value;
+  const pass = document.getElementById('pass-save').value;
   const mailCodificado = encodeURIComponent(email);
   const nombreCodificado = encodeURIComponent(nombre);
   const apellidosCodificado = encodeURIComponent(apellidos);
   const direccionCodificado = encodeURIComponent(direccion);
   const passCodificado = encodeURIComponent(pass);
-  const url = `/update_user_by_mail?mail=${mailCodificado}&nombre=${nombreCodificado}&apellidos=${apellidosCodificado}&direccion=${direccionCodificado}&pass=${passCodificado}`;
+  const url = `/update_user_by_mail?email=${mailCodificado}&nombre=${nombreCodificado}&apellidos=${apellidosCodificado}&direccion=${direccionCodificado}&pass=${passCodificado}`;
+  // let result= await fetch(url)
+  // sessionStorage.setItem('email', email);
+  // console.log(result);
+  // alert("usuario actualizado correctamente")
+
+    const result = await fetch(url);
+    sessionStorage.setItem('email', email);
+    console.log(result);
+    alert("Usuario actualizado correctamente");
+
+}
+function logout(){
+  event.preventDefault();
+  sessionStorage.setItem('userToken', false);
+  console.log("userToken: "+sessionStorage.getItem('userToken'));
+  window.location.href = "/index.html";
+}
+
+function cargarDatosPersonales() {
+  console.log("Entrando en cargarDatosPersonales");
+  const emailInput = document.getElementById('email');
+  const nombreInput = document.getElementById('nombre');
+  const apellidosInput = document.getElementById('apellidos');
+  const direccionInput = document.getElementById('direccion');
+  const passInput = document.getElementById('pass-save');
+
+  // Obtener el correo electrónico del usuario de sessionStorage
+  const userEmail = sessionStorage.getItem('email');
+
+  // Realizar la consulta a la base de datos para obtener los datos del usuario
+  const url = `/user_mail?data=${encodeURIComponent(userEmail)}`;
+
   fetch(url)
-  alert("usuario actualizado correctamente")
+    .then(response => response.json())
+    .then(data => {
+      // Asignar los resultados a las cajas de texto
+      emailInput.value = data.mail;
+      nombreInput.value = data.nombre;
+      apellidosInput.value = data.apellidos;
+      direccionInput.value = data.direccion
+      passInput.value = data.contrasena;
+    })
+    .catch(error => console.error('Error al cargar datos personales:', error));
 }
 
 // Función para cancelar un pedido solicitado
@@ -113,3 +152,4 @@ function cancelarPedido(numeroPedido) {
 
 // Mostrar la sección de "Mis Datos" por defecto al cargar la página
 mostrarDatos();
+window.addEventListener('load', cargarDatosPersonales);

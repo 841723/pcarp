@@ -71,9 +71,14 @@ class DAOusuario {
     async actualizar(mail,nombre,apellidos,direccion,pass) {
         // Implementación para actualizar un usuario en la base de datos
         try {
-            const query = 'UPDATE usuario SET nombre = $2, apellidos = $3, direccion = $4, contrasena = $5 WHERE email = $1';
+            const query = 'UPDATE usuario SET nombre = $2, apellidos = $3, direccion = $4, contrasena = $5 WHERE mail = $1 RETURNING *';
             const values = [mail, nombre, apellidos, direccion, pass];
-            await this.database.query(query, values);
+           const result= await this.database.query(query, values);
+        if (result.rows.length === 0) {
+            console.log("no se ha actualizado");
+            return null;
+        }
+        return result.rows[0];
         } catch (error) {
             throw error;
         }
@@ -103,7 +108,6 @@ class DAOusuario {
         try {
             // Realiza la consulta a la base de datos para obtener el usuario con el ID proporcionado
             const result = await this.database.query('SELECT * FROM usuario WHERE mail = $1', [mail]);
-            console.log(result.rows[0]);
             if (result.rows.length === 0) {
                 return null;
             }
