@@ -14,27 +14,26 @@ function mostrarPedidos() {
   zonaPedidos.style.display = 'block';
 }
 
-function mostrarContrasena() {
+function alterContrasena() {
   var x = document.getElementById("pass-save");
   var icono = document.querySelector('.eye-icon');
-
-  if (x.type === "pass") {
+  if (x.type === "password") {
       x.type = "text";
       icono.classList.remove('bx-hide');
       icono.classList.add('bx-show');
   } else {
-      x.type = "pass";
+      x.type = "password";
       icono.classList.remove('bx-show');
       icono.classList.add('bx-hide');
   }
 }
 // Función para obtener y mostrar los pedidos del cliente
-function obtenerPedidosCliente() {
-  fetch('/api/pedidos') // Supongamos que el servidor tiene una API que devuelve los pedidos del cliente
-      .then(response => response.json())
-      .then(data => organizarPedidos(data))
-      .catch(error => console.error('Error al obtener pedidos:', error));
-}
+// function obtenerPedidosCliente() {
+//   fetch('/api/pedidos') // Supongamos que el servidor tiene una API que devuelve los pedidos del cliente
+//       .then(response => response.json())
+//       .then(data => organizarPedidos(data))
+//       .catch(error => console.error('Error al obtener pedidos:', error));
+// }
 
 // Función para organizar y mostrar los pedidos en las secciones correspondientes
 function organizarPedidos(pedidos) {
@@ -85,11 +84,14 @@ function organizarPedidos(pedidos) {
 }
 
 function updateUser(){
-  const email = document.querySelector(".signup .input[type='email']").value;
+  console.log("updateUseraaaaaaa");
+  const email = document.getElementById("email").value;
   const nombre = document.getElementById('nombre').value
   const apellidos = document.getElementById('apellidos').value
   const direccion = document.getElementById('direccion').value
   const pass = document.getElementById('pass').value
+  console.log("updateUser");
+  console.log(email + " " + nombre + " " + apellidos + " " + direccion + " " + pass);
   const mailCodificado = encodeURIComponent(email);
   const nombreCodificado = encodeURIComponent(nombre);
   const apellidosCodificado = encodeURIComponent(apellidos);
@@ -107,7 +109,7 @@ function cancelarPedido(numeroPedido) {
 }
 
 // Llamar a la función para obtener y mostrar los pedidos del cliente al cargar la página
-document.addEventListener('DOMContentLoaded', obtenerPedidosCliente);
+// document.addEventListener('DOMContentLoaded', obtenerPedidosCliente);
 
 // Mostrar la sección de "Mis Datos" por defecto al cargar la página
 mostrarDatos();

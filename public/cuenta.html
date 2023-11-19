@@ -48,15 +48,15 @@
                 <label for="direccion">Dirección:</label>
                 <input class="text" type="direccion" id="direccion" name="direccion">
 
-                <label for="password">Cambiar contraseña:</label>
+                <label for="pass-save">Cambiar contraseña:</label>
                 <div class="field input-field">
                     <div class="password-container">
-                        <input type="password" placeholder="Password" class="password" id="pass" required>
-                        <i class='bx bx-hide eye-icon' onclick="mostrarContrasena()"></i>
+                        <input type="password" placeholder="Password" class="password" id="pass-save" required>
+                        <i class='bx bx-hide eye-icon' onclick="alterContrasena()"></i>
                     </div>
                 </div>
                 
-                <button type="submit" class="save" href="#" onclick="updateUser()">Guardar Cambios</button>
+                <button type="submit" class="save" onclick="updateUser()">Guardar Cambios</button>
             </form>
         </div>
 

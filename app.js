@@ -26,127 +26,127 @@ app.listen(3000, () => {
 
 app.get('/consulta1', (req, res) => {
     // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
-    client.query(`SELECT * FROM public.usuario`, (error, result) => {
-      if (error) {  // Si hay un error, se lanza una excepción.
-        throw error;
-      }
-      // Envía los resultados como respuesta al cliente en formato JSON.
-    //   res.send(result.rows);
-      res.json(result.rows);
-    });
-  });
-
-
-  app.get('/endpoint', (req, res) => {
-    const data = req.query.data; // Aquí obtendrás el string enviado
-  
-
-    const daoP = new DAOPedido(client);
-    if (data=="") {
-      daoP.obtenerTodos()
-      .then((resultadoObtenido) => {
-        res.json(resultadoObtenido);
-      })
-      .catch((error) => {
-        console.error(error); // Manejo de errores
-      });
+  client.query(`SELECT * FROM public.usuario`, (error, result) => {
+    if (error) {  // Si hay un error, se lanza una excepción.
+      throw error;
     }
-    else {
-      daoP.obtenerPorId(data)
-      .then((resultadoObtenido) => {
-        res.json(resultadoObtenido);
-      })
-      .catch((error) => {
-        console.error(error); // Manejo de errores
-      });
-    }
+    // Envía los resultados como respuesta al cliente en formato JSON.
+  //   res.send(result.rows);
+    res.json(result.rows);
   });
+});
 
-  app.get('/top_selling', (req, res) => {
-    const daoP = new DAOProducto(client);
-    daoP.obtenerMasVendidos(4)
-      .then((resultadoObtenido) => {
-        res.json(resultadoObtenido);
-      })
-      .catch((error) => {
-        console.error(error); // Manejo de errores
-      });
-  });
-  
-  app.get('/new_products', (req, res) => {
-    const daoP = new DAOProducto(client);
-    daoP.obtenerRandom(4)
-      .then((resultadoObtenido) => {
-        res.json(resultadoObtenido);
-      })
-      .catch((error) => {
-        console.error(error); // Manejo de errores
-      });
-  });
 
-  app.get('/user_mail', (req, res) => {
-    const data = req.query.data; // Aquí obtendrás el string enviado
-    const daoU = new DAOusuario(client);
-    daoU.obtenerPorMail(data)
-      .then((resultadoObtenido) => {
-        res.json(resultadoObtenido);
-      })
-      .catch((error) => {
-        console.error(error); // Manejo de errores
-      });
-  });
+app.get('/endpoint', (req, res) => {
+  const data = req.query.data; // Aquí obtendrás el string enviado
 
-  app.get('/create_user_by_mail', (req, res) => { 
-    const mail = req.query.mail; // Aquí obtendrás el string enviado
-    const pass = req.query.pass; // Aquí obtendrás el string enviado
-    const daoU = new DAOusuario(client);
 
-    daoU.insertar_mail_pass(mail,pass)
-    res.redirect('/login.html');
-  });
-
-  app.get('/update_pass_by_mail', (req, res) => { 
-    const mail = req.query.mail; // Aquí obtendrás el string enviado
-    const pass = req.query.pass; // Aquí obtendrás el string enviado
-    const daoU = new DAOusuario(client);
-
-    daoU.actualizar_pass(mail,pass)
-    res.redirect('/login.html');
-  });
-
-  app.get('/update_user_by_mail', (req, res) => {
-    const mail = req.query.mail; // Aquí obtendrás el string enviado
-    const nombre = req.query.nombre; // Aquí obtendrás el string enviado
-    const apellidos = req.query.apellidos; // Aquí obtendrás el string enviado
-    const direccion = req.query.direccion; // Aquí obtendrás el string enviado
-    const pass = req.query.pass; // Aquí obtendrás el string enviado
-    // const daoU = new DAOusuario(client);
-
-    // daoU.
-    actualizar(mail,nombre,apellidos,direccion,pass)
+  const daoP = new DAOPedido(client);
+  if (data=="") {
+    daoP.obtenerTodos()
     .then((resultadoObtenido) => {
       res.json(resultadoObtenido);
     })
     .catch((error) => {
       console.error(error); // Manejo de errores
     });
-  });
+  }
+  else {
+    daoP.obtenerPorId(data)
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+  }
+});
 
-  app.get('/search_products', (req, res) => {
-    const tipo = req.query.tipo; // Aquí obtendrás el string enviado
-    const cantidad = req.query.cantidad; // Aquí obtendrás el string enviado
-    const order   = req.query.order; // Aquí obtendrás el string enviado
-    const precio_max = req.query.precio_max; // Aquí obtendrás el string enviado
-    const precio_min = req.query.precio_min; // Aquí obtendrás el string enviado
-    const brands_names = req.query.brands_names; // Aquí obtendrás el string enviado
-    const daoP = new DAOProducto(client);
+app.get('/top_selling', (req, res) => {
+  const daoP = new DAOProducto(client);
+  daoP.obtenerMasVendidos(4)
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+});
 
-    daoP.obtenerPorTipo(tipo,cantidad,order,precio_max,precio_min,brands_names)
-  
-      .then((resultadoObtenido) => {
-        res.json(resultadoObtenido);
-      })
-      .catch((error) => {
-        console.error(error); // Manejo de errores
-      });
+app.get('/new_products', (req, res) => {
+  const daoP = new DAOProducto(client);
+  daoP.obtenerRandom(4)
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+});
+
+app.get('/user_mail', (req, res) => {
+  const data = req.query.data; // Aquí obtendrás el string enviado
+  const daoU = new DAOusuario(client);
+  daoU.obtenerPorMail(data)
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+});
+
+app.get('/create_user_by_mail', (req, res) => { 
+  const mail = req.query.mail; // Aquí obtendrás el string enviado
+  const pass = req.query.pass; // Aquí obtendrás el string enviado
+  const daoU = new DAOusuario(client);
+
+  daoU.insertar_mail_pass(mail,pass)
+  res.redirect('/login.html');
+});
+
+app.get('/update_pass_by_mail', (req, res) => { 
+  const mail = req.query.mail; // Aquí obtendrás el string enviado
+  const pass = req.query.pass; // Aquí obtendrás el string enviado
+  const daoU = new DAOusuario(client);
+
+  daoU.actualizar_pass(mail,pass)
+  res.redirect('/login.html');
+});
+
+app.get('/update_user_by_mail', (req, res) => {
+  const mail = req.query.mail; // Aquí obtendrás el string enviado
+  const nombre = req.query.nombre; // Aquí obtendrás el string enviado
+  const apellidos = req.query.apellidos; // Aquí obtendrás el string enviado
+  const direccion = req.query.direccion; // Aquí obtendrás el string enviado
+  const pass = req.query.pass; // Aquí obtendrás el string enviado
+  // const daoU = new DAOusuario(client);
+
+  // daoU.
+  actualizar(mail,nombre,apellidos,direccion,pass)
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
   });
+});
+
+app.get('/search_products', (req, res) => {
+  const tipo = req.query.tipo; // Aquí obtendrás el string enviado
+  const cantidad = req.query.cantidad; // Aquí obtendrás el string enviado
+  const order   = req.query.order; // Aquí obtendrás el string enviado
+  const precio_max = req.query.precio_max; // Aquí obtendrás el string enviado
+  const precio_min = req.query.precio_min; // Aquí obtendrás el string enviado
+  const brands_names = req.query.brands_names; // Aquí obtendrás el string enviado
+  const daoP = new DAOProducto(client);
+
+  daoP.obtenerPorTipo(tipo,cantidad,order,precio_max,precio_min,brands_names)
+
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+});
