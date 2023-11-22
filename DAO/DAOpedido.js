@@ -37,10 +37,10 @@ class DAOpedido {
             throw error;
         }
     }
-    async insertar(pedido) {
+    async insertar(id_usuario, fecha, fecha_llegada, estado) {
         try {
             const query = 'INSERT INTO pedido (id_usuario, fecha, fecha_llegada, estado) VALUES ($1, $2, $3, $4) RETURNING id_pedido';
-            const values = [pedido.id_usuario, pedido.fecha, pedido.fechaLlegada, pedido.estado];
+            const values = [id_usuario, fecha, fechaLlegada, estado];
             const result = await this.database.query(query, values);
             return result.rows[0].id_pedido;
         } catch (error) {
@@ -48,10 +48,10 @@ class DAOpedido {
         }
     }
 
-    async actualizar(pedido) {
+    async actualizar(id_usuario, fecha, fechaLlegada, estado) {
         try {
             const query = 'UPDATE pedido SET id_usuario = $1, fecha = $2, fecha_llegada = $3, estado = $4 WHERE id_pedido = $5';
-            const values = [pedido.id_usuario, pedido.fecha, pedido.fechaLlegada, pedido.estado, pedido.idPedido];
+            const values = [id_usuario, fecha, fechaLlegada, estado, idPedido];
             await this.database.query(query, values);
         } catch (error) {
             throw error;

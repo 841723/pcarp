@@ -22,7 +22,9 @@ header {
     color: white;
     text-align: center;
     padding: 1em;
+    height: 15vh; /* Adjust the height as needed */
 }
+
 
 main {
     display: flex;

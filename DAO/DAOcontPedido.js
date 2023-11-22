@@ -23,36 +23,21 @@ class DAOcont_pedido {
 
     async obtenerPorId(id) {
         try {
-            const result = await this.database.query('SELECT * FROM contenido_pedido WHERE id_contenido_pedido = $1', [id]);
+            const result = await this.database.query('SELECT * FROM contenido_pedido WHERE id_pedido = $1', [id]);
 
             if (result.rows.length === 0) {
                 return null;
             }
-
-            const contenido_pedido = result.rows[0];
-            const res = new VOcontenido_pedido(contenido_pedido.id_contenido_pedido, contenido_pedido.fecha, contenido_pedido.fecha_llegada, contenido_pedido.estado);
-
-            return [res];
+            return result.rows;
         } catch (error) {
             throw error;
         }
     }
-    async insertar(contenido_pedido) {
+    async insertar(id_pedido, id_producto, cantidad) {
         try {
-            const query = 'INSERT INTO contenido_pedido (fecha, fecha_llegada, estado) VALUES ($1, $2, $3) RETURNING id_contenido_pedido';
-            const values = [contenido_pedido.fecha, contenido_pedido.fechaLlegada, contenido_pedido.estado];
+            const query = 'INSERT INTO contenido_pedido (id_pedido, id_producto, cantidad) VALUES ($1, $2, $3)';
+            const values = [id_pedido, id_producto, cantidad];
             const result = await this.database.query(query, values);
-            return result.rows[0].id_contenido_pedido;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async actualizar(contenido_pedido) {
-        try {
-            const query = 'UPDATE contenido_pedido SET fecha = $1, fecha_llegada = $2, estado = $3 WHERE id_contenido_pedido = $4';
-            const values = [contenido_pedido.fecha, contenido_pedido.fechaLlegada, contenido_pedido.estado, contenido_pedido.idcontenido_pedido];
-            await this.database.query(query, values);
         } catch (error) {
             throw error;
         }
@@ -60,7 +45,7 @@ class DAOcont_pedido {
 
     async eliminar(id) {
         try {
-            const query = 'DELETE FROM contenido_pedido WHERE id_contenido_pedido = $1';
+            const query = 'DELETE FROM contenido_pedido WHERE id_pedido = $1';
             const values = [id];
             await this.database.query(query, values);
         } catch (error) {
