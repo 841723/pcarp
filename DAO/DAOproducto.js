@@ -13,7 +13,15 @@ class DAOproducto {
                 return null;
             }
 
-            const res = result.rows.map((producto) => new VOproducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.stock));
+            // this.id_producto = id_producto;
+            // this.marca = marca;
+            // this.modelo = modelo;
+            // this.precio = precio;
+            // this.descripcion = descripcion;
+            // this.stock = stock;
+            // this.ventas = 0;
+            // this.tipo = tipo;
+            const res = result.rows.map((producto) => new VOproducto(producto.id_producto, producto.marca, producto.modelo, producto.precio, producto.descripcion, producto.stock, producto.ventas, producto.tipo));
 
             return res;
         } catch (error) {
@@ -30,7 +38,7 @@ class DAOproducto {
             }
 
             const producto = result.rows[0];
-            const res = new VOproducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.stock);
+            const res = new VOproducto(producto.id_producto, producto.marca, producto.modelo, producto.precio, producto.descripcion, producto.stock, producto.ventas, producto.tipo);
 
             return res;
         } catch (error) {
@@ -125,13 +133,18 @@ class DAOproducto {
                 const query = 'SELECT * FROM producto WHERE ' + precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT $1';
                 const values = [cantidad];
                 const result = await this.database.query(query, values);
-                return result.rows;
+
+                const res = result.rows.map((producto) => new VOproducto(producto.id_producto, producto.marca, producto.modelo, producto.precio, producto.descripcion, producto.stock, producto.ventas, producto.tipo));
+                return res;
+    
             }
             else { 
                 const query = 'SELECT * FROM producto WHERE tipo = $1 AND '+ precio_query + ' AND ' + brands_names + ' ' + order_query + ' LIMIT $2';
                 const values = [tipo,cantidad];
                 const result = await this.database.query(query, values);
-                return result.rows;
+                
+                const res = result.rows.map((producto) => new VOproducto(producto.id_producto, producto.marca, producto.modelo, producto.precio, producto.descripcion, producto.stock, producto.ventas, producto.tipo));
+                return res;
             }
         } catch (error) {
             throw error;

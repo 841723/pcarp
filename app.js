@@ -36,6 +36,17 @@ app.get('/consulta1', (req, res) => {
   });
 });
 
+app.get('/consulta2', (req, res) => {
+  const daoP = new DAOProducto(client);
+  daoP.obtenerTodos()
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+});
+
 
 app.get('/endpoint', (req, res) => {
   const data = req.query.data; // Aquí obtendrás el string enviado

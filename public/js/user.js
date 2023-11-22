@@ -94,8 +94,8 @@ function crearTarjeta(item,new_product) {
     i_cart = document.createElement('i');
     i_cart.classList.add("fa");
     i_cart.classList.add("fa-shopping-cart");
-    btn_cart.appendChild(i_cart);
     btn_cart.textContent = "añadir al carrito";
+    btn_cart.appendChild(i_cart);
     div_cart.appendChild(btn_cart);
 
 
