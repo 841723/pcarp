@@ -50,8 +50,6 @@ app.get('/consulta2', (req, res) => {
 
 app.get('/endpoint', (req, res) => {
   const data = req.query.data; // Aquí obtendrás el string enviado
-
-
   const daoP = new DAOPedido(client);
   if (data=="") {
     daoP.obtenerTodos()
@@ -132,9 +130,7 @@ app.get('/update_user_by_mail', (req, res) => {
   const direccion = req.query.direccion; // Aquí obtendrás el string enviado
   const pass = req.query.pass; // Aquí obtendrás el string enviado
   const daoU = new DAOusuario(client);
-
-
- daoU.actualizar(mail,nombre,apellidos,direccion,pass)
+  daoU.actualizar(mail,nombre,apellidos,direccion,pass)
   .then((resultadoObtenido) => {
     res.json(resultadoObtenido);
   })

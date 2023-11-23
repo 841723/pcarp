@@ -40,7 +40,9 @@ function crearTarjeta(item) {
 
     p_tipo = document.createElement('p');
     p_tipo.classList.add("product-category");
-    p_tipo.textContent = item["tipo"].replace(/_/g, ' ')
+    p_tipo_text_content = item["tipo"]
+    p_tipo_text_content.replace(/_/g, ' ')
+    p_tipo.textContent = p_tipo_text_content;
     
     h3_nombre = document.createElement('h3');
     h3_nombre.classList.add("product-name");
@@ -166,7 +168,6 @@ function hot_deals () {
     console.log(selected_brands)
     brands_names = []
     for (let i = 0; i < selected_brands.length; i++) {
-        // console.log(selected_brands[i].parentElement.textContent.trim())
         brands_names.push(selected_brands[i].parentElement.textContent.trim())
     }
     console.log(brands_names)
@@ -219,6 +220,11 @@ num_show_prod.addEventListener('change', () => {
 sort_by_show = document.getElementById('sort_by_show')
 sort_by_show.addEventListener('change', () => {
     selectedOptionText = sort_by_show.options[sort_by_show.selectedIndex].text;
+    hot_deals();
+});
+
+search_btn_user = document.getElementById('search-btn-user')
+search_btn_user.addEventListener('click', () => {
     hot_deals();
 });
 

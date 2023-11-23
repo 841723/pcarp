@@ -2173,3 +2173,28 @@ textarea.input {
   display: block;
 }
 
+
+.searchbutton button {
+  position: relative;
+  background-color: #e06a1b;
+  color: #FFF;
+  border: none;
+  border-radius: 20px;
+  border: solid transparent 3px;
+
+  height: 40px;
+  width: 100%;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 22px;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.searchbutton button:hover {
+  background-color: #FFF;
+  color: #e06a1b;
+  border-color: #fb7319;
+  /* transition: 0.2s all; */
+  /* -webkit-transition: 0.2s all; */
+}
