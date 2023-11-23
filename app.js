@@ -148,7 +148,7 @@ app.get('/search_products', (req, res) => {
   const brands_names = req.query.brands_names; // Aquí obtendrás el string enviado
   const daoP = new DAOProducto(client);
 
-  daoP.obtenerPorTipo(tipo,cantidad,order,precio_max,precio_min,brands_names)
+  daoP.obtener(tipo,cantidad,order,precio_max,precio_min,brands_names)
 
     .then((resultadoObtenido) => {
       res.json(resultadoObtenido);
@@ -160,8 +160,33 @@ app.get('/search_products', (req, res) => {
 
 
 app.get('/products', (req, res) => {
-  const daoP = new DAOproducto(client);
+  const daoP = new DAOProducto(client);
   daoP.obtenerTodos()
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
+
+app.get('/products_tipo', (req, res) => {
+  const tipo = req.query.tipo; // Aquí obtendrás el string enviado
+
+  const daoP = new DAOProducto(client);
+  daoP.obtenerPorTipo(tipo)
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
+
+app.get('/products_random', (req, res) => {
+
+  const daoP = new DAOProducto(client);
+  daoP.obtenerRandom(1)
   .then((resultadoObtenido) => {
     res.json(resultadoObtenido);
   })

@@ -28,3 +28,10 @@ function cargarDatosPersonales() {
 // Llamar a la función para obtener y mostrar los pedidos del cliente al cargar la página
 // document.addEventListener('DOMContentLoaded', obtenerPedidosCliente);
 window.addEventListener('load', cargarDatosPersonales);
+
+
+order_submit = document.getElementById('order_submit');
+order_submit.addEventListener('click', function() {
+    event.preventDefault();
+    
+})

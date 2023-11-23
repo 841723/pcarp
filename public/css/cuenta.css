@@ -1,29 +1,6 @@
 /* Google Fonts - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em;
-    height: 15vh; /* Adjust the height as needed */
-}
 
 
 main {
@@ -38,19 +15,32 @@ button{
 
 .menu {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
     background-color: #eee;
     padding: 10px;
-    margin-right: 20px;
-    border: 5px solid #ccc;
-    border-radius: 5px;
     max-height: 200px; /* Ajusta según sea necesario */
     overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+    
+}
+
+.menu button {
+    background-color: #fb7319;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 5px;
+    border-radius: 5px;
 }
 
 #datos-personales {
+    display: flex;
+    justify-content: center;
     flex-grow: 1;
-    margin-top: 20px;
+    margin-top: 5px;
     border: 1px solid #ccc;
     padding: 15px;
 }
@@ -120,6 +110,9 @@ footer {
 .button-container {
     display: flex;
 }
+.button-container button {
+    min-width: 300px
+}
 
 .save,
 .save2 {
@@ -129,7 +122,6 @@ footer {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 300px;
     margin-right: 10px; /* Espaciado entre los botones, ajusta según sea necesario */
 }
 
@@ -139,13 +131,8 @@ footer {
     color: white;
     border-radius: 5px;
     cursor: pointer;
-    max-width: 200px;
     padding: 15px;
     border-radius: 10px;
-}
-.logo {
-    width: 12%; /* Ajusta el tamaño del logo según tus necesidades */
-    min-width: 100px;
 }
 
 .input-field {
@@ -168,8 +155,12 @@ footer {
     padding: 5px;
 }
 .text {
+    display: flex;
+    justify-content: space-between;
     max-width: 600px;
     overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
     float: right; /* Hace que el elemento flote a la izquierda */
     margin-left: 0
 }
+
+

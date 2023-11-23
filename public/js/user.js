@@ -41,7 +41,7 @@ function crearTarjeta(item,new_product) {
     h3_nombre = document.createElement('h3');
     h3_nombre.classList.add("product-name");
     ah3_nombre = document.createElement('a');
-    ah3_nombre.href = "#";
+    ah3_nombre.href = "product.html";
     ah3_nombre.textContent = item["modelo"];
     h3_nombre.appendChild(ah3_nombre);
 

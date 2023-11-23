@@ -12,23 +12,46 @@ class DAOproducto {
             if (result.rows.length === 0) {
                 return null;
             }
-
-            // this.id_producto = id_producto;
-            // this.marca = marca;
-            // this.modelo = modelo;
-            // this.precio = precio;
-            // this.descripcion = descripcion;
-            // this.stock = stock;
-            // this.ventas = 0;
-            // this.tipo = tipo;
-            const res = result.rows.map((producto) => new VOproducto(producto.id_producto, producto.marca, producto.modelo, producto.precio, producto.descripcion, producto.stock, producto.ventas, producto.tipo));
-
+            //id_producto, marca, modelo, precio, descuento, descripcion, ventas,stock, tipo
+            const res = result.rows.map((producto) => new VOproducto(producto.id_producto, 
+                                                                     producto.marca, 
+                                                                     producto.modelo, 
+                                                                     producto.precio,
+                                                                     producto.descuento, 
+                                                                     producto.descripcion,
+                                                                     producto.ventas,
+                                                                     producto.stock, 
+                                                                     producto.tipo))
+            
             return res;
         } catch (error) {
             throw error;
         }
     }
 
+    async obtenerPorTipo(tipo) {
+        try {
+            tipo = this.transform(tipo)
+            const result = await this.database.query('SELECT * FROM producto WHERE tipo = $1', [tipo]);
+
+            if (result.rows.length === 0) {
+                return null;
+            }
+
+            const res = result.rows.map((producto) => new VOproducto(producto.id_producto, 
+                producto.marca, 
+                producto.modelo, 
+                producto.precio,
+                producto.descuento, 
+                producto.descripcion,
+                producto.ventas,
+                producto.stock, 
+                producto.tipo))
+            return res;
+        } catch (error) {
+            throw error;
+        }
+    }
     async obtenerPorId(id) {
         try {
             const result = await this.database.query('SELECT * FROM producto WHERE id_producto = $1', [id]);
@@ -98,7 +121,7 @@ class DAOproducto {
         }
     }
 
-    async obtenerPorTipo(tipo,cantidad,order,precio_max,precio_min,brands_names) {
+    async obtener(tipo,cantidad,order,precio_max,precio_min,brands_names) {
         try {
             var order_query = "";
             switch (order) {
@@ -128,7 +151,6 @@ class DAOproducto {
             else {
                 var brands_query = 'marca IS NOT NULL';
             }
-
             tipo = this.transform(tipo)
 
             if (tipo == "none" ) {
@@ -151,7 +173,7 @@ class DAOproducto {
             }
             else { 
 
-                console.log('SELECT * FROM producto WHERE tipo=\''+tipo+'\' AND '+ precio_query + ' ' +brands_query + ' ' + order_query + ' LIMIT '+ cantidad)
+                // console.log('SELECT * FROM producto WHERE tipo=\''+tipo+'\' AND '+ precio_query + ' ' +brands_query + ' ' + order_query + ' LIMIT '+ cantidad)
                 const query = 'SELECT * FROM producto WHERE (tipo= $1) AND '+ precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT $2';
                 const values = [tipo,cantidad];
                 const result = await this.database.query(query, values);

@@ -2,6 +2,7 @@ function crearTarjeta(item) {
     div_first = document.createElement('div');
     div_first.classList.add("col-md-4");
     div_first.classList.add("col-xs-6");
+    div_first.style.marginBottom = "55px";
 
     div_product = document.createElement('div');
     div_product.classList.add("product");
@@ -47,7 +48,7 @@ function crearTarjeta(item) {
     h3_nombre = document.createElement('h3');
     h3_nombre.classList.add("product-name");
     ah3_nombre = document.createElement('a');
-    ah3_nombre.href = "#";
+    ah3_nombre.href = "product.html";
     ah3_nombre.textContent = item["modelo"];
     h3_nombre.appendChild(ah3_nombre);
 
@@ -149,7 +150,7 @@ function foto(tipo) {
     }
 }
 
-function hot_deals () {
+function view_products () {
     num_show_prod = document.getElementById('num_show_prod')
     number_productos = num_show_prod.options[num_show_prod.selectedIndex].text
     sort_by_show = document.getElementById('sort_by_show')
@@ -170,7 +171,6 @@ function hot_deals () {
         brands_names.push(selected_brands[i].parentElement.textContent.trim())
     }
     
-
     search_products(search_for,number_productos,order_by,price_max,price_min,brands_names)
 }
    
@@ -178,19 +178,9 @@ function hot_deals () {
 function search_products (tipo,cantidad,order,precio_max,precio_min,brands_names) {
     stringCodificado = encodeURI("tipo="+tipo+"&cantidad="+cantidad+"&order="+order+
                                  "&precio_max="+precio_max+"&precio_min="+precio_min+"&brands_names="+brands_names);
+
     const url = `/search_products?${stringCodificado}`;
-
-    div_sep_vert = document.createElement('div').
-    div_sep_vert.classList.add("clearfix");
-    div_sep_vert.classList.add("visible-sm");
-    div_sep_vert.classList.add("visible-xs");
-
-    div_sep_horiz = document.createElement('div').
-    div_sep_horiz.classList.add("clearfix");
-    div_sep_horiz.classList.add("visible-md");
-    div_sep_horiz.classList.add("visible-lg");
-
-    
+ 
     fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -200,13 +190,6 @@ function search_products (tipo,cantidad,order,precio_max,precio_min,brands_names
         data.forEach(item => {
             const div_product = crearTarjeta(item);
             product_container.appendChild(div_product);
-            if (i % 3 == 0 && i != 0) {
-                
-                product_container.appendChild(div_sep_horiz);
-            }
-            else {
-                product_container.appendChild(div_sep_vert);
-            }
             i++
         });
         if (data.length == 0) {
@@ -236,18 +219,18 @@ function search_products (tipo,cantidad,order,precio_max,precio_min,brands_names
 num_show_prod = document.getElementById('num_show_prod')
 num_show_prod.addEventListener('change', () => {
     selectedOptionText = num_show_prod.options[num_show_prod.selectedIndex].text;
-    hot_deals();
+    view_products();
 });
 
 sort_by_show = document.getElementById('sort_by_show')
 sort_by_show.addEventListener('change', () => {
     selectedOptionText = sort_by_show.options[sort_by_show.selectedIndex].text;
-    hot_deals();
+    view_products();
 });
 
 search_btn_user = document.getElementById('search-btn-user')
 search_btn_user.addEventListener('click', () => {
-    hot_deals();
+    view_products();
 });
 
 
@@ -260,12 +243,78 @@ navbar_buttons.forEach(navbar_button => {
         }
         navbar_button.classList.add("active");
         console.log(search_for)
-        hot_deals();
+        view_products();
     })
 });
 
+function selectFirstProductType() {
+    navbar_buttons[sessionStorage.getItem('product_type')].classList.add("active");
+    search_for = navbar_buttons[sessionStorage.getItem('product_type')].textContent.trim();
+}
 search_for = "none"
-hot_deals();
+selectFirstProductType()
+
+view_products();
 
 
+
+
+search_btn_header = document.getElementById("search-btn-header")
+search_btn_header.addEventListener('click', () => {
+    event.preventDefault()
+    
+    search_header_header = document.getElementById("search-input-header")
+    search_header = search_header_header.value
+    if (search_header == "") {
+        return;
+    }
+
+    product_container = document.getElementById('product-container');
+    product_container.innerHTML = ""
+    var i = 0
+    showing_number = document.getElementById('showing-number');
+    showing_number.style.visibility = "hidden";
+    
+    navbar_buttons = document.querySelectorAll('.navbar-btn')
+    tipo = navbar_buttons[document.getElementById('search-form-header').value].textContent.trim()
+    console.log(tipo)
+
+    stringCodificado = encodeURI("tipo="+tipo);
+    const url = `/products_tipo?${stringCodificado}`;    
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(item => {
+            for (var key in item) {
+                if (key!="id_pedido" || key!="ventas" || key!="stock" || key!="descuento" || key!="precio" ) {
+                  // se mira si aparece el contenido buscado en alguno de los campos de los productos
+                  if (item[key].toString().toLowerCase().includes(search_header.toString().toLowerCase())) {
+                    console.log(item)
+                    const div_product = crearTarjeta(item);
+                    product_container.appendChild(div_product);
+                    i++
+                  }
+                }
+              }
+        });
+        if (i == 0) {
+            empty_div = document.createElement('div');
+            h2_empty = document.createElement('h2');
+            h2_empty.textContent = "No hay productos que coincidan con tu busqueda";
+            empty_div.appendChild(h2_empty);
+            product_container.appendChild(empty_div);
+        }
+        else if (i % 3 != 0) {
+            for (let j = 0; j < 3 - (i % 3); j++) {
+     
+                const empty_div = crearTarjeta(data[0],false);
+                product_container.appendChild(empty_div); 
+            }
+        }
+        // codigo en js que indica cuantos objetos hay en la lista data
+        showing_number.style.visibility = "visible";
+
+        showing_number.textContent = "Mostrando " + i + " productos";
+    })
+});
 

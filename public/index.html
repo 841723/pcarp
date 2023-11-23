@@ -34,7 +34,6 @@
 
     </head>
 	<body>
-		<!-- HEADER -->
 		<header>
 			<!-- TOP HEADER -->
 			<div id="top-header">
@@ -42,25 +41,11 @@
 					<ul class="header-links pull-left">
 						<li><a href="#"><i class="fa fa-phone"></i> 968 977 977</a></li>
 						<li><a href="#"><i class="fa fa-envelope-o"></i> contacto@pcarp.es</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> Paseo de la Independencia 56 50004 Zaragoza España</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> Calle Azoque 56 50004 Zaragoza España</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<div id="adminText" class="fa fa-lock"> ADMIN</div>
-						<!-- <li><a><i class="fa fa-lock"></i> admin</a></li> -->
-
-							<script>
-								// Obtén el rol del usuario desde el servidor o cualquier otra fuente
-								const rolUsuario = 'pauli'; // hay que hacer un getUser para ver si es admin
-
-								// Mostrar el texto "ADMIN" solo si el usuario es un administrador
-								if (rolUsuario === 'admin') {
-									document.getElementById('adminText').style.display = 'block';
-								}
-						  	</script>
-
-						<li><a id="loginpop" href="login.html"><i class="fa fa-user-o"></i> Mi Cuenta</a></li>
-						<!-- <li id="datosLi" style="display: none;"><a href="cuenta.html"><i class="fa fa-user-o"></i> Datos</a></li> -->
-						<li><a id="datosLi" href="cuenta.html" style="display: none;"><i class="fa fa-user-o"></i> Datos</a></li>
+						<li><a id="loginpop" href="login.html"><i class="fa fa-user-o"></i> Entrar</a></li>
+						<li><a id="datosLi" href="cuenta.html" style="display: none;"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
 					</ul>
 				</div>
 			</div>
@@ -84,10 +69,10 @@
 
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
-							<div class="header-search">
+							<div id="search-form-header" class="header-search">
 								<form>
 									<select class="input-select">
-										<option value="0">All Categories</option>
+										<option value="0">Todas</option>
 										<option value="1">Procesadores</option>
 										<option value="2">Placas Base</option>
 										<option value="3">Tarjetas Gráficas</option>
@@ -98,8 +83,8 @@
 										<option value="8">Ventiladores</option>
 
 									</select>
-									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+									<input class="input" placeholder="Escriba su busqueda">
+									<button id="search-btn-header" class="search-btn">Buscar</button>
 								</form>
 							</div>
 						</div>
@@ -110,7 +95,7 @@
 							<div class="header-ctn">
 								<!-- Wishlist -->
 								<div>
-									<a href="wish.html">
+									<a href="wish.html" style="width: auto;">
 										<i class="fa fa-heart-o"></i>
 										<span>Lista de deseos</span>
 									</a>
@@ -151,35 +136,25 @@
 			<div class="container">
 				<!-- responsive-nav -->
 				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li data-target="#hot_deals"><a href="store.html">Hot Deals</a></li>
-						<li data-target="#proces"><a href="store.html">Procesadores</a></li>
-						<li data-target="#placbase"><a href="store.html">Placas Base</a></li>
-						<li data-target="#tarjgraf"><a href="store.html">Tarjetas Gráficas</a></li>
-						<li data-target="#memram"><a href="store.html">Memoria RAM</a></li>
-						<li data-target="#alamace"><a href="store.html">Almacenamiento</a></li>
-						<li data-target="#fuentalimen"><a href="store.html">Fuentes Alimentación</a></li>
-						<li data-target="#otros"><a href="store.html">Otros</a></li>
-					</ul>
-					<!-- /NAV -->
+				<!-- NAV -->
+				<ul class="main-nav nav navbar-nav">
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',0)" ><a href="./store.html">Destacados</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',1)" ><a href="./store.html">Procesadores</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',2)" ><a href="./store.html">Placas Base</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',3)" ><a href="./store.html">Tarjetas Gráficas</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',4)" ><a href="./store.html">Memorias RAM</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',5)" ><a href="./store.html">Almacenamiento</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',6)" ><a href="./store.html">Fuentes Alimentación</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',7)" ><a href="./store.html">Ventiladores</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',8)" ><a href="./store.html">Cajas</a></li>
+				</ul>
+				<!-- /NAV -->
 				</div>
 				<!-- /responsive-nav -->
 			</div>
 			<!-- /container -->
 		</nav>
 		<!-- /NAVIGATION -->
-
-		<div class="usercontent">
-			<div data-content id="hot_deals"><h1>HOT DEALS</h1></div>
-			<div data-content id="proces"><h1>PROCESADORES</h1></div>
-			<div data-content id="placbase"><h1>PLACAS BASE</h1></div>
-			<div data-content id="tarjgraf"><h1>GRAFICAS</h1></div>
-			<div data-content id="memram"><h1>MEMORIA RAM</h1></div>
-			<div data-content id="alamace"><h1>ALMACENAMIENTO</h1></div>
-			<div data-content id="fuentalimen"><h1>FUENTE ALIMENTACION</h1></div>
-			<div data-content id="otros"><h1>OTROS</h1></div>
-		</div>
 
 		<!-- SECTION -->
 		<div class="section">
@@ -195,7 +170,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>Placas Base<br></h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a onclick="sessionStorage.setItem('product_type',2)" href="./store.html" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -209,21 +184,21 @@
 							</div>
 							<div class="shop-body">
 								<h3>Procesadores<br></h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a onclick="sessionStorage.setItem('product_type',1)" href="./store.html" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
 					<!-- /shop -->
 
 					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
+					<div class="col-md-4 col-xs-6" >
+						<div class="shop" >
 							<div class="shop-img">
 								<img src="https://thumb.pccomponentes.com/w-530-530/articles/42/423433/1604-nfortec-aegir-x-ventilador-cpu-140mm-opiniones.jpg" alt="" width="300" height="300">
 							</div>
 							<div class="shop-body">
-								<h3>Otros<br></h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<h3>Ventiladores<br></h3>
+								<a onclick="sessionStorage.setItem('product_type',7)" href="./store.html" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -282,7 +257,7 @@
 							<ul class="hot-deal-countdown">
 								<li>
 									<div>
-										<h3 id="days_countdown">02</h3>
+										<h3 id="days_countdown">0</h3>
 										<span>Days</span>
 									</div>
 								</li>
@@ -307,7 +282,8 @@
 							</ul>
 							<h2 class="text-uppercase">hot deal this week</h2>
 							<p>New Collection Up to 50% OFF</p>
-							<a class="primary-btn cta-btn" href="store.html">Shop now</a>
+							<a class="primary-btn cta-btn" href="store.html" onclick="sessionStorage.setItem('product_type',0)">Shop now</a>
+
 						</div>
 					</div>
 				</div>
@@ -412,25 +388,25 @@
 					<div class="row">
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">About Us</h3>
-								<p> Paloma Urueña</p>
+								<h3 class="footer-title">Sobre nosotros</h3>
+								<p> PC ARP, los mejores componentes del mercado.</p>
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>1734 Longo Road</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+34 848 848 184</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+									<li><a href="#"><i class="fa fa-phone"></i> 968 977 977</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i> contacto@pcarp.es</a></li>
+									<li><a href="#"><i class="fa fa-map-marker"></i> Calle Azoque 56 50004 Zaragoza España</a>
 								</ul>
 							</div>
 						</div>
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Categories</h3>
+								<h3 class="footer-title">Categorias</h3>
 								<ul class="footer-links">
-									<li><a href="#">HOT DEALS</a></li>
-									<li><a href="#">PROCESADORES</a></li>
-									<li><a href="#">GRAFICAS</a></li>
-									<li><a href="#">MEMORIA RAM</a></li>
-									<li><a href="#">ALMACENAMIENTO</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',0)">HOT DEALS</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',1)">PROCESADORES</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',3)">GRAFICAS</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',4)">MEMORIA RAM</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',5)">ALMACENAMIENTO</a></li>
 								</ul>
 							</div>
 						</div>
@@ -439,24 +415,24 @@
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Information</h3>
+								<h3 class="footer-title">Informacion</h3>
 								<ul class="footer-links">
-									<li><a href="#">About Us</a></li>
-									<li><a href="#">Contact Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
-									<li><a href="#">Orders and Returns</a></li>
-									<li><a href="#">Terms & Conditions</a></li>
+									<li><a href="#">Sobre nosotros</a></li>
+									<li><a href="#">Contacta con nosotros</a></li>
+									<li><a href="#">Q&A</a></li>
+									<li><a href="#">Cambios y Devoluciones</a></li>
+									<li><a href="#">Politica privacidad</a></li>
 								</ul>
 							</div>
 						</div>
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Service</h3>
+								<h3 class="footer-title">Servicio</h3>
 								<ul class="footer-links">
-									<li><a href="login.html">My Account</a></li>
-									<li><a href="checkout.html">View Cart</a></li>
-									<li><a href="wish.html">Wishlist</a></li>
+									<li><a href="login.html">Mi Cuenta</a></li>
+									<li><a href="checkout.html">Ver Carrito</a></li>
+									<li><a href="wish.html">Lista de deseos</a></li>
 									<li><a href="https://www.17track.net/es">Track My Order</a></li>
 								</ul>
 							</div>
@@ -498,21 +474,8 @@
 		<!-- /FOOTER -->
 
 
-		<!-- jQuery Plugins -->
-		<!-- <script src="js/jquery.min.js"></script>
-			<script src="js/jquery.zoom.min.js"></script> -->
-		<!-- <script src="./js/jquery.min.js"></script>
-			<script src="./js/slick.min.js"></script>
-			<script src="./js/nouislider.min.js"></script>
-			<script src="./js/jquery.zoom.min.js"></script>
-			<script src="./js/main.js"></script> -->
-			
-		<script src="./js/bootstrap.min.js"></script>
-
-
 		<script src="./js/main.js"></script>
-		<!-- <script src="./js/user.js"></script>
-		<script src="./js/index-tabs.js"></script> -->
+		<script src="./js/comun.js"></script>
 
 	</body>
 </html>
