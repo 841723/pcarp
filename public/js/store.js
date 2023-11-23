@@ -179,15 +179,35 @@ function search_products (tipo,cantidad,order,precio_max,precio_min,brands_names
     stringCodificado = encodeURI("tipo="+tipo+"&cantidad="+cantidad+"&order="+order+
                                  "&precio_max="+precio_max+"&precio_min="+precio_min+"&brands_names="+brands_names);
     const url = `/search_products?${stringCodificado}`;
+
+    div_sep_vert = document.createElement('div').
+    div_sep_vert.classList.add("clearfix");
+    div_sep_vert.classList.add("visible-sm");
+    div_sep_vert.classList.add("visible-xs");
+
+    div_sep_horiz = document.createElement('div').
+    div_sep_horiz.classList.add("clearfix");
+    div_sep_horiz.classList.add("visible-md");
+    div_sep_horiz.classList.add("visible-lg");
+
     
     fetch(url)
     .then(response => response.json())
     .then(data => {
         product_container = document.getElementById('product-container');
         product_container.innerHTML = ""
+        i = 0
         data.forEach(item => {
             const div_product = crearTarjeta(item);
-            product_container.appendChild(div_product); 
+            product_container.appendChild(div_product);
+            if (i % 3 == 0 && i != 0) {
+                
+                product_container.appendChild(div_sep_horiz);
+            }
+            else {
+                product_container.appendChild(div_sep_vert);
+            }
+            i++
         });
         if (data.length == 0) {
             console.log("no hay productos")
