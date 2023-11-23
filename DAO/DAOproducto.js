@@ -129,6 +129,8 @@ class DAOproducto {
                 var brands_query = 'marca IS NOT NULL';
             }
 
+            tipo = this.transform(tipo)
+
             if (tipo == "none" ) {
                 // console.log('SELECT * FROM producto WHERE ' + precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT '+ cantidad)
                 const query = 'SELECT * FROM producto WHERE ' + precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT $1';
@@ -148,8 +150,9 @@ class DAOproducto {
     
             }
             else { 
-                // console.log('SELECT * FROM producto WHERE tipo = '+tipo+' AND '+ precio_query + ' AND ' + brands_names + ' ' + order_query + ' LIMIT '+ cantidad)
-                const query = 'SELECT * FROM producto WHERE tipo = $1 AND '+ precio_query + ' AND ' + brands_names + ' ' + order_query + ' LIMIT $2';
+
+                console.log('SELECT * FROM producto WHERE tipo=\''+tipo+'\' AND '+ precio_query + ' ' +brands_query + ' ' + order_query + ' LIMIT '+ cantidad)
+                const query = 'SELECT * FROM producto WHERE (tipo= $1) AND '+ precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT $2';
                 const values = [tipo,cantidad];
                 const result = await this.database.query(query, values);
                 const res = result.rows.map((producto) => new VOproducto(producto.id_producto, 
@@ -165,6 +168,37 @@ class DAOproducto {
             }
         } catch (error) {
             throw error;
+        }
+    }
+
+    transform(tipo) {
+        switch (tipo) {
+        case "Procesadores":
+            return "procesador"
+
+        case "Placas Base":
+            return "placa_base"
+
+        case "Tarjetas Gráficas":
+            return "grafica"
+
+        case "Memorias RAM":
+            return "ram"
+        
+        case "Almacenamiento":
+            return "disco_duro"
+
+        case "Fuentes Alimentación":
+            return "fuente_alimentacion"
+        
+        case "Ventiladores":
+            return "ventilador" 
+        
+        case "Cajas":
+            return "caja_torre"
+        
+        default:
+            return "none"
         }
     }
 }

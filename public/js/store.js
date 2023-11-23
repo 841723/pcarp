@@ -190,7 +190,12 @@ function search_products (tipo,cantidad,order,precio_max,precio_min,brands_names
             product_container.appendChild(div_product); 
         });
         if (data.length == 0) {
-        
+            console.log("no hay productos")
+            empty_div = document.createElement('div');
+            h2_empty = document.createElement('h2');
+            h2_empty.textContent = "No hay productos que coincidan con tu busqueda";
+            empty_div.appendChild(h2_empty);
+            product_container.appendChild(empty_div);
         }
         else if (data.length % 3 != 0) {
             for (let i = 0; i < 3 - (data.length % 3); i++) {

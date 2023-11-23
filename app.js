@@ -31,7 +31,7 @@ app.get('/consulta1', (req, res) => {
       throw error;
     }
     // Envía los resultados como respuesta al cliente en formato JSON.
-  //   res.send(result.rows);
+    //   res.send(result.rows);
     res.json(result.rows);
   });
 });
