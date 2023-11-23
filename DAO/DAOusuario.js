@@ -112,7 +112,7 @@ class DAOusuario {
                 return null;
             }
             const usuario = result.rows[0];
-            return usuario;
+            // return usuario;
             const res = new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion);
             return res;
 
