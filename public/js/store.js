@@ -165,22 +165,19 @@ function hot_deals () {
     if (order_by == "Mas caros primero") { order_by = "precio_desc" }
 
     selected_brands = document.getElementById('checkbox-marcas').querySelectorAll('input[type=checkbox]:checked');
-    console.log(selected_brands)
     brands_names = []
     for (let i = 0; i < selected_brands.length; i++) {
         brands_names.push(selected_brands[i].parentElement.textContent.trim())
     }
-    console.log(brands_names)
     
 
-    search_products("none",number_productos,order_by,price_max,price_min,brands_names)
+    search_products(search_for,number_productos,order_by,price_max,price_min,brands_names)
 }
    
 
 function search_products (tipo,cantidad,order,precio_max,precio_min,brands_names) {
     stringCodificado = encodeURI("tipo="+tipo+"&cantidad="+cantidad+"&order="+order+
                                  "&precio_max="+precio_max+"&precio_min="+precio_min+"&brands_names="+brands_names);
-    console.log(stringCodificado)
     const url = `/search_products?${stringCodificado}`;
     
     fetch(url)
@@ -228,6 +225,21 @@ search_btn_user.addEventListener('click', () => {
     hot_deals();
 });
 
+
+navbar_buttons = document.querySelectorAll('.navbar-btn')
+navbar_buttons.forEach(navbar_button => {
+    navbar_button.addEventListener('click', () => {
+        search_for = navbar_button.textContent.trim();
+        for (let i = 0; i < navbar_buttons.length; i++) {
+            navbar_buttons[i].classList.remove("active");
+        }
+        navbar_button.classList.add("active");
+        console.log(search_for)
+        hot_deals();
+    })
+});
+
+search_for = "none"
 hot_deals();
 
 

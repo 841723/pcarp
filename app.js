@@ -157,3 +157,15 @@ app.get('/search_products', (req, res) => {
       console.error(error); // Manejo de errores
     });
 });
+
+
+app.get('/products', (req, res) => {
+  const daoP = new DAOproducto(client);
+  daoP.obtenerTodos()
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
