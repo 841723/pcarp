@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> PCarp </title>
+        <link rel="icon"  type="image/png" href="./media/logo.png">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/style_login.css">
+                
+        <!-- Boxicons CSS -->
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+                        
+    </head>
+    <body>
+
+            <section class="container forms">
+                <div class="arriba_login">
+                    <a href="index.html" class="logo">
+                    <img src="media/logo_black.jpg" alt="logo" class="logo" > 
+                    </a>
+                </div>
+            <section class="container forms">
+                
+                <!-- Login Form -->
+                <div class="form login" id="login">
+                    <div class="form-content">
+                        <header>Login</header>
+                        <form action="#">
+                            <div class="field input-field">
+                                <input type="email" placeholder="Email" class="input">
+                            </div>
+
+                            <div class="field input-field">
+                                <input type="password" placeholder="Password" class="password" id="pass-login">
+                                <i class='bx bx-hide eye-icon'></i>
+                            </div>
+
+                            <div class="form-link">
+                                <a href="#" class="forgot-pass" onclick="mostrarForgot()">Forgot password?</a>
+                            </div>
+
+                            <div class="field button-field">
+                                <button onclick="logUser()">Login</button>
+                            </div>
+                        </form>
+                       
+
+                        <div class="form-link">
+                            <span>Don't have an account? <a href="#" class="link signup-link" onclick="mostrarSignup()">Signup</a></button></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signup Form -->
+                <div class="form signup" id = "signup">
+                    <div class="form-content">
+                        <header>Signup</header>
+                        <form action="#">
+                            <div class="field input-field">
+                                <input type="email" placeholder="Email" class="input">
+                            </div>
+
+                            <div class="field input-field">
+                                <input type="password" placeholder="Create password" class="password" id="pass-signup">
+                                <i class='bx bx-hide eye-icon'></i>
+                            </div>
+
+                            <div class="field input-field">
+                                <input type="password" placeholder="Confirm password" class="password" id="pass-signup-2">
+                            </div>
+
+                            <div class="field button-field">
+                                <button type="submit" onclick="signupUser()">Signup</button>
+                            </div>
+                        </form>
+
+                        <div class="form-link">
+                            <span>Already have an account? <a href="#" class="link login-link" onclick="mostrarLogin()">Login</a></span>
+                        </div>
+                    </div>
+                </div>
+                     <!-- forgot Form -->
+                <div class="form forgot" id="forgot-password">
+                    <div class="form-content">
+                        <header>Forgot Password</header>
+                        <form action="#">
+                            <div class="field input-field">
+                                <input type="email" placeholder="Email" class="input" id="mail-forgot">
+                            </div>
+
+                            <div class="field input-field">
+                                <input type="password" placeholder="New password" class="password" id="pass-forgot">
+                                <i class='bx bx-hide eye-icon'></i>
+                            </div>
+
+                            <div class="field input-field">
+                                <input type="password" placeholder="Confirm new password" class="password" id="pass-forgot-2">
+                            </div>
+
+                            <div class="field button-field">
+                                <button type="submit" onclick="updatePass()">Change password</button>
+                            </div>
+                        </form>
+
+                        <div class="form-link">
+                            <span> Password remembered? <a href="#" class="link login-link" onclick="mostrarLogin()">Login</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </section>
+            </section>
+        <!-- JavaScript -->
+        <script src="js/login.js"></script>
+    </body>
+</html>

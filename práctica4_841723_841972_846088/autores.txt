@@ -1,0 +1,5 @@
+NIA 	Apellidos 		Nombre
+——————————————————————————————————————————
+841723	Roldán Urueña 		Diego Raúl
+841972	Moreno Muñoz		Pablo
+846088	Romeo Lancina 		Abel

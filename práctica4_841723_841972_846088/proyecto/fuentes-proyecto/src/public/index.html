@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>PCarp</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+		<link rel="icon"  type="image/png" href="./media/logo.png">
+
+		<!-- <link rel="shotcut icon" src="./media/logo.jpg"> -->
+
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    </head>
+	<body>
+		<header>
+			<!-- TOP HEADER -->
+			<div id="top-header">
+				<div class="container">
+					<ul class="header-links pull-left">
+						<li><a href="#"><i class="fa fa-phone"></i> 968 977 977</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> contacto@pcarp.es</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> Calle Azoque 56 50004 Zaragoza España</a></li>
+					</ul>
+					<ul class="header-links pull-right">
+						<li><a id="loginpop" href="login.html"><i class="fa fa-user-o"></i> Entrar</a></li>
+						<li><a id="datosLi" href="cuenta.html" style="display: none;"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- /TOP HEADER -->
+
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="index.html" class="logo">
+									<img src="./media/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<!-- /LOGO -->
+
+						<!-- SEARCH BAR -->
+						<div class="col-md-6">
+							<div id="search-form-header" class="header-search">
+								<form>
+									<select class="input-select">
+										<option value="0">Todas</option>
+										<option value="1">Procesadores</option>
+										<option value="2">Placas Base</option>
+										<option value="3">Tarjetas Gráficas</option>
+										<option value="4">Memoria RAM</option>
+										<option value="5">Almacenamiento</option>
+										<option value="6">Fuentes Alimentación</option>
+										<option value="7">Cajas y Torres</option>
+										<option value="8">Ventiladores</option>
+
+									</select>
+									<input class="input" placeholder="Escriba su busqueda">
+									<button id="search-btn-header" class="search-btn">Buscar</button>
+								</form>
+							</div>
+						</div>
+						<!-- /SEARCH BAR -->
+
+						<!-- ACCOUNT -->
+						<div class="col-md-3 clearfix">
+							<div class="header-ctn">
+								<!-- Wishlist -->
+								<div>
+									<a href="wish.html" style="width: auto;">
+										<i class="fa fa-heart-o"></i>
+										<span>Lista de deseos</span>
+									</a>
+								</div>
+								<!-- /Wishlist -->
+
+								<!-- Cart -->
+								<div class="dropdown">
+									<a href="checkout.html" >
+										<i class="fa fa-shopping-cart"></i>
+										<span>Carrito</span>
+									</a>
+								<!-- /Cart -->
+
+								<!-- Menu Toogle -->
+								<div class="menu-toggle">
+									<a href="#">
+										<i class="fa fa-bars"></i>
+										<span>Menu</span>
+									</a>
+								</div>
+								<!-- /Menu Toogle -->
+							</div>
+						</div>
+						<!-- /ACCOUNT -->
+					</div>
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- /MAIN HEADER -->
+		</header>
+		<!-- /HEADER -->
+
+		<!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+				<!-- NAV -->
+				<ul class="main-nav nav navbar-nav">
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',0)" ><a href="./store.html">Destacados</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',1)" ><a href="./store.html">Procesadores</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',2)" ><a href="./store.html">Placas Base</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',3)" ><a href="./store.html">Tarjetas Gráficas</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',4)" ><a href="./store.html">Memorias RAM</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',5)" ><a href="./store.html">Almacenamiento</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',6)" ><a href="./store.html">Fuentes Alimentación</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',7)" ><a href="./store.html">Ventiladores</a></li>
+					<li class="navbar-btn" onclick="sessionStorage.setItem('product_type',8)" ><a href="./store.html">Cajas</a></li>
+				</ul>
+				<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>
+		<!-- /NAVIGATION -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- shop -->
+					<div class="col-md-4 col-xs-6">
+						<div class="shop">
+							<div class="shop-img">
+								<img src="https://m.media-amazon.com/images/I/71SEQAlrYhL._AC_UF894,1000_QL80_.jpg" alt="">
+							</div>
+							<div class="shop-body">
+								<h3>Placas Base<br></h3>
+								<a onclick="sessionStorage.setItem('product_type',2)" href="./store.html" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- /shop -->
+
+					<!-- shop -->
+					<div class="col-md-4 col-xs-6">
+						<div class="shop">
+							<div class="shop-img">
+								<img src="https://live.mrf.io/statics/i/ps/www.muycomputer.com/wp-content/uploads/2017/08/procesadores-de-Intel.jpg?width=1200&enable=upscale" alt="" width="300" height="300">
+							</div>
+							<div class="shop-body">
+								<h3>Procesadores<br></h3>
+								<a onclick="sessionStorage.setItem('product_type',1)" href="./store.html" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- /shop -->
+
+					<!-- shop -->
+					<div class="col-md-4 col-xs-6" >
+						<div class="shop" >
+							<div class="shop-img">
+								<img src="https://thumb.pccomponentes.com/w-530-530/articles/42/423433/1604-nfortec-aegir-x-ventilador-cpu-140mm-opiniones.jpg" alt="" width="300" height="300">
+							</div>
+							<div class="shop-body">
+								<h3>Ventiladores<br></h3>
+								<a onclick="sessionStorage.setItem('product_type',7)" href="./store.html" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- /shop -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- section title -->
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">New Products</h3>
+							</div>
+					</div>
+					<!-- /section title -->
+
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab1" class="tab-pane active">
+									<div id="new_products_user" class="products-carrousel">
+									</div>
+								</div>
+								<!-- /tab -->
+							</div>
+						</div>
+					</div>
+					<!-- Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- HOT DEAL SECTION -->
+		<div id="hot-deal" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="hot-deal">
+							<ul class="hot-deal-countdown">
+								<li>
+									<div>
+										<h3 id="days_countdown">0</h3>
+										<span>Days</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3 id="hours_countdown">10</h3>
+										<span>Hours</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3 id="mins_countdown">34</h3>
+										<span>Mins</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3 id="secs_countdown">33</h3>
+										<span>Secs</span>
+									</div>
+								</li>
+							</ul>
+							<h2 class="text-uppercase">hot deal this week</h2>
+							<p>New Collection Up to 50% OFF</p>
+							<a class="primary-btn cta-btn" href="store.html" onclick="sessionStorage.setItem('product_type',0)">Shop now</a>
+
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /HOT DEAL SECTION -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- section title -->
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">Top selling</h3>
+							<!-- <div class="section-nav">
+								<ul class="section-tab-nav tab-nav">
+									<ul class="section-tab-nav tab-nav">
+										<li class="active"><a data-toggle="tab" href="#tab1">Procesadores</a></li>
+										<li><a data-toggle="tab" href="#tab1">Tarjetas Gráficas</a></li>
+										<li><a data-toggle="tab" href="#tab1">Placas Base</a></li>
+										<li><a data-toggle="tab" href="#tab1">Almacenamiento</a></li>
+									</ul>
+								</ul>
+							</div> -->
+						</div>
+					</div>
+					<!-- /section title -->
+
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab2" class="tab-pane active">
+									<div id="top_selling_user" class="products-carrousel">
+										<script src="js/user.js"></script>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+	
+
+		<!-- NEWSLETTER -->
+		<div id="newsletter" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="newsletter">
+							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
+							<form>
+								<input class="input" type="email" placeholder="Enter Your Email">
+								<button id="prueba-user" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+							</form>
+							<ul class="newsletter-follow">
+								<li>
+									<a href="#"><i class="fa fa-facebook"></i></a>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-instagram"></i></a>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-pinterest"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /NEWSLETTER -->
+
+	
+		<!-- FOOTER -->
+		<footer id="footer">
+			<!-- top footer -->
+			<div class="section">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Sobre nosotros</h3>
+								<p> PC ARP, los mejores componentes del mercado.</p>
+								<ul class="footer-links">
+									<li><a href="#"><i class="fa fa-phone"></i> 968 977 977</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i> contacto@pcarp.es</a></li>
+									<li><a href="#"><i class="fa fa-map-marker"></i> Calle Azoque 56 50004 Zaragoza España</a>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Categorias</h3>
+								<ul class="footer-links">
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',0)">HOT DEALS</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',1)">PROCESADORES</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',3)">GRAFICAS</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',4)">MEMORIA RAM</a></li>
+									<li><a href="store.html" onclick="sessionStorage.setItem('product_type',5)">ALMACENAMIENTO</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="clearfix visible-xs"></div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Informacion</h3>
+								<ul class="footer-links">
+									<li><a href="#">Sobre nosotros</a></li>
+									<li><a href="#">Contacta con nosotros</a></li>
+									<li><a href="#">Q&A</a></li>
+									<li><a href="#">Cambios y Devoluciones</a></li>
+									<li><a href="#">Politica privacidad</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Servicio</h3>
+								<ul class="footer-links">
+									<li><a href="login.html">Mi Cuenta</a></li>
+									<li><a href="checkout.html">Ver Carrito</a></li>
+									<li><a href="wish.html">Lista de deseos</a></li>
+									<li><a href="https://www.17track.net/es">Track My Order</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /top footer -->
+
+			<!-- bottom footer -->
+			<div id="bottom-footer" class="section">
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<ul class="footer-payments">
+								<li><a href="https://www.visa.es/"><i class="fa fa-cc-visa"></i></a></li>
+								<li><a href="https://www.mastercard.es/es-es.html"><i class="fa fa-credit-card"></i></a></li>
+								<li><a href="https://www.paypal.com/es/home"><i class="fa fa-cc-paypal"></i></a></li>
+								<li><a href="https://www.mastercard.es/es-es.html"><i class="fa fa-cc-mastercard"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+							</ul>
+							<span class="copyright">
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</span>
+						</div>
+					</div>
+						<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /bottom footer -->
+		</footer>
+		<!-- /FOOTER -->
+
+
+		<script src="./js/main.js"></script>
+		<script src="./js/comun.js"></script>
+
+	</body>
+</html>

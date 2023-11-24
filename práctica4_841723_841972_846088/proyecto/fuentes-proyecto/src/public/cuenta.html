@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCarp</title>
+    <link rel="stylesheet" href="./css/cuenta.css">
+ 		<!-- Google font -->
+ 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+ 		<!-- Bootstrap -->
+ 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+		
+ 		<!-- Font Awesome Icon -->
+ 		<link rel="stylesheet" href="css/font-awesome.min.css">
+
+ 		<!-- Custom stlylesheet -->
+ 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<link rel="icon"  type="image/png" href="./media/logo.png">
+
+</head>
+<body>
+
+   <!-- HEADER -->
+		<header>
+			<!-- TOP HEADER -->
+			<div id="top-header">
+				<div class="container">
+					<ul class="header-links pull-left">
+						<li><a href="#"><i class="fa fa-phone"></i> 968 977 977</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> contacto@pcarp.es</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> Calle Azoque 56 50004 Zaragoza España</a></li>
+					</ul>
+					<ul class="header-links pull-right">
+						<li><a href="index.html"></i> Volver</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- /TOP HEADER -->
+
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="index.html" class="logo">
+									<img src="./media/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<!-- /LOGO -->
+
+						<!-- /ACCOUNT -->
+					</div>
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- /MAIN HEADER -->
+		</header>
+		<!-- /HEADER -->
+        <!-- NAVIGATION -->
+        <nav id="navigation">
+            <!-- container -->
+            <div class="container">
+                <!-- responsive-nav -->
+                <div id="responsive-nav">
+                </div>
+                <!-- /responsive-nav -->
+            </div>
+            <!-- /container -->
+        </nav>
+        <!-- /NAVIGATION -->
+    <!-- Contenido Principal -->
+    <main>
+        <!-- Indicación de Zona Actual -->
+        <div class="section">
+            <div class="container">
+                
+                <div class="menu">
+                    <button class="option" onclick="mostrarDatos()">Mis Datos</button>
+                    <button class="option" onclick="mostrarPedidos()">Mis Pedidos</button>
+                </div>
+
+                <!-- Zona de Datos Personales de la Cuenta -->
+                <div id="datos-personales">
+                    <h2>Datos Personales de la Cuenta</h2>
+                    
+                    <!-- Formulario de Datos Personales -->
+                    <form>
+                        <label for="email">Correo Electrónico:</label>
+                        <input class="text" type="email" id="email" name="email" required>
+                        
+                        <label for="nombre">Nombre:</label>
+                        <input class="text" type="text" id="nombre" name="nombre">
+
+                        <label for="apellidos">Apellidos:</label>
+                        <input class="text" type="apellidos" id="apellidos" name="apellidos">
+
+                        <label for="direccion">Dirección:</label>
+                        <input class="text" type="direccion" id="direccion" name="direccion">
+
+                        <label for="pass-save">Cambiar contraseña:</label>
+                        <div class="field input-field">
+                            <div class="password-container">
+                                <input type="password" placeholder="Password" class="text password" id="pass-save" required>
+                                <i class='bx bx-hide eye-icon' onclick="alterContrasena()"></i>
+                            </div>
+                        </div>
+                        <div class="button-container">
+                            <button type="submit" class="save" onclick="updateUser()">Guardar Cambios</button>
+                            <button type="logout" class="save2" onclick="logout()">Cerrar Sesion</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="zona-pedidos">
+                    <h2>Pedidos en Proceso</h2>
+                    <ul id="pedidos-en-proceso"></ul>
+                
+                    <h2>Pedidos Enviados</h2>
+                    <ul id="pedidos-enviados"></ul>
+                
+                    <h2>Pedidos Entregados</h2>
+                    <ul id="pedidos-entregados"></ul>
+                </div>
+            </div>
+        </div>    
+    </main>
+    <!-- Script JavaScript -->
+    <script src="./js/cuenta.js"></script>
+
+</body>
+</html>
