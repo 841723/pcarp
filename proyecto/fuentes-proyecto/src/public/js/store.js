@@ -263,8 +263,7 @@ search_btn_header = document.getElementById("search-btn-header")
 search_btn_header.addEventListener('click', () => {
     event.preventDefault()
     
-    search_header_header = document.getElementById("search-input-header")
-    search_header = search_header_header.value
+    search_header_header = document.getElementById("search-input-header").value
     if (search_header == "") {
         return;
     }
@@ -277,14 +276,20 @@ search_btn_header.addEventListener('click', () => {
     
     navbar_buttons = document.querySelectorAll('.navbar-btn')
     tipo = navbar_buttons[document.getElementById('search-form-header').value].textContent.trim()
+    console.log("tipo= ")
+    if (tipo == "Destacados") {
+        tipo = "none"
+    }
     console.log(tipo)
-
+    
     stringCodificado = encodeURI("tipo="+tipo);
     const url = `/products_tipo?${stringCodificado}`;    
     fetch(url)
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         data.forEach(item => {
+            // console.log(data)
             for (var key in item) {
                 if (key!="id_pedido" || key!="ventas" || key!="stock" || key!="descuento" || key!="precio" ) {
                   // se mira si aparece el contenido buscado en alguno de los campos de los productos

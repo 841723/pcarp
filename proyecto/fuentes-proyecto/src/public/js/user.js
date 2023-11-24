@@ -2,6 +2,12 @@ function crearTarjeta(item,new_product) {
     div_product = document.createElement('div');
     div_product.classList.add("product");
 
+    div_id = document.createElement('div');
+    div_id.classList.add("product-id");
+    div_id.textContent = item["id_producto"];
+    div_id.style.display = "none";
+    div_product.appendChild(div_id);
+
     div_img = document.createElement('div');
     div_img.classList.add("product-img");
 
@@ -91,6 +97,7 @@ function crearTarjeta(item,new_product) {
 
     btn_cart = document.createElement('button');
     btn_cart.classList.add("add-to-cart-btn");
+    btn_cart.addEventListener("click", addToCart(item["id_producto"]));
     i_cart = document.createElement('i');
     i_cart.classList.add("fa");
     i_cart.classList.add("fa-shopping-cart");
@@ -135,6 +142,7 @@ function new_products () {
             const div_product = crearTarjeta(item,true);
             new_products.appendChild(div_product); 
         });
+
     })
     .catch(error => console.error('Error:', error));
 }
@@ -155,6 +163,17 @@ function top_selling () {
 new_products();
 top_selling();
 
+
+function incrementarCart() {
+    const cart = document.getElementById("number_carrito");
+    cart.textContent = parseInt(sessionStorage.getItem("cart")) + 1;
+}
+
+function addToCart(id_producto) {
+    console.log("se añade el producto: "+id_producto);
+    sessionStorage.setItem("cart", sessionStorage.getItem("cart") + ":" + id_producto);
+    incrementarCart();
+}
 
 
 //   <div class="product">

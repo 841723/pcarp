@@ -38,6 +38,7 @@ class DAOproducto {
                 return null;
             }
 
+            console.log("resultado="+result.rows)
             const res = result.rows.map((producto) => new VOproducto(producto.id_producto, 
                 producto.marca, 
                 producto.modelo, 

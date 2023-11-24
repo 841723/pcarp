@@ -1,6 +1,9 @@
 window.addEventListener('load', mostrarEnlaceDatos);
 
 function mostrarEnlaceDatos() {
+	if (sessionStorage.getItem("cart") === null) {
+        document.getElementById("number_carrito").style.display = "none";
+    }
 	const datosLi = document.getElementById('datosLi');
 	const loginpopup = document.getElementById('loginpop');
 	console.log(sessionStorage.getItem('userToken'));
@@ -11,12 +14,12 @@ function mostrarEnlaceDatos() {
 	else if (sessionStorage.getItem('userToken')== 'true') {
 	  datosLi.style.display = 'block'; // Mostrar el enlace "Datos"
 	  loginpopup.style.display = "none";
-	  console.log("hay usuario logeado");
+
 	}
 	 else {
 	  datosLi.style.display = 'none'; // Ocultar el enlace "Datos"
 	  loginpopup.style.display = "block";
-	  console.log("no hay usuario logeado");
+	
 	}
   }
 
@@ -25,7 +28,6 @@ function mostrarEnlaceDatos() {
 search_btn_header = document.getElementById("search-btn-header")
 search_btn_header.addEventListener('click', () => {
     event.preventDefault()
-    console.log("search_btn_header");
     
     // search_products_header();
 });
