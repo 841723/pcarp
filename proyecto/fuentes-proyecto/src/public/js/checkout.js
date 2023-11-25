@@ -30,7 +30,7 @@ function cargarDatosPersonales() {
 // Llamar a la función para obtener y mostrar los pedidos del cliente al cargar la página
 // document.addEventListener('DOMContentLoaded', obtenerPedidosCliente);
 window.addEventListener('load', cargarDatosPersonales);
-mostrarCarrito()
+mostrarCarritoResumen()
 
 // order_submit = document.getElementById('order_submit');
 // order_submit.addEventListener('click', function() {
@@ -76,7 +76,7 @@ function crearEntradaCheckOut(product, veces, hay_descuento, precio_descuento) {
     return div_order_col;
 }
 
-async function mostrarCarrito() {
+async function mostrarCarritoResumen() {
     order_summary_id = document.getElementById('order-summary-id');
     cart = sessionStorage.getItem('cart');
     

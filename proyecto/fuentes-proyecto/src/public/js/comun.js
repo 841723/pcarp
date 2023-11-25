@@ -5,7 +5,7 @@ function mostrarEnlaceDatos() {
         document.getElementById("number_carrito").style.display = "none";
     }
 	else {
-		document.getElementById("number_carrito").textContent = sessionStorage.getItem('cart');
+		document.getElementById("number_carrito").textContent = getNumberCart();
 		document.getElementById("number_carrito").style.display = "block";
 	}
 	const datosLi = document.getElementById('datosLi');
@@ -34,3 +34,24 @@ search_btn_header.addEventListener('click', () => {
     
     // search_products_header();
 });
+
+
+function getNumberCart() {
+	cart = sessionStorage.getItem('cart');
+	if (cart === null || cart === "") {
+		return 0;
+	} else {
+		item_sum = [];
+		cart_list = cart.split(";");
+		cart_list.forEach(item => {
+			item_sum.push(parseInt(item.split(":")[1]));
+		});
+		item_sum.shift();
+		item_sum = item_sum.reduce((a, b) => a + b, 0);
+		console.log(item_sum);
+		return item_sum;
+	}
+}
+
+
+

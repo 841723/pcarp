@@ -108,46 +108,24 @@
 
 								<!-- Cart -->
 								<div id="carrito-dropdown">
-									<a href="checkout.html" >
+									<a onclick="mostrarCarrito()">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Carrito</span>
 										<div id="number_carrito" class="qty">0</div>
 										
 									</a>
 									<div id="carrito-list">
-										<div class="black-screen"></div>
+										<a href="./checkout.html" class="black-screen"></a>
 										<div class="title-carrito-list">
 											<span>TU CARRITO</span>
-											<i id="close-carrito-list" class="fa fa-times"></i>
+											<a href="./checkout.html"><i id="close-carrito-list" class="fa fa-times"></i></a>
 										</div>
 										<div class="carrito-horizontal-line"></div>
-										<div class="list-carrito-list">
-											<div class="product-list">
-												<img src="./media/p1.png" alt="">
-												<div class="product-info-carrito">
-													<a href="#">HyperX Fury 8GB</a>
-													<div class="product-price-carrito">
-														<span class="qty">1x</span>
-														<span>34.99 €</span>
-													</div>
-												</div>
-												<div class="qty-selector-carrito">
-													<span class="qty-up-carrito">+</span>
-													<span class="qty-down-carrito">-</span>	
-													<i class="fa fa-times"></i>
-												</div>
-											</div>
-											<div class="carrito-horizontal-line"></div>
-										
+										<div id="list-carrito-list">
+																					
 										</div>
-										<div class="summary-carrito-list">
-											<div class="total-carrito-list">
-												<span>TOTAL</span>
-												<span id="precio-total-carrito-list">154.26 €</span>
-											</div>
-											<div class="botones-carrito-list">
-												<a href="checkout.html" class="primary-btn">PAGAR</a>
-											</div>
+										<div id="summary-carrito-list">
+				
 										</div>
 									</div>
 								</div>
@@ -450,6 +428,7 @@
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/checkout.js"></script>
 		<script src="js/comun.js"></script>
+		<script src="js/carrito.js"></script>
 
 	</body>
 </html>
