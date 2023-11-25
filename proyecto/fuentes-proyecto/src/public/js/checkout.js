@@ -40,13 +40,12 @@ mostrarCarrito()
 
 
 
-function crearEntradaCheckOut(product, veces) {
+function crearEntradaCheckOut(product, veces, hay_descuento, precio_descuento) {
     // <div class="order-col">
     //     <div>2x Product Name Goes Here</div>
     //     <div>$980.00</div>
     // </div>
 
-    console.log(veces);
     div_order_col = document.createElement('div');
     div_order_col.className = "order-col";
 
@@ -54,15 +53,30 @@ function crearEntradaCheckOut(product, veces) {
     div_product_name.textContent = veces + "x " + product.modelo + " - " + product.marca;
     div_order_col.appendChild(div_product_name);
 
-    div_product_price = document.createElement('div');
-    div_product_price.textContent = product.precio + " €";
-    div_order_col.appendChild(div_product_price);
+    
 
+    if (hay_descuento) {
+        div_product_price = document.createElement('div');
+        div_product_price.className = "product-price-discounted";
+        div_product_price.textContent = precio_descuento + " € ";
+
+        precio_anterior = document.createElement('del');
+
+        precio_anterior.textContent = product.precio + " €";
+        div_product_price.appendChild(precio_anterior);
+        div_order_col.appendChild(div_product_price);
+    }
+    else {
+        div_product_price = document.createElement('div');
+        div_product_price.className = "product-price";
+
+        div_product_price.textContent = product.precio + " €";
+        div_order_col.appendChild(div_product_price);
+    }
     return div_order_col;
 }
 
 async function mostrarCarrito() {
-    console.log("Entrando en mostrarCarrito");
     order_summary_id = document.getElementById('order-summary-id');
     cart = sessionStorage.getItem('cart');
     
@@ -78,29 +92,35 @@ async function mostrarCarrito() {
             const id = item.split(":")[0].replace("id", "");
             const veces = item.split(":")[1];
 
-            const url = `/products_id?id=${encodeURIComponent(id)}`;
-            const fetchPromise = fetch(url)
+            if (id !== "") {    
+                const url = `/products_id?id=${encodeURIComponent(id)}`;
+                const fetchPromise = fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    precio_acumulado += veces * data.precio;
-                    console.log(precio_acumulado);
-                    const div_product = crearEntradaCheckOut(data, veces);
+                    if (data.descuento != 0) {
+                        hay_descuento = true;
+                        precio_descuento = data.precio - (data.precio * data.descuento / 100);
+                        precio_descuento = precio_descuento.toFixed(2);
+                        precio_a_sumar = precio_descuento * veces;
+                    }
+                    else {
+                        hay_descuento = false;
+                        precio_descuento = 0;
+                        precio_a_sumar = data.precio * veces;
+                    }
+                    precio_acumulado += precio_a_sumar;
+                    const div_product = crearEntradaCheckOut(data, veces,hay_descuento,precio_descuento);
                     order_summary_id.appendChild(div_product);
                 })
                 .catch(error => console.error('Error:', error));
-
-            fetchPromises.push(fetchPromise);
+                
+                fetchPromises.push(fetchPromise);
+            }
         }
 
         try {
             // Esperar a que todas las promesas se resuelvan
-            console.log(fetchPromises);
-
-            fetchPromises.shift()
-
             await Promise.all(fetchPromises);
-
-            console.log("end");
 
             // Actualizar la interfaz de usuario después de completar todas las llamadas fetch
             order_summary_id.style.display = "block";
@@ -108,7 +128,6 @@ async function mostrarCarrito() {
 
             precio_total = document.getElementById('precio-total');
             precio_total.textContent = precio_acumulado.toFixed(2) + " €"; // Asegúrate de redondear el precio a dos decimales
-            console.log("precio = " + precio_total.textContent);
         } catch (error) {
             console.error('Error en Promise.all:', error);
         }

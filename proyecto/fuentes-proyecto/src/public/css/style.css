@@ -2199,3 +2199,116 @@ textarea.input {
   /* transition: 0.2s all; */
   /* -webkit-transition: 0.2s all; */
 }
+
+.product-price-discounted {
+  color: #e06a1b;
+  /* font-weight: 700;
+  font-size: 18px; */
+}
+
+.product-price-discounted del {
+  color: black;
+  text-decoration: line-through;
+  font-weight: 200;
+  font-size: 12px;
+}
+
+#carrito-list {
+  position: fixed;
+  background-color: rgba(255, 255, 255);
+  right: 0;
+  top: 0;
+  width: 22%;
+  height: 100%;
+  opacity: 1;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+  border-radius: 2px;
+  border: rgb(180, 180, 180) solid 2px;
+  z-index: 1;
+  padding: 25px;
+}
+
+#carrito-list .black-screen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 78%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  /* si me clicas esconder cesta */
+}
+
+
+#carrito-list .title-carrito-list  {
+  color: black;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+#carrito-list .title-carrito-list i {
+  position: relative;
+  color: black;
+  float:right;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 200%;
+}
+.carrito-horizontal-line {
+  margin: 15px 0px;
+  width: 100%;
+  height: 0;
+  border: 1px solid rgb(117, 117, 117);
+}
+
+.product-list {
+  position: relative;
+  margin: 0px 15px;
+  display: flex;
+}
+
+.product-list img {
+  position: relative;
+  width: auto;
+  height: 75px;
+  margin-right: 15px;
+}
+
+.product-list .product-info {
+  position: relative;
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+  margin-top: 10px;
+}
+
+.product-list .qty-selector-carrito {
+  position: relative;
+  float:right;
+}
+
+.total-carrito-list {
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.total-carrito-list #precio-total-carrito-list {
+  position: relative;
+  float:right;
+}
+
+.botones-carrito-list .primary-btn {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 19px;
+}
+
+
+#carrito-dropdown:hover #carrito-list {
+  opacity: 1;
+}

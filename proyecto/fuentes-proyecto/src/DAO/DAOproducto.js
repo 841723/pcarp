@@ -55,7 +55,9 @@ class DAOproducto {
     }
     async obtenerPorId(id) {
         try {
-            const result = await this.database.query('SELECT * FROM producto WHERE id_producto = $1', [id]);
+            const query = 'SELECT * FROM producto WHERE id_producto = $1';
+            const values = [id];
+            const result = await this.database.query(query, values);
 
             if (result.rows.length === 0) {
                 return null;
