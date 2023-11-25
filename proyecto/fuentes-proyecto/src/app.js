@@ -194,3 +194,15 @@ app.get('/products_random', (req, res) => {
     console.error(error); // Manejo de errores
   });
 });
+
+app.get('/products_id', (req, res) => {
+  const id = req.query.id; // Aquí obtendrás el string enviado
+  const daoP = new DAOProducto(client);
+  daoP.obtenerPorId(id)
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});

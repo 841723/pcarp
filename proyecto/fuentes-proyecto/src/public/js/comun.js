@@ -1,9 +1,13 @@
 window.addEventListener('load', mostrarEnlaceDatos);
 
 function mostrarEnlaceDatos() {
-	if (sessionStorage.getItem("cart") === null) {
+	if (sessionStorage.getItem("cart") === "") {
         document.getElementById("number_carrito").style.display = "none";
     }
+	else {
+		document.getElementById("number_carrito").textContent = sessionStorage.getItem('cart');
+		document.getElementById("number_carrito").style.display = "block";
+	}
 	const datosLi = document.getElementById('datosLi');
 	const loginpopup = document.getElementById('loginpop');
 	console.log(sessionStorage.getItem('userToken'));
@@ -19,7 +23,6 @@ function mostrarEnlaceDatos() {
 	 else {
 	  datosLi.style.display = 'none'; // Ocultar el enlace "Datos"
 	  loginpopup.style.display = "block";
-	
 	}
   }
 

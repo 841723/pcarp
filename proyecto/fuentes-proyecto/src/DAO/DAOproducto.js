@@ -62,7 +62,15 @@ class DAOproducto {
             }
 
             const producto = result.rows[0];
-            const res = new VOproducto(producto.id_producto, producto.marca, producto.modelo, producto.precio, producto.descripcion, producto.stock, producto.ventas, producto.tipo);
+            const res =new VOproducto(producto.id_producto, 
+                producto.marca, 
+                producto.modelo, 
+                producto.precio,
+                producto.descuento, 
+                producto.descripcion,
+                producto.ventas,
+                producto.stock, 
+                producto.tipo)
 
             return res;
         } catch (error) {

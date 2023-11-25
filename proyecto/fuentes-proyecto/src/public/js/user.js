@@ -97,11 +97,15 @@ function crearTarjeta(item,new_product) {
 
     btn_cart = document.createElement('button');
     btn_cart.classList.add("add-to-cart-btn");
-    btn_cart.addEventListener("click", addToCart(item["id_producto"]));
     i_cart = document.createElement('i');
     i_cart.classList.add("fa");
     i_cart.classList.add("fa-shopping-cart");
     btn_cart.textContent = "añadir al carrito";
+    btn_cart.value = item["id_producto"];
+    btn_cart.addEventListener("click", function() {
+        anadirCarrito(this.value);
+        incrementarCart();
+    });
     btn_cart.appendChild(i_cart);
     div_cart.appendChild(btn_cart);
 
@@ -158,10 +162,27 @@ function top_selling () {
         });
     })
     .catch(error => console.error('Error:', error));
+
 }
 
 new_products();
 top_selling();
+
+function createEventListenersForCartButtons() {
+    console.log("createEventListenersForCartButtons");
+    const cartButtons = document.querySelectorAll('.add-to-cart-btn');
+    console.log(cartButtons);
+
+    cartButtons.forEach(button => {
+        console.log(button);
+        button.addEventListener('click', () => {
+            console.log(button);
+            sessionStorage.setItem('cart', sessionStorage.getItem('cart') + ":" + "uu");
+            incrementarCart();
+        }
+        )
+    });
+}
 
 
 function incrementarCart() {
@@ -169,10 +190,23 @@ function incrementarCart() {
     cart.textContent = parseInt(sessionStorage.getItem("cart")) + 1;
 }
 
-function addToCart(id_producto) {
-    console.log("se añade el producto: "+id_producto);
-    sessionStorage.setItem("cart", sessionStorage.getItem("cart") + ":" + id_producto);
-    incrementarCart();
+function anadirCarrito(id) {
+    
+    if (sessionStorage.getItem('cart').includes("id"+id)) {
+        veces = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
+        sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+veces, "id"+id+":"+(parseInt(veces)+1)));   
+    }
+    else {
+        sessionStorage.setItem('cart', sessionStorage.getItem('cart') + ";" + "id" + id + ":1");
+    }
+    // cuenta cuantos elementos distintos hay en el carrito
+    cantidad = sessionStorage.getItem('cart').split(";").length -1 ;
+    
+    console.log(cantidad);
+    cart = document.getElementById("number_carrito");
+    // cart.style.display = "block";
+    cart.textContent = cantidad.toString();
+    console.log(cart);
 }
 
 
