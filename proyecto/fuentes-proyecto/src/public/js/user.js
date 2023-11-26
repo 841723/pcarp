@@ -47,7 +47,9 @@ function crearTarjeta(item,new_product) {
     h3_nombre = document.createElement('h3');
     h3_nombre.classList.add("product-name");
     ah3_nombre = document.createElement('a');
-    ah3_nombre.href = "product.html";
+    // ah3_nombre.href = "product.html";
+    ah3_nombre.classList.add("producto-link");
+    ah3_nombre.id = "producto-link-id-" + item["id_producto"];
     ah3_nombre.textContent = item["modelo"];
     h3_nombre.appendChild(ah3_nombre);
 
@@ -77,17 +79,11 @@ function crearTarjeta(item,new_product) {
     }
     div_btns = document.createElement('div');
     div_btns.classList.add("product-btns");
-    btn_wishlist = document.createElement('button');
-    btn_wishlist.classList.add("add-to-wishlist");
+    
     i_heart = document.createElement('i');
     i_heart.classList.add("fa");
     i_heart.classList.add("fa-heart-o");
-    btn_wishlist.appendChild(i_heart);
-    span_tooltip = document.createElement('span');
-    span_tooltip.classList.add("tooltipp");
-    span_tooltip.textContent = "añadir a la lista de deseos";
-    btn_wishlist.appendChild(span_tooltip);
-    div_btns.appendChild(btn_wishlist);
+    
 
     div_body.appendChild(p_tipo);
     div_body.appendChild(h3_nombre);
@@ -97,15 +93,14 @@ function crearTarjeta(item,new_product) {
 
     btn_cart = document.createElement('button');
     btn_cart.classList.add("add-to-cart-btn");
+    btn_cart.classList.add("anadir-carrito-product");
+    btn_cart.id = "qty-up-carrito-id-" + item["id_producto"];
     i_cart = document.createElement('i');
     i_cart.classList.add("fa");
     i_cart.classList.add("fa-shopping-cart");
     btn_cart.textContent = "añadir al carrito";
     btn_cart.value = item["id_producto"];
-    btn_cart.addEventListener("click", function() {
-        anadirCarrito(this.value);
-        incrementarCart();
-    });
+  
     btn_cart.appendChild(i_cart);
     div_cart.appendChild(btn_cart);
 
@@ -152,62 +147,29 @@ function new_products () {
 }
 
 function top_selling () {
-    fetch("top_selling")
-    .then(response => response.json())
-    .then(data => {
-        top_selling_user = document.getElementById('top_selling_user');
-        data.forEach(item => {
-            const div_product = crearTarjeta(item,false);
-            top_selling_user.appendChild(div_product); 
+    try {
+        fetch("top_selling")
+        .then(response => response.json())
+        .then(data => {
+            top_selling_user = document.getElementById('top_selling_user');
+            data.forEach(item => {
+                const div_product = crearTarjeta(item,false);
+                top_selling_user.appendChild(div_product); 
+            });
+        })
+        .then(() => {
+            createEventosModificarCantidad();
+            crearEventsListenersProductos();
         });
-    })
-    .catch(error => console.error('Error:', error));
-
+    }
+    catch(error) {
+         console.error('Error:', error)
+    }
 }
 
 new_products();
 top_selling();
 
-function createEventListenersForCartButtons() {
-    console.log("createEventListenersForCartButtons");
-    const cartButtons = document.querySelectorAll('.add-to-cart-btn');
-    console.log(cartButtons);
-
-    cartButtons.forEach(button => {
-        console.log(button);
-        button.addEventListener('click', () => {
-            console.log(button);
-            sessionStorage.setItem('cart', sessionStorage.getItem('cart') + ":" + "uu");
-            incrementarCart();
-        }
-        )
-    });
-}
-
-
-function incrementarCart() {
-    const cart = document.getElementById("number_carrito");
-    cart.textContent = parseInt(sessionStorage.getItem("cart")) + 1;
-}
-
-function anadirCarrito(id) {
-    
-    if (sessionStorage.getItem('cart').includes("id"+id)) {
-        veces = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
-        sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+veces, "id"+id+":"+(parseInt(veces)+1)));   
-    }
-    else {
-        sessionStorage.setItem('cart', sessionStorage.getItem('cart') + ";" + "id" + id + ":1");
-    }
-    // cuenta cuantos elementos distintos hay en el carrito
-    cantidad = sessionStorage.getItem('cart').split(";").length -1 ;
-    
-    console.log(cantidad);
-    cart = document.getElementById("number_carrito");
-    // cart.style.display = "block";
-    cart.textContent = cantidad.toString();
-    console.log(cart);
-}
 
 
 //   <div class="product">

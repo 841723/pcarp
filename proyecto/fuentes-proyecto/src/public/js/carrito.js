@@ -1,4 +1,4 @@
-function crearTarjeta(item,qty) {
+function crearTarjetaCarrito(item,qty) {
     // Crear el elemento principal
     const productContainer = document.createElement('div');
     productContainer.className = 'product-list';
@@ -18,8 +18,10 @@ function crearTarjeta(item,qty) {
     productTextInfo.className = 'product-info-text-carrito';
 
     // Añadir el enlace
-    const productLink = document.createElement('a');
-    productLink.href = '#';
+    productLink = document.createElement('a');
+    // productLink.href = '#';
+    productLink.className = 'producto-link';
+    productLink.id = 'producto-link-id-'+item.id_producto;
     productLink.textContent = item.modelo + ' - ' + item.marca;
     productTextInfo.appendChild(productLink);
 
@@ -86,9 +88,9 @@ function crearTarjeta(item,qty) {
     return productContainer;
 }
 
-// crearTarjeta({modelo: 'HyperX Fury 8GB', marca: 'Kingston', price: 34.99}, 1);
+// crearTarjetaCarrito({modelo: 'HyperX Fury 8GB', marca: 'Kingston', price: 34.99}, 1);
 function mostrarTarjeta(item,qty) {
-    const tarjeta = crearTarjeta(item,qty);
+    const tarjeta = crearTarjetaCarrito(item,qty);
     const horizontalLine = document.createElement('div');
     horizontalLine.className = 'carrito-horizontal-line';
 
@@ -97,34 +99,40 @@ function mostrarTarjeta(item,qty) {
     list_carrito_list.appendChild(horizontalLine);
 }
 
-// async function mostrarCarrito() {
-//     mostrarTarjeta({modelo: '1HyperX Fury 8GB', marca: 'Kingston', price: 34.99}, 1);
-//     mostrarTarjeta({modelo: '2HyperX Fury 8GB', marca: 'Kingston', price: 34.99}, 1);
-// }
-
 function eliminarCarrito() {
+    botones1 = document.querySelectorAll(".qty-down-carrito")
+    botones2 = document.querySelectorAll(".qty-up-carrito")
+    botones3 = document.querySelectorAll(".eliminate-product-carrito")
+    botones4 = document.querySelectorAll(".anadir-carrito-product")
+    botones = [...botones1, ...botones2, ...botones3, ...botones4]
+
+    botones.forEach(boton => {
+        boton.removeEventListener('click', () => {
+            gestionarPulsaciones(boton)
+        });
+    });
     list_carrito_list = document.getElementById('list-carrito-list')
     list_carrito_list.innerHTML = ''
     summary_carrito_list = document.getElementById('summary-carrito-list')
     summary_carrito_list.innerHTML = ''
-    
     carrito = document.getElementById('carrito-list');
     carrito.style.display = "none";
-
+    document.getElementById("number_carrito").textContent = getNumberCart();
+    document.body.classList.remove('sin-scroll')
 }
-async function mostrarCarrito() {
-    carrito = document.getElementById('carrito-list');
-    carrito.style.display = "block";
 
-    list_carrito_list = document.getElementById('list-carrito-list')
-    list_carrito_list.innerHTML = ''
-    summary_carrito_list = document.getElementById('summary-carrito-list')
-    summary_carrito_list.innerHTML = ''
+
+async function mostrarCarrito() {
+
+    sessionStorage.setItem('loading', "true");
+    eliminarCarrito()
+    document.body.classList.add('sin-scroll')
+    carrito = document.getElementById('carrito-list');
+    carrito.style.display = "flex";
 
     cart = sessionStorage.getItem('cart');
     
     if (cart === null || cart === "") {
-        order_summary_id.style.display = "none";
         div_carrito_vacio = document.createElement('h2')
         div_carrito_vacio.textContent = "tu carrito está vacío"
         div_carrito_vacio.className = "text-center"
@@ -138,7 +146,7 @@ async function mostrarCarrito() {
         botones_carrito_vacio = document.createElement('button')
         botones_carrito_vacio.className = "primary-btn"
         botones_carrito_vacio.style.marginTop = "25px"
-        botones_carrito_vacio.textContent = "Ir a la tienda"
+        botones_carrito_vacio.textContent = "Buscar productos"
         botones_carrito_vacio.addEventListener('click', () => {
             window.location.href = '/store.html';
         });
@@ -185,11 +193,12 @@ async function mostrarCarrito() {
             await Promise.all(fetchPromises);
 
             // Actualizar la interfaz de usuario después de completar todas las llamadas fetch
-            order_summary_id.style.display = "block";
+            // order_summary_id.style.display = "block";
 
             createSummaryCarritoList(precio_acumulado_carrito.toFixed(2) + " €")
-
-            createEventosModificarCantidad();
+            // sessionStorage.removeItem('loading');
+            createEventosModificarCantidad(false)
+            crearEventsListenersProductos()
 
         } catch (error) {
             console.error('Error en Promise.all:', error);
@@ -200,47 +209,67 @@ async function mostrarCarrito() {
 function createEventComprar() {
     boton_comprar = document.getElementById('boton-comprar');
     boton_comprar.addEventListener('click', () => {
-        sessionStorage.setItem('cart', '');
-        window.location.href = '/index.html';
+        // sessionStorage.setItem('cart', '');
+        // window.location.href = '/index.html';
     });
 }
 
-function createEventosModificarCantidad() {
+function createEventosModificarCantidad(extra_buttons=true) {
     botones1 = document.querySelectorAll(".qty-down-carrito")
     botones2 = document.querySelectorAll(".qty-up-carrito")
     botones3 = document.querySelectorAll(".eliminate-product-carrito")
     botones = [...botones1, ...botones2, ...botones3]
+    if (extra_buttons) {
+        botones4 = document.querySelectorAll(".anadir-carrito-product")
+        botones = [...botones, ...botones4]
+    }
 
     botones.forEach(boton => {
         boton.addEventListener('click', () => {
-            id = boton.id.replace("qty-down-carrito-id-", "").replace("qty-up-carrito-id-", "").replace("eliminate-product-carrito-id-", "");
-            
-            if (boton.id.includes("qty-down-carrito-id-")) {
-                console.log(id+" down")
-                qty = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
-                console.log(qty)
-                if (qty <= 1) {
-                    sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+qty, "id"+id+":"+1));
-                }
-                else {
-                    sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+qty, "id"+id+":"+(parseInt(qty)-1)));
-                }
-                mostrarCarrito();  
-            } 
-            else if (boton.id.includes("qty-up-carrito-id-")) {
-                console.log(id+" up")
-                qty = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
-                sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+qty, "id"+id+":"+(parseInt(qty)+1)));  
-                mostrarCarrito();  
-            }
-            else if (boton.id.includes("eliminate-product-carrito-id-")) {
-                console.log(id+" eliminate")
-                qty = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
-                sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace(";id"+id+":"+qty,""));  
-                mostrarCarrito();  
-            }
+            gestionarPulsaciones(boton)
         });
     });
+}
+
+function gestionarPulsaciones(boton) {
+    if (sessionStorage.getItem('cart') === null || sessionStorage.getItem('cart') === "") {
+        sessionStorage.setItem('cart', '');
+    }
+    id = boton.id.replace("qty-down-carrito-id-", "").replace("qty-up-carrito-id-", "").replace("eliminate-product-carrito-id-", "");
+
+    if (boton.id.includes("qty-down-carrito-id-")) {
+        console.log(id+" down")
+        qty = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
+        if (qty <= 1) {
+            sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+qty, "id"+id+":"+1));
+        }
+        else {
+            sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+qty, "id"+id+":"+(parseInt(qty)-1)));
+        }
+    } 
+    else if (boton.id.includes("qty-up-carrito-id-")) {
+        console.log(id+" up")
+        if (sessionStorage.getItem('cart').includes("id"+id+":")) {
+            // si hay mas de 7 elementos en el carrito, no se puede añadir mas
+            qty = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
+            sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace("id"+id+":"+qty, "id"+id+":"+(parseInt(qty)+1)));
+        }
+        else {
+            if (sessionStorage.getItem('cart').split(";").length -1 >= 500) {
+                // sustituir el elemento a añadir por otro aleatorio
+                alert("Carrito lleno, prueba a hacer 2 pedidos")
+            }
+            else {
+                sessionStorage.setItem('cart', sessionStorage.getItem('cart') + ";" + "id" + id + ":1");
+            }
+        } 
+    }
+    else if (boton.id.includes("eliminate-product-carrito-id-")) {
+        console.log(id+" eliminate")
+        qty = sessionStorage.getItem('cart').split(";").filter(item => item.includes("id"+id))[0].split(":")[1]
+        sessionStorage.setItem('cart', sessionStorage.getItem('cart').replace(";id"+id+":"+qty,""));  
+    }
+    mostrarCarrito();  
 }
 
 
@@ -310,3 +339,4 @@ function foto(tipo) {
             return "https://thumb.pccomponentes.com/w-300-300/articles/1074/10745583/3516-msi-mag-a750gl-pcie5-750w-80-plus-gold-modular-mejor-precio.jpg";
     }
 }
+

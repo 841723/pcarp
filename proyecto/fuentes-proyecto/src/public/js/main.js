@@ -38,7 +38,7 @@ function handleTimer() {
 		}
 
 		// update the countdown display
-		days.textContent = daysValue.toString().padStart(2, '0');
+		days.textContent = daysValue.toString().padStart(1, '0');
 		hours.textContent = hoursValue.toString().padStart(2, '0');
 		mins.textContent = minsValue.toString().padStart(2, '0');
 		secs.textContent = secsValue.toString().padStart(2, '0');

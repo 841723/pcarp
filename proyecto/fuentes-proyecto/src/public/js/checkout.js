@@ -27,25 +27,13 @@ function cargarDatosPersonales() {
     .catch(error => console.error('Error al cargar datos personales:', error));
 }
 
-// Llamar a la función para obtener y mostrar los pedidos del cliente al cargar la página
-// document.addEventListener('DOMContentLoaded', obtenerPedidosCliente);
+
 window.addEventListener('load', cargarDatosPersonales);
 mostrarCarritoResumen()
-
-// order_submit = document.getElementById('order_submit');
-// order_submit.addEventListener('click', function() {
-//     event.preventDefault();
-    
-// })
 
 
 
 function crearEntradaCheckOut(product, veces, hay_descuento, precio_descuento) {
-    // <div class="order-col">
-    //     <div>2x Product Name Goes Here</div>
-    //     <div>$980.00</div>
-    // </div>
-
     div_order_col = document.createElement('div');
     div_order_col.className = "order-col";
 
@@ -77,6 +65,7 @@ function crearEntradaCheckOut(product, veces, hay_descuento, precio_descuento) {
 }
 
 async function mostrarCarritoResumen() {
+    console.log("mostrarCarritoResumen");
     order_summary_id = document.getElementById('order-summary-id');
     cart = sessionStorage.getItem('cart');
     
@@ -89,6 +78,7 @@ async function mostrarCarritoResumen() {
         const fetchPromises = [];
 
         for (const item of cart_list) {
+            console.log(item);
             const id = item.split(":")[0].replace("id", "");
             const veces = item.split(":")[1];
 
@@ -132,4 +122,30 @@ async function mostrarCarritoResumen() {
             console.error('Error en Promise.all:', error);
         }
     }
+}
+
+
+function pagarClicked() {
+    if (document.getElementById('terms').checked) {
+        crearPedido();
+        sessionStorage.setItem('cart','');
+        alert("Compra realizada con éxito");
+        window.location.href = '/index.html';
+    }
+    else {
+        alert("Debes aceptar los términos y condiciones");
+    }
+}
+
+
+function crearPedido() {
+    fecha_en_4_dias = new Date();
+    fecha_en_4_dias.setDate(fecha_en_4_dias.getDate() + 4);
+    fecha_en_4_dias = fecha_en_4_dias.getFullYear() + "-" + (fecha_en_4_dias.getMonth() + 1) + "-" + fecha_en_4_dias.getDate()
+    estado = 'procesando'
+    id = sessionStorage.getItem('id');
+
+    url = `/crear_pedido?id_usuario=${encodeURIComponent(id)}&fecha=${encodeURIComponent(fecha_en_4_dias)}&estado=${encodeURIComponent(estado)}&cart=${encodeURIComponent(sessionStorage.getItem('cart'))}`;
+    fetch(url)
+    .catch(error => console.error('Error:', error));
 }

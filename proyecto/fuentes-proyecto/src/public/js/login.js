@@ -64,8 +64,8 @@ async function logUser(){
       if (data!=null) {
         if (contra == data.contrasena) {
           sessionStorage.setItem('userToken', true);
-          console.log(sessionStorage.getItem('userToken'));
           sessionStorage.setItem('email', email);
+          sessionStorage.setItem('id', data.id_usuario);
           alert("contrasena correcta");
           window.location.href = "/";
         }

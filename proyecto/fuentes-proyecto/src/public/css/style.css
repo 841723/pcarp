@@ -1429,6 +1429,13 @@ textarea.input {
 /*----------------------------*\
 	Product details
 \*----------------------------*/
+.product-details {
+  margin-left: 25px;
+  padding: 30px;
+  background-color: #FFF;
+  -webkit-box-shadow: 0px 0px 0px 1px #E4E7ED;
+  box-shadow: 0px 0px 0px 1px #E4E7ED;
+}
 
 .product-details .product-name {
   text-transform: uppercase;
@@ -1873,8 +1880,10 @@ textarea.input {
 }
 
 .order-details .order-submit {
+  background-color: #15161D;
   display: block;
   margin-top: 30px;
+  width: 100%;
 }
 
 /*=========================================================
@@ -2196,24 +2205,19 @@ textarea.input {
   background-color: #FFF;
   color: #e06a1b;
   border-color: #fb7319;
-  /* transition: 0.2s all; */
-  /* -webkit-transition: 0.2s all; */
 }
 
-.product-price-discounted {
-  color: #e06a1b;
-  /* font-weight: 700;
-  font-size: 18px; */
-}
-
-.product-price-discounted del {
-  color: black;
-  text-decoration: line-through;
-  font-weight: 200;
-  font-size: 12px;
+#order-submit {
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+  font-size: 18px;
 }
 
 
+#carrito-dropdown {
+  cursor: pointer;
+}
 
 #carrito-list {
   position: fixed;
@@ -2226,9 +2230,15 @@ textarea.input {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
   border-radius: 2px;
-  z-index: 1;
+  z-index: 1000;
   padding: 25px;
   transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  flex-direction: column;
+}
+#list-carrito-list {
+  overflow-y: auto;
+  height: 75vh;
 }
 
 #carrito-list .black-screen {
@@ -2236,9 +2246,10 @@ textarea.input {
   left: 0;
   top: 0;
   width: 73%;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
-  z-index: 1;
+  z-index: 1000;
   cursor: default;
   /* si me clicas esconder cesta */
 }
@@ -2371,4 +2382,12 @@ textarea.input {
   height: 50px;
   margin-top: 20px;
   font-size: 19px;
+}
+
+.sin-scroll {
+  overflow: hidden;
+}
+
+.producto-link {
+  cursor: pointer;
 }

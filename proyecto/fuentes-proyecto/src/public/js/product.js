@@ -27,20 +27,8 @@ function crearImagenProducto(item) {
     div_object2.classList.add("col-md-pull-5");
 
     div_imagenes2 = document.createElement('div');
-    // div_imagenes2.id = "product-imgs";
-    // for (let i = 0; i < 1; i++) {
-    //     div_preview = document.createElement('div');
-    //     div_preview.classList.add("product-preview");
 
-    //     img_preview = document.createElement('img');
-    //     img_preview.src = foto(item.tipo);
-    //     img_preview.alt = "Producto 1";
-    //     div_preview.appendChild(img_preview);
-
-    //     div_imagenes2.appendChild(div_preview);
-    // }
     div_text = document.createElement('div');
-    // div_text.classList.add("col-md-10");
     div_text.style = "width: 3000px;"
 
     div_details = document.createElement('div');
@@ -48,7 +36,7 @@ function crearImagenProducto(item) {
 
     h2_name = document.createElement('h2');
     h2_name.classList.add("product-name");
-    h2_name.textContent = item.modelo;
+    h2_name.textContent = item.modelo + " - " + item.marca ;
 
     div_stars = document.createElement('div');
     div_stars.classList.add("product-rating");
@@ -63,7 +51,7 @@ function crearImagenProducto(item) {
     a_review = document.createElement('a');
     a_review.classList.add("review-link");
     a_review.href = "#";
-    a_review.textContent = "10 Review(s) | Add your review";
+    a_review.textContent = " 10 Review(s) | Add your review";
 
     div_stars.appendChild(a_review);
 
@@ -123,48 +111,20 @@ function crearImagenProducto(item) {
     div_cart = document.createElement('div')
     div_cart.classList.add("add-to-cart");
 
-    div_qty_labl = document.createElement('div')
-    div_qty_labl.classList.add("qty-label");
-    div_qty_labl.textContent = "Cant "
-
-    div = document.createElement('div');
-    div.setAttribute('class', 'input-number');
-
-    input = document.createElement('input');
-    input.setAttribute('type', 'number');
-
-    spanUp = document.createElement('span');
-    spanUp.setAttribute('class', 'qty-up');
-    spanUp.textContent = '+';
-
-    spanDown = document.createElement('span');
-    spanDown.setAttribute('class', 'qty-down');
-    spanDown.textContent = '-';
-
-    div.appendChild(input);
-    div.appendChild(spanUp);
-    div.appendChild(spanDown);
-
-    div_qty_labl.appendChild(div);
-    
     button_cart = document.createElement('button');
     button_cart.classList.add("add-to-cart-btn");
+    button_cart.classList.add("anadir-carrito-product");
+    button_cart.id = "qty-up-carrito-id-" + item.id_producto
     button_cart.textContent = "añadir al carrito";
 
-    div_cart.appendChild(div_qty_labl);
     div_cart.appendChild(button_cart);
 
     ul_btns = document.createElement('ul');
     ul_btns.classList.add("product-btns");
     li_btns = document.createElement('li');
-    a_btns = document.createElement('a');
-    a_btns.href = "#";
     i_btns = document.createElement('i');
     i_btns.classList.add("fa");
     i_btns.classList.add("fa-heart-o");
-    a_btns.appendChild(i_btns);
-    a_btns.textContent = "añadir a la lista de deseos ";
-    li_btns.appendChild(a_btns);
     ul_btns.appendChild(li_btns);
 
     div_options.appendChild(label_color);
@@ -177,9 +137,6 @@ function crearImagenProducto(item) {
     div_text.appendChild(div_details);
 
     div_object.appendChild(div_text);
-
-
-
 
     div_object2.appendChild(div_imagenes2);
     div_object.appendChild(div_object2);
@@ -209,13 +166,29 @@ function foto(tipo) {
 }
 
 function crearPag() {
-    fetch("/products_random")
+    let url = ""
+    let random = false
+    if (sessionStorage.getItem("id_producto") == null || sessionStorage.getItem("id_producto") == "") {
+        random = true
+        url = "/products_random"
+    }
+    else {
+        random = false
+        url = "/products_id?id="+(sessionStorage.getItem("id_producto")) 
+    }
+    fetch(url)
     .then(response => response.json())
     .then(data => {
+        if (random==true) {
+            value = data[0]
+        }
+        else {
+            value = data
+        }
         product_see = document.getElementById('product_see');
-        item = crearImagenProducto(data[0])
+        item = crearImagenProducto(value)
         product_see.appendChild(item);
-
+        createEventosModificarCantidad();
     })
     .catch(error => console.error('Error:', error));
 }

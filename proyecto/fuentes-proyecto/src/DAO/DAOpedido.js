@@ -37,10 +37,10 @@ class DAOpedido {
             throw error;
         }
     }
-    async insertar(id_usuario, fecha, fecha_llegada, estado) {
+    async insertar(id_usuario, fecha_llegada, estado) {
         try {
-            const query = 'INSERT INTO pedido (id_usuario, fecha, fecha_llegada, estado) VALUES ($1, $2, $3, $4) RETURNING id_pedido';
-            const values = [id_usuario, fecha, fechaLlegada, estado];
+            const query = 'INSERT INTO pedido (id_usuario, fecha_llegada, estado) VALUES ($1, $2, $3) RETURNING id_pedido';
+            const values = [id_usuario, fecha_llegada, estado];
             const result = await this.database.query(query, values);
             return result.rows[0].id_pedido;
         } catch (error) {

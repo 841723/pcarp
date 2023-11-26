@@ -97,15 +97,6 @@
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="wish.html" style="width: auto;">
-										<i class="fa fa-heart-o"></i>
-										<span>Lista de deseos</span>
-									</a>
-								</div>
-								<!-- /Wishlist -->
-
 								<!-- Cart -->
 								<div id="carrito-dropdown">
 									<a onclick="mostrarCarrito()">
@@ -171,11 +162,7 @@
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
-						<h3 class="breadcrumb-header">Checkout</h3>
-						<ul class="breadcrumb-tree">
-							<li><a href="index.html">Home</a></li>
-							<li class="active">Checkout</li>
-						</ul>
+						<h2 class="breadcrumb-header">Checkout</h2>
 					</div>
 				</div>
 				<!-- /row -->
@@ -195,7 +182,7 @@
 						<!-- Billing Details -->
 						<div class="billing-details">
 							<div class="section-title">
-								<h3 class="title">Billing address</h3>
+								<h3 class="title">DATOS DE ENVIO</h3>
 							</div>
 							<div class="form-group">
 								<input class="input" type="text" name="first-name" placeholder="Nombre" id="nombre">
@@ -244,7 +231,7 @@
 						</div>
 						<div class="payment-method">
 							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
+								<input type="radio" name="payment" id="payment-1" checked>
 								<label for="payment-1">
 									<span></span>
 									Transferencia Bancaria
@@ -255,6 +242,7 @@
 									</div>
 								</div>
 							</div>
+							
 							<div class="input-radio">
 								<input type="radio" name="payment" id="payment-3">
 								<label for="payment-3">
@@ -269,15 +257,23 @@
 										<input class="input" type="password" name="last-name" placeholder="Contraseña">
 									</div>
 								</div>
-						</div>
-						<div class="input-checkbox">
+							</div>
+							<div class="input-radio">
+								<input type="radio" name="payment" id="payment-2">
+								<label for="payment-2">
+									<span></span>
+									Pagar al recibir el pedido
+								</label>
+							</div>
+						
+						<div class="input-checkbox" style="margin-top: 20px;">
 							<input type="checkbox" id="terms">
 							<label for="terms">
 								<span></span>
 								He leido y acepto los <a href="#">terminos y condiciones</a>
 							</label>
 						</div>
-						<a href="#" class="primary-btn" id="order-submit">PAGAR</a>
+						<button onclick="pagarClicked()" class="primary-btn" id="order-submit">COMPRAR</button>
 					</div>
 					<!-- /Order Details -->
 				</div>
@@ -378,7 +374,6 @@
 								<ul class="footer-links">
 									<li><a href="login.html">Mi Cuenta</a></li>
 									<li><a href="checkout.html">Ver Carrito</a></li>
-									<li><a href="wish.html">Lista de deseos</a></li>
 									<li><a href="https://www.17track.net/es">Track My Order</a></li>
 								</ul>
 							</div>

@@ -4,6 +4,8 @@ const {Client} = require('pg')
 const DAOusuario = require('./DAO/DAOusuario');
 const DAOPedido = require('./DAO/DAOpedido');
 const DAOProducto = require('./DAO/DAOproducto');
+const DAOcontPedido = require('./DAO/DAOcontPedido');
+const DAOproducto = require('./DAO/DAOproducto');
 
 const client = new Client ({
     host:"bjxc2jinqbwlt3blkcz6-postgresql.services.clever-cloud.com",
@@ -20,56 +22,56 @@ app.use(express.static(__dirname +'/public'));
 
 
 app.listen(3000, () => {
-    console.log('servidor iniciado...');
+    console.log('servidor iniciado en localhost:3000...');
 });
 
 
-app.get('/consulta1', (req, res) => {
-    // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
-  client.query(`SELECT * FROM public.usuario`, (error, result) => {
-    if (error) {  // Si hay un error, se lanza una excepción.
-      throw error;
-    }
-    // Envía los resultados como respuesta al cliente en formato JSON.
-    //   res.send(result.rows);
-    res.json(result.rows);
-  });
-});
+// app.get('/consulta1', (req, res) => {
+//     // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
+//   client.query(`SELECT * FROM public.usuario`, (error, result) => {
+//     if (error) {  // Si hay un error, se lanza una excepción.
+//       throw error;
+//     }
+//     // Envía los resultados como respuesta al cliente en formato JSON.
+//     //   res.send(result.rows);
+//     res.json(result.rows);
+//   });
+// });
 
-app.get('/consulta2', (req, res) => {
-  const daoP = new DAOProducto(client);
-  daoP.obtenerTodos()
-    .then((resultadoObtenido) => {
-      res.json(resultadoObtenido);
-    })
-    .catch((error) => {
-      console.error(error); // Manejo de errores
-    });
-});
+// app.get('/consulta2', (req, res) => {
+//   const daoP = new DAOProducto(client);
+//   daoP.obtenerTodos()
+//     .then((resultadoObtenido) => {
+//       res.json(resultadoObtenido);
+//     })
+//     .catch((error) => {
+//       console.error(error); // Manejo de errores
+//     });
+// });
 
 
-app.get('/endpoint', (req, res) => {
-  const data = req.query.data; // Aquí obtendrás el string enviado
-  const daoP = new DAOPedido(client);
-  if (data=="") {
-    daoP.obtenerTodos()
-    .then((resultadoObtenido) => {
-      res.json(resultadoObtenido);
-    })
-    .catch((error) => {
-      console.error(error); // Manejo de errores
-    });
-  }
-  else {
-    daoP.obtenerPorId(data)
-    .then((resultadoObtenido) => {
-      res.json(resultadoObtenido);
-    })
-    .catch((error) => {
-      console.error(error); // Manejo de errores
-    });
-  }
-});
+// app.get('/endpoint', (req, res) => {
+//   const data = req.query.data; // Aquí obtendrás el string enviado
+//   const daoP = new DAOPedido(client);
+//   if (data=="") {
+//     daoP.obtenerTodos()
+//     .then((resultadoObtenido) => {
+//       res.json(resultadoObtenido);
+//     })
+//     .catch((error) => {
+//       console.error(error); // Manejo de errores
+//     });
+//   }
+//   else {
+//     daoP.obtenerPorId(data)
+//     .then((resultadoObtenido) => {
+//       res.json(resultadoObtenido);
+//     })
+//     .catch((error) => {
+//       console.error(error); // Manejo de errores
+//     });
+//   }
+// });
 
 app.get('/top_selling', (req, res) => {
   const daoP = new DAOProducto(client);
@@ -195,6 +197,21 @@ app.get('/products_random', (req, res) => {
   });
 });
 
+app.get('/products_id', (req, res) => { 
+  const id = req.query.id; // Aquí obtendrás el string enviado
+  const daoP = new DAOproducto(client);
+
+  daoP.obtenerPorId(id)
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
+
+
+
 app.get('/products_id', (req, res) => {
   const id = req.query.id; // Aquí obtendrás el string enviado
   const daoP = new DAOProducto(client);
@@ -206,3 +223,32 @@ app.get('/products_id', (req, res) => {
     console.error(error); // Manejo de errores
   });
 });
+
+app.get('/crear_pedido', (req, res) => {
+  const id_usuario = req.query.id_usuario; // Aquí obtendrás el string enviado
+  const fecha_llegada = req.query.fecha; // Aquí obtendrás el string enviado
+  const estado = req.query.estado; // Aquí obtendrás el string enviado
+  const cart = req.query.cart; // Aquí obtendrás el string enviado
+  productos = []
+  cantidades = []
+  cart.split(';').forEach(element => {
+    productos.push(element.split(':')[0].replace('id',''))
+    cantidades.push(element.split(':')[1])
+  });
+  productos.shift()
+  cantidades.shift()
+
+  const daoP = new DAOPedido(client);
+  daoP.insertar(id_usuario,fecha_llegada,estado)
+  .then((resultadoObtenido) => {
+    const daoCP = new DAOcontPedido(client);
+    daoCP.insertar(resultadoObtenido, productos, cantidades)
+    const daoP = new DAOProducto(client);
+    daoP.actualizarStock(productos, cantidades)
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+
+})

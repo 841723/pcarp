@@ -32,13 +32,18 @@ class DAOproducto {
     async obtenerPorTipo(tipo) {
         try {
             tipo = this.transform(tipo)
-            const result = await this.database.query('SELECT * FROM producto WHERE tipo = $1', [tipo]);
-
+            let result = null
+            if (tipo == "none") {
+                result = await this.database.query('SELECT * FROM producto');
+            }
+            else {
+                result = await this.database.query('SELECT * FROM producto WHERE tipo = $1', [tipo]);
+            }
+            
             if (result.rows.length === 0) {
                 return null;
             }
 
-            console.log("resultado="+result.rows)
             const res = result.rows.map((producto) => new VOproducto(producto.id_producto, 
                 producto.marca, 
                 producto.modelo, 
@@ -99,6 +104,27 @@ class DAOproducto {
             throw error;
         }
     }
+
+    async actualizarStock(id, stock) {
+        try {
+            for (let i = 0; i < id.length; i++) {
+                const query = 'UPDATE producto SET stock = (stock-$1), ventas = (ventas+$2) WHERE id_producto = $3;';
+                const values = [stock[i],stock[i], id[i]];
+                await this.database.query(query, values);
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    // async actualizarStockProduct(id, ventas) {
+    //     try {
+    //         const query = 'UPDATE producto SET stock = (stock-$1), (ventas = ventas+$1) WHERE id_producto = $2';
+    //         const values = [ventas, id];
+    //         await this.database.query(query, values);
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
 
     async eliminar(id) {
         try {

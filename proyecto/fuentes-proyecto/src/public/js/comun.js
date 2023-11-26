@@ -10,7 +10,6 @@ function mostrarEnlaceDatos() {
 	}
 	const datosLi = document.getElementById('datosLi');
 	const loginpopup = document.getElementById('loginpop');
-	console.log(sessionStorage.getItem('userToken'));
 	if (sessionStorage.getItem('userToken') === null) {
 		sessionStorage.setItem('userToken', false);
 
@@ -31,8 +30,18 @@ function mostrarEnlaceDatos() {
 search_btn_header = document.getElementById("search-btn-header")
 search_btn_header.addEventListener('click', () => {
     event.preventDefault()
-    
-    // search_products_header();
+	console.log("pulsado")  
+	search_txt = document.getElementById("search-btn-txt")
+	console.log(search_txt.value)
+
+	search_type = document.getElementById("search-form-header")
+	navbar_buttons = document.getElementsByClassName("navbar-nav")
+	navbar_buttons = navbar_buttons[0].children
+
+	console.log(navbar_buttons[document.getElementById('search-form-header').value].textContent.trim())
+	sessionStorage.setItem("search_products", search_txt.value+":::"+navbar_buttons[search_type.value].textContent.trim())
+
+	window.location.href = "/store.html"
 });
 
 
@@ -48,10 +57,19 @@ function getNumberCart() {
 		});
 		item_sum.shift();
 		item_sum = item_sum.reduce((a, b) => a + b, 0);
-		console.log(item_sum);
 		return item_sum;
 	}
 }
 
 
+function crearEventsListenersProductos() {
+	const productos_links = document.querySelectorAll('.producto-link');
 
+	productos_links.forEach(producto_link => {
+		producto_link.addEventListener('click', () => {
+			id = producto_link.id.replace('producto-link-id-', '');
+			sessionStorage.setItem('id_producto', id);
+			window.location.href = "/product.html";
+		});
+	})
+}

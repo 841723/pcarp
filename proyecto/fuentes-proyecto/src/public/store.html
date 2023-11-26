@@ -75,7 +75,7 @@
 						<div class="col-md-6">
 							<div class="header-search">
 								<form>
-									<select  id="search-form-header" class="input-select">
+									<select id="search-form-header" class="input-select">
 										<option value="0">Todas</option>
 										<option value="1">Procesadores</option>
 										<option value="2">Placas Base</option>
@@ -87,7 +87,7 @@
 										<option value="8">Ventiladores</option>
 
 									</select>
-									<input id="search-input-header"class="input" placeholder="Escriba su busqueda">
+									<input id="search-btn-txt" class="input" placeholder="Escriba su busqueda">
 									<button id="search-btn-header" class="search-btn">Buscar</button>
 								</form>
 							</div>
@@ -97,21 +97,29 @@
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="wish.html" style="width: auto;">
-										<i class="fa fa-heart-o"></i>
-										<span>Lista de deseos</span>
-									</a>
-								</div>
-								<!-- /Wishlist -->
-
 								<!-- Cart -->
-								<div class="dropdown">
-									<a href="checkout.html" >
+								<div id="carrito-dropdown">
+									<a onclick="mostrarCarrito()">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Carrito</span>
+										<div id="number_carrito" class="qty">0</div>
+										
 									</a>
+									<div id="carrito-list">
+										<a onclick="eliminarCarrito()" class="black-screen"></a>
+										<div class="title-carrito-list">
+											<span>TU CARRITO</span>
+											<a onclick="eliminarCarrito()"><i id="close-carrito-list" class="fa fa-times"></i></a>
+										</div>
+										<div class="carrito-horizontal-line"></div>
+										<div id="list-carrito-list">
+																					
+										</div>
+										<div id="summary-carrito-list">
+				
+										</div>
+									</div>
+								</div>
 								<!-- /Cart -->
 
 								<!-- Menu Toogle -->
@@ -254,7 +262,7 @@
 						<div class="store-filter clearfix">
 							<div class="store-sort">
 								<label>
-									Sort By:
+									Ordenar:
 									<select id="sort_by_show" class="input-select">
 										<option value="0">Popular</option>
 										<option value="1">Mas baratos primero</option>
@@ -263,7 +271,7 @@
 								</label>
 
 								<label>
-									Show:
+									Mostrar:
 									<select id="num_show_prod" class="input-select">
 										<option value="0">15</option>
 										<option value="1">30</option>
@@ -382,7 +390,6 @@
 						<ul class="footer-links">
 							<li><a href="login.html">Mi Cuenta</a></li>
 							<li><a href="checkout.html">Ver Carrito</a></li>
-							<li><a href="wish.html">Lista de deseos</a></li>
 							<li><a href="https://www.17track.net/es">Track My Order</a></li>
 						</ul>
 					</div>
@@ -430,8 +437,9 @@
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/store.js"></script>
-		<script src="js/comun.js"></script>
 		<script src="js/main-jquery.js"></script>
+		<script src="js/carrito.js"></script>
+		<script src="js/comun.js"></script>
 
 	</body>
 </html>

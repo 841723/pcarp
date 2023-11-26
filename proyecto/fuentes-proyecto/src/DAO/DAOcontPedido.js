@@ -35,9 +35,11 @@ class DAOcont_pedido {
     }
     async insertar(id_pedido, id_producto, cantidad) {
         try {
-            const query = 'INSERT INTO contenido_pedido (id_pedido, id_producto, cantidad) VALUES ($1, $2, $3)';
-            const values = [id_pedido, id_producto, cantidad];
-            const result = await this.database.query(query, values);
+            for (let i = 0; i < id_producto.length; i++) {
+                const query = 'INSERT INTO contenido_pedido (id_pedido, id_producto, cantidad) VALUES ($1, $2, $3)';
+                const values = [id_pedido, id_producto[i], cantidad[i]];
+                await this.database.query(query, values);
+            }
         } catch (error) {
             throw error;
         }
@@ -54,4 +56,4 @@ class DAOcont_pedido {
     }
 }
 
-module.exports = DAOcontenido_pedido;
+module.exports = DAOcont_pedido;
