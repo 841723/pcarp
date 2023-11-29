@@ -7,7 +7,7 @@ class DAOproducto {
 
     async obtenerTodos() {
         try {
-            const result = await this.database.query('SELECT * FROM producto');
+            const result = await this.database.query('SELECT * FROM producto ORDER BY id_producto ASC');
 
             if (result.rows.length === 0) {
                 return null;
@@ -24,6 +24,42 @@ class DAOproducto {
                                                                      producto.tipo))
             
             return res;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async obtenerTodosAll(id_producto) {
+        try {
+            if (id_producto === null || id_producto === ""  || id_producto === undefined) {
+                
+                let tipos = ["procesador","placa_base","grafica","ram","disco_duro","fuente_alimentacion","ventilador","caja_torre"]
+                let  querys = [] 
+                for (let i = 0; i < tipos.length; i++) 
+                    querys.push("SELECT * FROM producto p INNER JOIN " + tipos[i] +" AS t ON p.id_producto = t.id_producto ORDER BY p.id_producto ASC")
+
+                let result = []
+                
+                for (let i = 0; i < querys.length; i++) {
+                    const res = await this.database.query(querys[i]);
+                    result.push(res.rows)
+                }
+                
+                return result;
+            }
+            else {
+                const query1 = 'SELECT tipo FROM producto WHERE id_producto = $1'
+                const values1 = [id_producto];
+                const result1 = await this.database.query(query1, values1);
+                if (result1.rows.length === 0) {
+                    return null;
+                }
+                let tipo = result1.rows[0].tipo
+
+                const query2 = 'SELECT * FROM producto p INNER JOIN ' + tipo +' AS t ON p.id_producto = t.id_producto WHERE p.id_producto = ' + id_producto
+                const result2 = await this.database.query(query2);
+                return result2.rows;
+            }
         } catch (error) {
             throw error;
         }

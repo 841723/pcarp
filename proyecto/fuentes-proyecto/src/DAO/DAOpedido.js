@@ -1,3 +1,4 @@
+const { query } = require('express');
 const VOpedido = require('../VO/VOPedido');
 
 class DAOpedido {
@@ -16,6 +17,24 @@ class DAOpedido {
             const res = result.rows.map((pedido) => new VOpedido(pedido.id_pedido, pedido.id_usuario, pedido.fecha, pedido.fecha_llegada, pedido.estado));
 
             return res;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async obtenerTodosDatos(detalle) {
+        try {
+            let consult = 'SELECT * FROM pedido p INNER JOIN usuario u ON p.id_usuario = u.id_usuario INNER JOIN contenido_pedido c ON p.id_pedido = c.id_pedido';
+            if (detalle == 'true') {
+                consult += ' INNER JOIN producto d ON c.id_producto = d.id_producto';
+            }
+            const result = await this.database.query(consult);
+
+            if (result.rows.length === 0) {
+                return null;
+            }
+
+            return result.rows;
         } catch (error) {
             throw error;
         }
@@ -52,6 +71,16 @@ class DAOpedido {
         try {
             const query = 'UPDATE pedido SET id_usuario = $1, fecha = $2, fecha_llegada = $3, estado = $4 WHERE id_pedido = $5';
             const values = [id_usuario, fecha, fechaLlegada, estado, idPedido];
+            await this.database.query(query, values);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async actualizarEstado(id_pedido, estado) {
+        try {
+            const query = 'UPDATE pedido SET estado = $1 WHERE id_pedido = $2';
+            const values = [estado, id_pedido];
             await this.database.query(query, values);
         } catch (error) {
             throw error;

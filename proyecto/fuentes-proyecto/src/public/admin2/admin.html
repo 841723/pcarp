@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>PCarp</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"/>
+
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="./styles_admin.css"/>
+		<link type="text/css" rel="stylesheet" href="../css/style.css"/>
+
+		<link rel="icon"  type="image/png" href="../media/logo.png">
+
+		<!-- <link rel="shotcut icon" src="./media/logo.jpg"> -->
+
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    </head>
+	<body data-bs-theme="light">
+		<header>
+			<!-- TOP HEADER -->
+			<div id="top-header">
+				<div class="container">
+					
+					
+				</div>
+			</div>
+			<!-- /TOP HEADER -->
+
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="#" class="logo">
+									<img src="../media/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<!-- /LOGO -->
+
+						<!-- SEARCH BAR -->
+						<div class="col-md-6 panel-control">
+                            <h1>PANEL DE ADMINISTRACIÓN</h1>
+						</div>
+						<!-- /SEARCH BAR -->
+
+						
+					</div>
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- /MAIN HEADER -->
+		</header>
+		<!-- /HEADER -->
+
+        <!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+				<!-- NAV -->
+				<ul class="main-nav nav navbar-nav">
+
+				</ul>
+				<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>
+		<!-- /NAVIGATION -->
+        <div class="section">
+            <div class="container-main container">
+                <div class="row">
+					<div class="buttons">
+						<div><button onclick="mostrarProductos()" id="productos-btn" class="primary-btn">Productos</button></div>
+						<div><button onclick="mostrarPedidos()" id="productos-btn" class="primary-btn">Pedidos</button></div>
+					</div>
+
+					<div class="">
+						<div class="title">
+							<h1 id="h1_titulo">Productos</h1>
+							<button id="icono-anadir"><i class="fa fa-plus"></i></button>
+						</div>
+
+						<div id="object-container">
+
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+		<div id="changes-saved">
+			<p>Los cambios se han guardado correctamente</p>
+		</div>
+		<div id="edit-product">
+			<div class="title-edit-product">
+				<h1>Editar Producto</h1>
+			</div>
+			<div class="normal-config">
+				<div class="editable-item">
+					<h2 class="">Id Producto</h2>
+					<input type="text" id="id_producto" readonly>
+				</div>
+
+				<div class="editable-item">
+					<h2 class="">Modelo</h2>
+					<input type="text" id="modelo">
+				</div>
+				<div class="editable-item">
+					<h2 class="">Marca</h2>
+					<input type="text" id="marca">
+				</div>
+				<div class="editable-item">
+					<h2 class="">Descripción</h2>
+					<input id="descripcion"></input>
+				</div>
+				<div class="editable-item">
+					<h2 class="">Precio</h2>
+					<input type="number" min="0.00"step="0.01" inputmode="numeric" id="precio">
+				</div>
+				<div class="editable-item">
+					<h2 class="">Descuento</h2>
+					<input type="number" min="0" max="100" id="descuento">
+				</div>
+				
+			</div>
+			<div id="extra-config">
+				<div class="editable-item">
+					<h2 class="">Stock</h2>
+					<input type="number" min="0" id="stock">
+				</div>
+				<div class="editable-item">
+					<h2 class="">Ventas</h2>
+					<input type="number" min="0" id="ventas">
+				</div>
+				<div class="editable-item">
+					<h2 class="">Categoría</h2>
+					<select onchange="mostrarCamposEditarProducto()" id="select-tipo" id="categoria">
+						<option value="1">procesador</option>
+						<option value="2">placa base</option>
+						<option value="3">grafica</option>
+						<option value="4">ram</option>
+						<option value="5">disco duro</option>
+						<option value="6">fuente alimentacion</option>
+						<option value="7">ventilador</option>
+						<option value="8">caja torre</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="submit-div">
+				<h2 class="submit">Guardar cambios</h2>
+				<input type="submit" class="submit" value="Guardar" onclick="guardarCambios()">
+			</div>
+
+
+
+		</div>
+		
+
+        <!-- FOOTER -->
+		<footer id="footer">
+			<!-- top footer -->
+			<div class="section">
+				<!-- container -->
+				<div class="container">
+					
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /top footer -->
+
+			<!-- bottom footer -->
+			<div id="bottom-footer" class="section">
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-md-12 text-center">
+							
+							<span class="copyright">
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</span>
+						</div>
+					</div>
+						<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /bottom footer -->
+		</footer>
+		<!-- /FOOTER -->
+		<script src="admin.js"></script>
+    </body>
+
+</html>

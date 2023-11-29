@@ -172,6 +172,18 @@ app.get('/products', (req, res) => {
   });
 });
 
+app.get('/products_all', (req, res) => {
+  const id_producto = req.query.id_producto; // Aquí obtendrás el string enviado
+  const daoP = new DAOProducto(client);
+  daoP.obtenerTodosAll(id_producto)
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
+
 app.get('/products_tipo', (req, res) => {
   const tipo = req.query.tipo; // Aquí obtendrás el string enviado
 
@@ -212,18 +224,6 @@ app.get('/products_id', (req, res) => {
 
 
 
-app.get('/products_id', (req, res) => {
-  const id = req.query.id; // Aquí obtendrás el string enviado
-  const daoP = new DAOProducto(client);
-  daoP.obtenerPorId(id)
-  .then((resultadoObtenido) => {
-    res.json(resultadoObtenido);
-  })
-  .catch((error) => {
-    console.error(error); // Manejo de errores
-  });
-});
-
 app.get('/crear_pedido', (req, res) => {
   const id_usuario = req.query.id_usuario; // Aquí obtendrás el string enviado
   const fecha_llegada = req.query.fecha; // Aquí obtendrás el string enviado
@@ -250,5 +250,79 @@ app.get('/crear_pedido', (req, res) => {
   .catch((error) => {
     console.error(error); // Manejo de errores
   });
-
 })
+
+app.get('/pedidos_datos', (req, res) => {
+  const det_prod = req.query.det; // Aquí obtendrás el string enviado
+
+  const daoP = new DAOPedido(client);
+  daoP.obtenerTodosDatos(det_prod)
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
+
+
+app.get('/pedidos_cambiar_estado', (req, res) => {
+  const id_pedido = req.query.id_pedido; // Aquí obtendrás el string enviado
+  const estado = req.query.estado; // Aquí obtendrás el string enviado
+
+  const daoP = new DAOPedido(client);
+  daoP.actualizarEstado(id_pedido,estado)
+  .then((resultadoObtenido) => {
+    res.json({});
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
+
+
+app.get('/eliminar_objeto', (req, res) => {
+  const id = req.query.id; // Aquí obtendrás el string enviado
+  const objeto = req.query.objeto; // Aquí obtendrás el string enviado
+
+  if (objeto == 'usuario') {
+    const daoU = new DAOusuario(client);
+    daoU.eliminar(id)
+    .then((resultadoObtenido) => {
+      res.json({});
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+  }
+  else if (objeto == 'orders') {
+    const daoP = new DAOPedido(client);
+    daoP.eliminar(id)
+    .then((resultadoObtenido) => {
+      res.json({});
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+  }
+  else if (objeto == 'products') {
+    const daoP = new DAOProducto(client);
+    daoP.eliminar(id)
+    .then((resultadoObtenido) => {
+      res.json({});
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+  }
+  else if (objeto == 'cont_pedido') {
+    const daoCP = new DAOcontPedido(client);
+    daoCP.eliminar(id)
+    .then((resultadoObtenido) => {
+      res.json({});
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+  }
+});
