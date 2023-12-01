@@ -26,17 +26,17 @@ app.listen(3000, () => {
 });
 
 
-// app.get('/consulta1', (req, res) => {
-//     // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
-//   client.query(`SELECT * FROM public.usuario`, (error, result) => {
-//     if (error) {  // Si hay un error, se lanza una excepción.
-//       throw error;
-//     }
-//     // Envía los resultados como respuesta al cliente en formato JSON.
-//     //   res.send(result.rows);
-//     res.json(result.rows);
-//   });
-// });
+app.get('/consulta1', (req, res) => {
+    // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
+  client.query(`SELECT * FROM public.usuario`, (error, result) => {
+    if (error) {  // Si hay un error, se lanza una excepción.
+      throw error;
+    }
+    // Envía los resultados como respuesta al cliente en formato JSON.
+    //   res.send(result.rows);
+    res.json(result.rows);
+  });
+});
 
 // app.get('/consulta2', (req, res) => {
 //   const daoP = new DAOProducto(client);

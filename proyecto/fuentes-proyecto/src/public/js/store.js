@@ -146,7 +146,7 @@ function foto(tipo) {
     }
 }
 
-function search_products(tipo,cantidad,order,precio_max,precio_min,brands_names) {
+function search_products_by_parameters(tipo,cantidad,order,precio_max,precio_min,brands_names) {
     stringCodificado = encodeURI("tipo="+tipo+"&cantidad="+cantidad+"&order="+order+
                                  "&precio_max="+precio_max+"&precio_min="+precio_min+"&brands_names="+brands_names);
 
@@ -208,7 +208,7 @@ function view_products () {
         brands_names.push(selected_brands[i].parentElement.textContent.trim())
     }
     // console.log(search_for,number_productos,order_by,price_max,price_min,brands_names)
-    search_products(search_for,number_productos,order_by,price_max,price_min,brands_names)
+    search_products_by_parameters(search_for,number_productos,order_by,price_max,price_min,brands_names)
 }
 
 

@@ -71,7 +71,9 @@ async function logUser(){
           if (data.es_admin == true) {
             window.location.href = "/admin/admin.html";
           }
-          // window.location.href = "/";
+          else{
+            window.location.href = "/";
+          }
         }
         else { 
           alert("la contrasena es incorrecta");
@@ -90,7 +92,7 @@ function signupUser() {
   const passElement2 = document.getElementById('pass-signup-2').value
   const email = document.querySelector(".signup .input[type='email']").value;
 
-  if (ExistsUserMail(email)) {
+  if (ExistsUserMail(email) == true) {
     alert("ya existe un usuario con ese email");
   } 
   else {
@@ -106,8 +108,9 @@ function signupUser() {
       const url = `/create_user_by_mail?mail=${mailCodificado}&pass=${passCodificado}`;
       fetch(url)
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('userToken', true);
       alert("usuario creado correctamente")
-
+      window.location.href = "/";
     }
   }
 }
@@ -143,13 +146,14 @@ function updatePass() {
 async function ExistsUserMail(email) {
   const stringCodificado = encodeURIComponent(email);
   const url = `/user_mail?data=${stringCodificado}`;
-  await fetch(url)
-  // .then(response => response.json())
+  fetch(url)
+  .then(response => response.json())
   .then(data => {
+
       if (data!=null) {
         return true;
       }
-      else {
+      else if (data==null){
         return false;
       }
   })
