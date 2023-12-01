@@ -40,7 +40,9 @@
 			<div id="top-header">
 				<div class="container">
 					
-					
+					<ul class="header-links pull-right">
+						<li><a href="/login.html">Salir</a></li>
+					</ul>
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
@@ -105,7 +107,7 @@
 					<div class="">
 						<div class="title">
 							<h1 id="h1_titulo">Productos</h1>
-							<button id="icono-anadir"><i class="fa fa-plus"></i></button>
+							<button onclick="anadirProducto()" id="icono-anadir"><i class="fa fa-plus"></i></button>
 						</div>
 
 						<div id="object-container">
@@ -115,8 +117,17 @@
                 </div>
             </div>
         </div>
-		<div id="changes-saved">
+		<div id="changes-saved" class="status-message">
 			<p>Los cambios se han guardado correctamente</p>
+			<button id="button-saved" class="button-cerrar">Cerrar</button>
+		</div>
+		<div id="changes-saved-error" class="status-message">
+			<p>Ha habido un error al guardar los cambios</p>
+			<div id="error-log"></div>
+			<button id="button-error" class="button-cerrar">Cerrar</button>
+		</div>
+		<div class="reload-page">
+			<button onclick="recargarPagina()" class="primary-btn boton-recargar"><i class="fa fa-rotate-right"></i>Recargar pagina</i></button>
 		</div>
 		<div id="edit-product">
 			<div class="title-edit-product">
@@ -124,40 +135,40 @@
 			</div>
 			<div class="normal-config">
 				<div class="editable-item">
-					<h2 class="">Id Producto</h2>
-					<input type="text" id="id_producto" readonly>
+					<h2 class="">Id</h2>
+					<input type="text" id="id_producto"  class="editable-field" readonly>
 				</div>
 
 				<div class="editable-item">
 					<h2 class="">Modelo</h2>
-					<input type="text" id="modelo">
+					<input type="text" id="modelo" class="editable-field" required>
 				</div>
 				<div class="editable-item">
 					<h2 class="">Marca</h2>
-					<input type="text" id="marca">
+					<input type="text" id="marca" class="editable-field" required>
 				</div>
 				<div class="editable-item">
 					<h2 class="">Descripción</h2>
-					<input id="descripcion"></input>
+					<input id="descripcion" class="editable-field"></input>
 				</div>
 				<div class="editable-item">
 					<h2 class="">Precio</h2>
-					<input type="number" min="0.00"step="0.01" inputmode="numeric" id="precio">
+					<input type="number" min="0.00"step="0.01" inputmode="numeric" id="precio" class="editable-field" required>
 				</div>
 				<div class="editable-item">
 					<h2 class="">Descuento</h2>
-					<input type="number" min="0" max="100" id="descuento">
+					<input type="number" min="0" max="100" id="descuento" class="editable-field">
 				</div>
 				
 			</div>
 			<div id="extra-config">
 				<div class="editable-item">
 					<h2 class="">Stock</h2>
-					<input type="number" min="0" id="stock">
+					<input type="number" min="0" id="stock" class="editable-field" required>
 				</div>
 				<div class="editable-item">
 					<h2 class="">Ventas</h2>
-					<input type="number" min="0" id="ventas">
+					<input type="number" min="0" id="ventas" class="editable-field">
 				</div>
 				<div class="editable-item">
 					<h2 class="">Categoría</h2>
@@ -177,6 +188,10 @@
 			<div class="submit-div">
 				<h2 class="submit">Guardar cambios</h2>
 				<input type="submit" class="submit" value="Guardar" onclick="guardarCambios()">
+			</div>
+			<div class="submit-div">
+				<h2 class="submit">Salir</h2>
+				<input type="submit" class="submit" value="Salir" onclick="ocultarEditarProducto()">
 			</div>
 
 

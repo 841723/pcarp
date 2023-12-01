@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // Code to be executed when the DOM is ready
     if (sessionStorage.getItem('admin_view') === "orders") {
@@ -24,15 +23,21 @@ function mostrarPedidos() {
     loadOrders("false");
 }
 
+function mostrarEditarProducto() {
+    document.getElementById('edit-product').style.visibility = "visible";
+    cargarCamposEditarProducto();
+}
+
+function ocultarEditarProducto() {
+    document.getElementById('edit-product').style.visibility = "hidden";
+}
 
 function crearTarjetaProducto(producto) {
-    a_product = document.createElement('a');
-    a_product.classList.add("product-link-admin");
-    a_product.href = "#";
     div_product = document.createElement('div');
+    div_product.classList.add("product-link-admin");
     div_product.classList.add("product-admin");
-  
-     // div_product.id = producto.id;
+    div_product.id = 'id-producto-'+producto.id_producto;
+
     for (key in producto) {
         if (producto[key] !== null) {
             p_value = document.createElement('p');
@@ -44,8 +49,7 @@ function crearTarjetaProducto(producto) {
             div_product.appendChild(p_value);
         }
     }
-    a_product.appendChild(div_product);
-    return a_product;
+    return div_product;
 }
 
 function loadProducts() {
@@ -70,6 +74,9 @@ function loadProducts() {
             empty_div.appendChild(h3_empty);
             product_container.appendChild(empty_div);
         }
+    })
+    .then(() => {
+        createEventListenersProducts();
     })
     .catch(error => console.error('Error:', error));
 }
@@ -201,7 +208,6 @@ function createEventListenersOrders() {
 function createEventListenersDelete() {
     const buttons = document.querySelectorAll('.button-eliminar');
     buttons.forEach(button => {
-        console.log(button.id)
         button.addEventListener('click', (event) => {
             event.preventDefault();
             const id = button.id.replace("button-eliminar-", "");
@@ -224,7 +230,7 @@ function loadOrders(product_details) {
     .then(response => response.json())
     .then(data => {
         orders_container = document.getElementById('object-container');
-        // orders_container.innerHTML = ""
+        orders_container.innerHTML = ""
         data = juntarPedidos(data);
 
         data.forEach(item => {
@@ -245,13 +251,17 @@ function loadOrders(product_details) {
 }
 
 
-
-function showChangesHaveBeenSaved() {
-    const div = document.getElementById('changes-saved');
-    div.style.visibility = "visible";
-    setTimeout(() => {
-        div.style.visibility = "hidden";
-    }, 4000);
+function createEventListenersProducts() {
+    console.log("create event listeners products");
+    const products = document.querySelectorAll('.product-link-admin');
+    products.forEach(product => {
+        product.addEventListener('click', (event) => {
+            event.preventDefault();
+            const id = product.id;
+            sessionStorage.setItem('id-producto-admin', id);
+            mostrarEditarProducto();
+        });
+    });
 }
 
 function crearCamposEditarProducto(...campos) {
@@ -261,16 +271,15 @@ function crearCamposEditarProducto(...campos) {
         element.remove();
     });
     campos.forEach(campo => {
-
         div_item = document.createElement('div');
         div_item.classList.add("editable-item");
         div_item.classList.add("editable-item-extra");
         h2_item = document.createElement('h2');
-        h2_item.textContent = campo[0];
-        h2_item.classList.add("h2-edit");
+        h2_item.textContent = campo[0].charAt(0).toUpperCase() + campo[0].slice(1)
         div_item.appendChild(h2_item);
         input_item = document.createElement('input');
-        input_item.classList.add("input-edit");
+        input_item.classList.add("editable-field-extra");
+        input_item.id = campo[0];
         input_item.name = campo[0];
 
         if (campo[1] === "string") {
@@ -284,71 +293,192 @@ function crearCamposEditarProducto(...campos) {
                 input_item.max = campo[3];
             }
         }
+        else if (campo[1] === "real") {
+            input_item.type = "number";
+            input_item.step = campo[3];
+            input_item.max = campo[2];
+        }
         div_item.appendChild(input_item);
         form.appendChild(div_item);
     });
 }
 
-function mostrarCamposEditarProducto() {
-
-    tipo = document.getElementById('select-tipo')[document.getElementById('select-tipo').value-1].textContent;
-    console.log(tipo)
+function mostrarCamposEditarProducto(tipo) {
+    if (tipo === undefined) {
+        tipo = document.getElementById('select-tipo')[document.getElementById('select-tipo').value-1].textContent;
+        tipo = tipo.replace(/ /g,'_');
+    }
     switch (tipo) {
         case "procesador":
             crearCamposEditarProducto(["familia","string",15])
             break
-        case "placa base":
+        case "placa_base":
             crearCamposEditarProducto(["chipset","string",15],["tiene_m2","number"])
             break
 
         case "grafica":
-            crearCamposEditarProducto(["tipo grafica","string",6],["memoria","number"])
+            crearCamposEditarProducto(["tipo_grafica","string",6],["memoria","number"])
             break
 
         case "ram":
-            crearCamposEditarProducto(["tipo","string",4],["cantidad","number"],["almacenamiento","number"])
+            crearCamposEditarProducto(["tipo_ram","string",4],["cantidad","number"],["almacenamiento","number"])
             break
 
-        case "disco duro":
+        case "disco_duro":
             crearCamposEditarProducto(["tecnologia","string",3],["tamano","number"])
             break
 
-        case "caja torre":
+        case "caja_torre":
             crearCamposEditarProducto(["tipo_placa","string",20])
             break
 
         case "ventilador":
-            crearCamposEditarProducto(["tipo_disipador","string",35],["nivel_ruido","number",2,4])
+            crearCamposEditarProducto(["tipo_disipador","string",35],["nivel_ruido","real",4,0.01])
             break
 
-        case "fuente alimentacion":
+        case "fuente_alimentacion":
             crearCamposEditarProducto(["potencia","number"])
             break
     }
 }
 
-cargarCamposEditarProducto()
 function cargarCamposEditarProducto() {
-    let id_producto = 1;
+    let id_producto = sessionStorage.getItem('id-producto-admin');
+    id_producto = id_producto.replace("id-producto-", "");
+    console.log(id_producto);
+    if (id_producto === null || id_producto === "null" || id_producto === "") {
+        return;
+    }
+    if (id_producto === "nuevo-producto") {
+        mostrarCamposEditarProducto("procesador");
+        return
+    }
     const url = '/products_all?id_producto='+encodeURIComponent(id_producto); 
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        console.log(data[0])
-        mostrarCamposEditarProducto();
+        mostrarCamposEditarProducto(data[0]["tipo"]);
         for (key in data[0]) {
             input_item = document.getElementById(key);
             if (input_item === null) {
+                if (key == "tipo") {
+                    select_item = document.getElementById('select-tipo');
+                    for (let i = 0; i < select_item.options.length; i++) {
+
+                        if (select_item.options[i].textContent.replace(/ /g,'_') === data[0][key]) {
+                            select_item.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
                 continue;
             }
-            // console.log(input_item+" "+data[0].key)
-            console.log(input_item)
-            console.log(data[0][key])
             input_item.value = data[0][key];
         }
     })
+    
+    .catch(error => console.error('Error:', error));
 }
 
 function guardarCambios() {
+    console.log("guardar cambios");
+    const fields = document.querySelectorAll('.editable-field');
+    let attributes = []
+    fields.forEach(field => {
+        console.log(field.id);
+        attributes.push(field.id +":"+ field.value);
+    });
 
+    attributes.push("tipo:"+document.getElementById('select-tipo')[document.getElementById('select-tipo').value-1].textContent.replace(/ /g,'_'));
+    const extra = document.querySelectorAll('.editable-field-extra');
+    extra.forEach(field => {
+        attributes.push(field.id +":"+ field.value);
+    });
+
+    console.log(attributes);
+
+    let string_a_enviar = "";
+    attributes.forEach(attribute => {
+        string_a_enviar += attribute + ";";
+    });
+    console.log(string_a_enviar);
+    let url = '';
+    if (sessionStorage.getItem('id-producto-admin') === "nuevo-producto") {
+        url = '/anadir_producto?attributes='+encodeURIComponent(string_a_enviar);
+    }
+    else {
+        url = '/editar_producto?attributes='+encodeURIComponent(string_a_enviar);
+    }
+    console.log(url);
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        if (data["success"]) {
+            mostrarCambios("exito")
+            ocultarEditarProducto();
+        }
+        else {
+            mostrarCambios("error", data["error"])
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function anadirProducto() {
+    console.log("anadir producto");
+    sessionStorage.setItem('id-producto-admin', "nuevo-producto");
+    mostrarEditarProducto();
+
+    
+    const fields = document.querySelectorAll('.editable-field');
+    fields.forEach(field => {
+        if (field.id != "select-tipo" && field.id != "id_producto") {
+            field.value = "";
+        }
+    });
+    document.getElementById('id_producto').value = "(valor autogenerado)";
+    document.getElementById('id_producto').style.fontStyle = "italic";
+}
+
+
+function recargarPagina() {
+    console.log("recargar pagina"); 
+    if (document.getElementById('edit-product').style.visibility === "hidden" || document.getElementById('edit-product').style.visibility === "") {
+        window.location.reload();
+    }
+    console.log(document.getElementById('edit-product').style.visibility);
+}
+
+function mostrarCambios(tipo, error) {
+    let div
+    if (tipo === "exito") {
+        div = document.getElementById('changes-saved');
+        button = document.getElementById('button-saved');
+        document.getElementById('changes-saved-error').style.visibility = "hidden";
+        document.getElementById('button-error').style.visibility = "hidden";
+    }
+    else if (tipo === "error") {
+        console.log(error);
+        div = document.getElementById('changes-saved-error');
+        div_error = document.getElementById('error-log');
+        div_error.innerHTML = "";
+        for (key in error) {
+            p_value = document.createElement('p');
+            p_value.classList.add("value");
+            p_value.textContent = key + " : " + error[key];
+            div_error.appendChild(p_value);
+        }
+        document.getElementById('changes-saved').style.visibility = "hidden";
+        document.getElementById('button-saved').style.visibility = "hidden";
+        button = document.getElementById('button-error');
+    }
+    div.style.visibility = "visible";
+
+    button.style.visibility = "visible";
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        div.style.visibility = "hidden";
+        button.style.visibility = "hidden";
+
+    });
 }

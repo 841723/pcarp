@@ -62,12 +62,16 @@ async function logUser(){
   .then(response => response.json())
   .then(data => {
       if (data!=null) {
+        console.log(data);
         if (contra == data.contrasena) {
           sessionStorage.setItem('userToken', true);
           sessionStorage.setItem('email', email);
           sessionStorage.setItem('id', data.id_usuario);
           alert("contrasena correcta");
-          window.location.href = "/";
+          if (data.es_admin == true) {
+            window.location.href = "/admin/admin.html";
+          }
+          // window.location.href = "/";
         }
         else { 
           alert("la contrasena es incorrecta");

@@ -113,7 +113,7 @@ class DAOusuario {
             }
             const usuario = result.rows[0];
             // return usuario;
-            const res = new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion);
+            const res = new VOusuario(usuario.id_usuario, usuario.nombre,usuario.apellidos,usuario.contrasena,usuario.mail,usuario.direccion,usuario.es_admin);
             return res;
 
         } catch (error) {

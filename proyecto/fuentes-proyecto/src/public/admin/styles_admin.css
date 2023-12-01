@@ -71,6 +71,8 @@
     justify-content: center;
     align-items: stretch;
     gap: 20px;
+    min-height: 40vh;
+
 }
 
 .product-link-admin:hover {
@@ -79,6 +81,7 @@
 }
 
 .product-admin {
+    cursor: pointer;
     position: relative;
     width: 400px;
     border: 2px solid #797979;
@@ -131,8 +134,18 @@
 }
 
 #changes-saved {
+    background-color: #4caf50;
+}
+
+#changes-saved-error {
+    background-color: #f44336;
+}
+
+.status-message {
+    background-color: #4caf50;
     position: fixed;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #4caf50;
@@ -146,19 +159,25 @@
     font-weight: bold;
     visibility: hidden;
     bottom: 0;
-    z-index: 100;
+    z-index: 1000;
+}
+
+.button-cerrar {
+    border: 0px;
+    border-radius: 5px;
+    color: #565656;
+    font-size: 14px;
 }
 
 
 #edit-product {
     border: 1px solid red;
-
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 80%;
-    width: 75%;
+    height: 85%;
+    width: 95%;
     min-height: 100px;
     min-width: 100px;
     border: #fb7319 2px solid;
@@ -166,12 +185,10 @@
     background-color: #fff;
     z-index: 200;
     padding: 20px;
-}
-
-#edit-product  {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    visibility: hidden;
 }
 
 .normal-config, #extra-config {
@@ -183,6 +200,7 @@
 }
 
 .title-edit-product {
+    position: relative;
     background-color: #fb7319;
     display: flex;
     justify-content: center;
@@ -196,14 +214,27 @@
     align-self: center;
 }
 
+
 .editable-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     padding: 0 25px;
     height: 14%;
     width: 100%;
 }
+.editable-item h2 {
+    font-weight: bold;
+    margin: 0;
+    margin-right: 20px;
+    align-items: center;
+}
 .editable-item input, .editable-item select {
     font-size: 15px;
     width: 100%;
+    height: 35px;
+    margin-left: 20px;
+    padding-left: 5px;
 }
 /* .submit-div , .submit-div * {
     border: #000 1px solid;
@@ -215,4 +246,32 @@
     align-items: center;
     width: 100%;
     height: 25px;
+}
+
+
+.reload-page {
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.boton-recargar i {
+    margin-right: 5px;
+}
+
+.boton-recargar {
+    background-color: #fb7319;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
 }

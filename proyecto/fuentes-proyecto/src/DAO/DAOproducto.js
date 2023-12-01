@@ -141,6 +141,86 @@ class DAOproducto {
         }
     }
 
+    async crearList(keys,values,keys_extra,values_extra) {
+        try {
+            let tipo = ""
+            let query = 'INSERT INTO producto ('//(marca, modelo, precio, descuento, descripcion, ventas, stock, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ';
+            for (let i = 0; i < keys.length; i++) {
+                query += keys[i] + ', ';
+            }
+            query = query.slice(0, -2);
+            query += ') VALUES (nextval(\'producto_id_producto_seq\'), ';
+            for (let i = 1; i < keys.length; i++) {
+                query += '$' + (i) + ', ';
+                if (keys[i] == 'tipo')
+                    tipo = values[i]
+            }
+            query = query.slice(0, -2);
+            query += ') RETURNING id_producto';
+            values.shift()
+            console.log(query)
+            console.log(values)
+            const result = await this.database.query(query, values);
+
+            let result_extra = null
+            if (result != null) {
+                let query_extra = 'INSERT INTO '+ tipo +' (id_producto, '//(marca, modelo, precio, descuento, descripcion, ventas, stock, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ';
+                console.log(keys_extra)
+                for (let i = 0; i < keys_extra.length; i++) {
+                    query_extra += keys_extra[i] + ', ';
+                }
+                query_extra = query_extra.slice(0, -2);
+                query_extra += ') VALUES ($1, ';
+                for (let i = 0; i < keys_extra.length; i++) {
+                    query_extra += '$' + (i+2) + ', ';
+                }
+                query_extra = query_extra.slice(0, -2);
+                query_extra += ') RETURNING id_producto';
+                console.log(query_extra)
+                values_extra.unshift(result.rows[0].id_producto)
+                console.log(values_extra)
+
+                const result_extra = await this.database.query(query_extra, values_extra);
+            }
+
+            return result_extra != null ? true:false
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    async actualizarList(keys,values,keys_extra,values_extra) {
+        try {
+            let query = 'UPDATE producto SET ';
+            for (let i = 1; i < keys.length; i++) {
+                query += keys[i] + ' = $' + (i+1) + ', ';
+            }
+            query = query.slice(0, -2);
+            query += ' WHERE id_producto = $' + (1) + ' RETURNING id_producto';
+            // console.log(query)
+            // console.log(values)
+            const result = await this.database.query(query, values);
+            let result_extra = null
+            if (result != null) {
+                let query_extra = 'UPDATE ' + values[8] + ' SET ';
+                for (let i = 0; i < keys_extra.length; i++) {
+                    query_extra += keys_extra[i] + ' = $' + (i+1) + ', ';
+                }
+                query_extra = query_extra.slice(0, -2);
+                query_extra += ' WHERE id_producto = $' + (keys_extra.length+1) + ' RETURNING id_producto';
+                values_extra.push(values[0])
+
+                const result_extra = await this.database.query(query_extra, values_extra);
+            }
+            // return result_extra != null ? true:false
+            return true
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
     async actualizarStock(id, stock) {
         try {
             for (let i = 0; i < id.length; i++) {

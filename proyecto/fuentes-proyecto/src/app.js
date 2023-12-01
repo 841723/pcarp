@@ -326,3 +326,57 @@ app.get('/eliminar_objeto', (req, res) => {
     });
   }
 });
+
+
+app.get('/editar_producto', (req, res) => {
+  let attributes = req.query.attributes; // Aquí obtendrás el string enviado
+  let keys = []
+  let values = []
+  let keys_extra = []
+  let values_extra = []
+  for (let i = 0; i < (attributes.split(';')).length-1; i++) {
+    if ((i+1)<=9) {
+      keys.push(attributes.split(';')[i].split(':')[0])
+      values.push(attributes.split(';')[i].split(':')[1])
+    }
+    else {
+      keys_extra.push(attributes.split(';')[i].split(':')[0])
+      values_extra.push(attributes.split(';')[i].split(':')[1])
+    }
+  }
+  const daoProd = new DAOProducto(client);
+  daoProd.actualizarList(keys,values,keys_extra,values_extra)
+  .then((resultadoObtenido) => {
+   res.json({"success":resultadoObtenido});
+  })  
+  .catch((error) => {
+    res.json({"success": false, "error": error});
+    console.error(error); // Manejo de errores
+  });
+})
+
+app.get('/anadir_producto', (req, res) => {
+  let attributes = req.query.attributes; // Aquí obtendrás el string enviado
+  let keys = []
+  let values = []
+  let keys_extra = []
+  let values_extra = []
+  for (let i = 0; i < (attributes.split(';')).length-1; i++) {
+    if ((i+1)<=9) {
+      keys.push(attributes.split(';')[i].split(':')[0])
+      values.push(attributes.split(';')[i].split(':')[1])
+    }
+    else {
+      keys_extra.push(attributes.split(';')[i].split(':')[0])
+      values_extra.push(attributes.split(';')[i].split(':')[1])
+    }
+  }
+  const daoProd = new DAOProducto(client);
+  daoProd.crearList(keys,values,keys_extra,values_extra)
+  .then((resultadoObtenido) => {
+    res.json({success: true});
+  })  
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+})
