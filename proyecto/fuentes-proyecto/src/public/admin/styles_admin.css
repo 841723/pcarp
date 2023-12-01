@@ -91,7 +91,7 @@
     padding-left: 10px;
 }
 .product-admin .button-eliminar {
-    visibility: hidden;
+    visibility: visible;
     margin-top: 4px;
     margin-right: 4px;
     position: absolute;

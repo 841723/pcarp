@@ -33,6 +33,15 @@ function ocultarEditarProducto() {
 }
 
 function crearTarjetaProducto(producto) {
+    
+    button_eliminar2 = document.createElement('button_prod');
+    button_eliminar2.classList.add("button-eliminar");
+    button_eliminar2.id = "button-eliminar-"+producto.id_producto;
+    i_eliminar2 = document.createElement('i');
+    i_eliminar2.classList.add("fa");
+    i_eliminar2.classList.add("fa-trash");
+    button_eliminar2.appendChild(i_eliminar2);
+    div_product.appendChild(button_eliminar2);
     div_product = document.createElement('div');
     div_product.classList.add("product-link-admin");
     div_product.classList.add("product-admin");
