@@ -47,6 +47,7 @@ function crearTarjetaProducto(producto) {
     button_eliminar.appendChild(i_eliminar);
     div_product.appendChild(button_eliminar);
     
+    
        
     for (key in producto) {
         if (producto[key] !== null) {
