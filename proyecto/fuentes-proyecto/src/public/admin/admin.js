@@ -38,7 +38,7 @@ function crearTarjetaProducto(producto) {
     div_product.classList.add("product-admin");
     div_product.id = 'id-producto-'+producto.id_producto;
 
-    const button_eliminar = document.createElement('button-eliminar');
+    const button_eliminar = document.createElement('button');
     button_eliminar.classList.add("button-eliminar");
     button_eliminar.id = "button-eliminar-"+producto.id_producto;
     const i_eliminar = document.createElement('i');
