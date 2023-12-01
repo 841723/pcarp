@@ -33,33 +33,34 @@ function ocultarEditarProducto() {
 }
 
 function crearTarjetaProducto(producto) {
-    
-    button_eliminar2 = document.createElement('button_prod');
-    button_eliminar2.classList.add("button-eliminar");
-    button_eliminar2.id = "button-eliminar-"+producto.id_producto;
-    i_eliminar2 = document.createElement('i');
-    i_eliminar2.classList.add("fa");
-    i_eliminar2.classList.add("fa-trash");
-    button_eliminar2.appendChild(i_eliminar2);
-    div_product.appendChild(button_eliminar2);
-    div_product = document.createElement('div');
+    const div_product = document.createElement('div');
     div_product.classList.add("product-link-admin");
     div_product.classList.add("product-admin");
     div_product.id = 'id-producto-'+producto.id_producto;
 
+    const button_eliminar = document.createElement('button-eliminar');
+    button_eliminar.classList.add("button-eliminar");
+    button_eliminar.id = "button-eliminar-"+producto.id_producto;
+    const i_eliminar = document.createElement('i');
+    i_eliminar.classList.add("fa");
+    i_eliminar.classList.add("fa-trash");
+    button_eliminar.appendChild(i_eliminar);
+    div_product.appendChild(button_eliminar);
+    
+       
     for (key in producto) {
         if (producto[key] !== null) {
-            p_value = document.createElement('p');
+            const p_value = document.createElement('p');
             p_value.classList.add("value");
             if (key === "id_producto") 
-                p_value.classList.add("main");
-                
+                p_value.classList.add("main"); 
             p_value.textContent = key + " : " + producto[key];
             div_product.appendChild(p_value);
         }
     }
     return div_product;
 }
+
 
 function loadProducts() {
     const url = `/products_all`;
