@@ -381,7 +381,7 @@ app.get('/anadir_producto', (req, res) => {
   });
 })
 
-app.get('buy', (req, res) => {
+app.get('/buy', (req, res) => {
   const id = req.query.id; // Aquí obtendrás el string enviado
   const cantidad = req.query.cantidad; // Aquí obtendrás el string enviado
   const daoP = new DAOProducto(client);
