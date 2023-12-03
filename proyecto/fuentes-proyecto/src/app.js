@@ -21,8 +21,8 @@ client.connect();
 app.use(express.static(__dirname +'/public'));
 
 
-app.listen(3000, () => {
-    console.log('servidor iniciado en localhost:3000...');
+app.listen(33029, () => {
+    console.log('servidor iniciado...');
 });
 
 
@@ -394,5 +394,4 @@ app.get('/buy', (req, res) => {
     res.json({"success": false, "error": error});
     console.error(error); // Manejo de errores
   });
-
 })
