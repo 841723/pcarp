@@ -380,3 +380,19 @@ app.get('/anadir_producto', (req, res) => {
     console.error(error); // Manejo de errores
   });
 })
+
+app.get('buy', (req, res) => {
+  const id = req.query.id; // Aquí obtendrás el string enviado
+  const cantidad = req.query.cantidad; // Aquí obtendrás el string enviado
+  const daoP = new DAOProducto(client);
+
+  daoP.actualizarStockProduct(id,cantidad)
+  .then((resultadoObtenido) => {
+    res.json({"success": true});
+  })
+  .catch((error) => {
+    res.json({"success": false, "error": error});
+    console.error(error); // Manejo de errores
+  });
+
+})

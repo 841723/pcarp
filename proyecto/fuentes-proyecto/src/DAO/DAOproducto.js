@@ -232,15 +232,15 @@ class DAOproducto {
             throw error;
         }
     }
-    // async actualizarStockProduct(id, ventas) {
-    //     try {
-    //         const query = 'UPDATE producto SET stock = (stock-$1), (ventas = ventas+$1) WHERE id_producto = $2';
-    //         const values = [ventas, id];
-    //         await this.database.query(query, values);
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
+    async actualizarStockProduct(id, ventas) {
+        try {
+            const query = 'UPDATE producto SET stock = (stock-$1), ventas = (ventas+$2) WHERE id_producto = $3;';
+            const values = [ventas, ventas, id];
+            await this.database.query(query, values);
+        } catch (error) {
+            throw error;
+        }
+    }
 
     async eliminar(id) {
         try {
