@@ -49,6 +49,17 @@ app.get('/consulta1', (req, res) => {
 //     });
 // });
 
+app.get('/consulta3', (req, res) => {
+  // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
+client.query(`SELECT * FROM public.pedido`, (error, result) => {
+  if (error) {  // Si hay un error, se lanza una excepción.
+    throw error;
+  }
+  // Envía los resultados como respuesta al cliente en formato JSON.
+  //   res.send(result.rows);
+  res.json(result.rows);
+});
+});
 
 // app.get('/endpoint', (req, res) => {
 //   const data = req.query.data; // Aquí obtendrás el string enviado
@@ -257,6 +268,20 @@ app.get('/pedidos_datos', (req, res) => {
 
   const daoP = new DAOPedido(client);
   daoP.obtenerTodosDatos(det_prod)
+  .then((resultadoObtenido) => {
+    res.json(resultadoObtenido);
+  })
+  .catch((error) => {
+    console.error(error); // Manejo de errores
+  });
+});
+
+app.get('/pedidos_datos_by_mail', (req, res) => {
+  const det_prod = req.query.det; // Aquí obtendrás el string enviado
+  const mail = req.query.mail; // Aquí obtendrás el string enviado
+
+  const daoP = new DAOPedido(client);
+  daoP.obtenerTodosDatosMail(det_prod)
   .then((resultadoObtenido) => {
     res.json(resultadoObtenido);
   })

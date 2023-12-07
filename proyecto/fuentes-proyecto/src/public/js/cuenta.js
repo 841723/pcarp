@@ -31,13 +31,6 @@ function alterContrasena() {
       icono.classList.add('bx-hide');
   }
 }
-// Función para obtener y mostrar los pedidos del cliente
-// function obtenerPedidosCliente() {
-//   fetch('/api/pedidos') // Supongamos que el servidor tiene una API que devuelve los pedidos del cliente
-//       .then(response => response.json())
-//       .then(data => organizarPedidos(data))
-//       .catch(error => console.error('Error al obtener pedidos:', error));
-// }
 
 // Función para organizar y mostrar los pedidos en las secciones correspondientes
 function organizarPedidos(pedidos) {
@@ -253,8 +246,10 @@ function juntarPedidos(pedidos) {
 }
 
 function loadOrders(product_details) {
-  stringCodificado = encodeURIComponent(product_details);
-  const url = `/pedidos_datos?detalle=${stringCodificado}`;
+  detalles = encodeURIComponent(product_details);
+	codedEmail = encodeURIComponent(document.getElementById("email").value);
+
+  const url = `/pedidos_datos_by_mail?detalle=${detalles}&email=${codedEmail}`;
   fetch(url)
   .then(response => response.json())
   .then(data => {
