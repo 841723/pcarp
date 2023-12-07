@@ -42,19 +42,19 @@ class DAOpedido {
 
     async obtenerTodosDatosMail(detalle, mail) {
         try {
-            let consult = 'SELECT * FROM pedido p INNER JOIN usuario u ON p.id_usuario = u.id_usuario INNER JOIN contenido_pedido c ON p.id_pedido = c.id_pedido';
+            let user = 'SELECT * FROM usuario WHERE mail = $1';
+            const resUser = await this.database.query(user, [mail]);
+            if (!(resUser.rows.length > 0)) {
+                console.log('No se encontraron resultados para el usuario con el correo proporcionado.');
+                return null;
+            }
+            let id_user = resUser.rows[0].id_usuario;
+
+            let consult = 'SELECT * FROM pedido p INNER JOIN contenido_pedido c ON p.id_pedido = c.id_pedido WHERE p.id_usuario = $1';
             if (detalle == 'true') {
                 consult += ' INNER JOIN producto d ON c.id_producto = d.id_producto';
             }
-            const result = await this.database.query(consult);
-            let prueba = 'SELECT * FROM usuario WHERE mail = $1';
-            const resPrueba = await this.database.query(prueba, [mail]);
-            if (resPrueba.rows.length > 0) {
-                console.log(resPrueba.rows[0].id_usuario);
-            } else {
-                console.log('No se encontraron resultados para el usuario con el correo proporcionado.');
-            }
-
+            const result = await this.database.query(consult, [id_user]);
             if (result.rows.length === 0) {
                 return null;
             }

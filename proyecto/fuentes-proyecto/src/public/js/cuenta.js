@@ -12,9 +12,6 @@ function mostrarPedidos() {
 
   zonaDatos.style.display = 'none';
   zonaPedidos.style.display = 'block';
-  document.getElementById('h1_titulo').textContent= "Pedidos";
-  document.getElementById('icono-anadir').style.visibility = "hidden";
-  sessionStorage.setItem('admin_view', 'orders');
   loadOrders("false");
 }
 
@@ -138,90 +135,6 @@ function cargarDatosPersonales() {
     .catch(error => console.error('Error al cargar datos personales:', error));
 }
 
-// Función para cancelar un pedido solicitado
-function cancelarPedido(numeroPedido) {
-  // Lógica para cancelar el pedido
-  console.log(`Cancelar pedido #${numeroPedido}`);
-}
-
-function crearTarjetaPedido(pedido) {
-  div_product = document.createElement('div');
-  div_product.classList.add("product-admin");
-
-  button_eliminar = document.createElement('button');
-  button_eliminar.classList.add("button-eliminar");
-  button_eliminar.id = "button-eliminar-"+pedido.id_pedido;
-  i_eliminar = document.createElement('i');
-  i_eliminar.classList.add("fa");
-  i_eliminar.classList.add("fa-trash");
-  button_eliminar.appendChild(i_eliminar);
-  div_product.appendChild(button_eliminar);
-
-  list_mostrar = ["id_pedido", "id_usuario", "fecha", "fecha_llegada", "id_producto"];
-  for (key in pedido) {
-      if (pedido[key] !== null) {
-          if (list_mostrar.includes(key)) {
-              p_value = document.createElement('p');
-              p_value.classList.add("value");
-              if (key === "id_pedido") 
-                  p_value.classList.add("main");
-              if (key === "id_producto") {
-                  pedido[key].forEach((id, index) => {
-                      p_value = document.createElement('p');
-                      p_value.classList.add("value");
-                      p_value.classList.add("id-producto-tag");
-                      p_value.textContent = "id_producto" + " : " + id + " -> cantidad : " + pedido.cantidad[index];
-                      div_product.appendChild(p_value);
-                  });
-              } 
-              else {                
-                  p_value.textContent = key + " : " + pedido[key];
-                  div_product.appendChild(p_value);
-              }
-          }
-      }
-  }
-
-  div_estado = document.createElement('div');
-  div_estado.classList.add("estado");
-
-  p_value = document.createElement('p');
-  p_value.classList.add("value");
-  p_value.classList.add("estado-tag");
-  p_value.textContent = "estado" + " :";
-
-  form_estado = document.createElement('form');
-  form_estado.classList.add("form-estado");
-  form_estado.id = "form-estado-"+pedido.id_pedido;
-  select_estado = document.createElement('select');
-  select_estado.classList.add("select-estado");
-  select_estado.id = "select-estado-"+pedido.id_pedido;
-  select_estado.name = "estado";
-  
-  // Create options for the form
-  const options = ["procesando", "enviado", "entregado"];
-  options.forEach(option => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option;
-      optionElement.textContent = option;
-      select_estado.appendChild(optionElement);
-  });
-  select_estado.selectedIndex = options.indexOf(pedido.estado); // Set the index of the desired default option
-  form_estado.appendChild(select_estado);
-
-  button_estado = document.createElement('button');
-  button_estado.classList.add("button-estado");
-  button_estado.id = "button-estado-"+pedido.id_pedido;
-  button_estado.textContent = "Cambiar";
-      
-  div_estado.appendChild(p_value);
-  div_estado.appendChild(form_estado);
-  div_estado.appendChild(button_estado);
-
-  div_product.appendChild(div_estado);    
-  return div_product;
-}
-
 function juntarPedidos(pedidos) {
   let result = pedidos;
   for (let i = 0; i < result.length; i++) {
@@ -245,37 +158,112 @@ function juntarPedidos(pedidos) {
   return result;
 }
 
+
+async function crearTarjetaPedido(pedido) {
+  const div_product = document.createElement('div');
+  div_product.classList.add("tarjeta-pedido");
+
+  const list_mostrar = ["fecha", "fecha_llegada", "id_producto"];
+
+  for (const key in pedido) {
+    if (pedido[key] !== null && list_mostrar.includes(key)) {
+      // Si el campo es "productos", se obtienen los nombres de los productos desde la ruta /products_id
+      if (key === "id_producto") {
+        try {
+          const idsProductos = pedido[key];
+          for (const idProducto of idsProductos) {
+            const url = `/products_id?id=${idProducto}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.tipo) {
+              const p_value = document.createElement('p');
+              p_value.classList.add("value");
+              p_value.classList.add("id-producto-tag");
+              p_value.textContent = `${data.tipo} ${data.marca} ${data.modelo} -> Cantidad: ${pedido.cantidad[idsProductos.indexOf(idProducto)]}`;
+              div_product.appendChild(p_value);
+              console.log(p_value);
+            } else {
+              console.error("No se pudo obtener el nombre del producto");
+            }
+          }
+        } catch (error) {
+          console.error("Error al obtener los nombres de los productos:", error);
+        }
+      } else {
+        // Muestra el resto de los campos
+        const p_value = document.createElement('p');
+        p_value.classList.add("value");
+        p_value.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${pedido[key]}`;
+        div_product.appendChild(p_value);
+      }
+    }
+  }
+
+  // Añadir botón de cancelar si el estado es "procesando"
+  if (pedido.estado === "procesando") {
+    const cancelarButton = document.createElement('button');
+    cancelarButton.innerText = 'Cancelar Pedido';
+    cancelarButton.classList.add("cancelar-button");
+    cancelarButton.addEventListener('click', async () => {
+      try {
+        const url = `/cancelar_pedido?id_pedido=${pedido.id_pedido}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (Object.keys(data).length === 0) {
+          console.log("Pedido cancelado exitosamente");
+          alert("Pedido cancelado exitosamente");
+          window.location.reload();
+        } else {
+          console.error("No se pudo cancelar el pedido");
+          alert("No se pudo cancelar el pedido");
+        }
+      } catch (error) {
+        console.error("Error al cancelar el pedido:", error.message);
+        alert("Error al cancelar el pedido");
+      }
+    });
+
+    div_product.appendChild(cancelarButton);
+  }
+
+  return div_product;
+}
+
+
+
 function loadOrders(product_details) {
   detalles = encodeURIComponent(product_details);
-	codedEmail = encodeURIComponent(document.getElementById("email").value);
+	email = document.getElementById("email").value;
 
-  const url = `/pedidos_datos_by_mail?detalle=${detalles}&email=${codedEmail}`;
+  const url = `/pedidos_datos_by_mail?detalle=${detalles}&email=${encodeURIComponent(email)}`;
   fetch(url)
   .then(response => response.json())
   .then(data => {
-      orders_container = document.getElementById('object-container');
-      orders_container.innerHTML = ""
+      solicitados = document.getElementById('pedidos-solicitados');
+      enviados = document.getElementById('pedidos-enviados');
+      entregados = document.getElementById('pedidos-entregados');
+      solicitados.innerHTML = ""
+      enviados.innerHTML = ""
+      entregados.innerHTML = ""
       data = juntarPedidos(data);
+      data.forEach(async item => {
+          const div_order = await crearTarjetaPedido(item);
+          if (item.estado === "procesando") {
+            solicitados.appendChild(div_order);
+          }
+          else if (item.estado === "enviado") {
+            enviados.appendChild(div_order);
+          }
+          else if (item.estado === "entregado") {
+            entregados.appendChild(div_order);
+          }
 
-      data.forEach(item => {
-          const div_order = crearTarjetaPedido(item);
-          orders_container.appendChild(div_order);
       });
-
-      if (data.length === 0) {
-          empty_div = document.createElement('div');
-          h3_empty = document.createElement('h3');
-          h3_empty.textContent = "no hay pedidos";
-          empty_div.appendChild(h3_empty);
-          orders_container.appendChild(empty_div);
-      }
-      createEventListenersOrders();
   })
   .catch(error => console.error('Error:', error));
 }
-
-// Llamar a la función para obtener y mostrar los pedidos del cliente al cargar la página
-// document.addEventListener('DOMContentLoaded', obtenerPedidosCliente);
 
 // Mostrar la sección de "Mis Datos" por defecto al cargar la página
 mostrarDatos();

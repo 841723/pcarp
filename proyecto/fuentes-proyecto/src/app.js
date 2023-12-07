@@ -278,10 +278,10 @@ app.get('/pedidos_datos', (req, res) => {
 
 app.get('/pedidos_datos_by_mail', (req, res) => {
   const det_prod = req.query.det; // Aquí obtendrás el string enviado
-  const mail = req.query.mail; // Aquí obtendrás el string enviado
+  const mail = req.query.email; // Aquí obtendrás el string enviado
 
   const daoP = new DAOPedido(client);
-  daoP.obtenerTodosDatosMail(det_prod)
+  daoP.obtenerTodosDatosMail(det_prod, mail)
   .then((resultadoObtenido) => {
     res.json(resultadoObtenido);
   })
@@ -420,3 +420,23 @@ app.get('/buy', (req, res) => {
     console.error(error); // Manejo de errores
   });
 })
+
+app.get('/cancelar_pedido', async (req, res) => {
+  const id_pedido = req.query.id_pedido; // Aquí obtendrás el string enviado
+  const cont = new DAOcontPedido(client);
+  const daoP = new DAOPedido(client);
+
+  try {
+    // Eliminar de la tabla contPedido
+    await cont.eliminar(id_pedido);
+
+    // Eliminar de la tabla Pedido
+    await daoP.eliminar(id_pedido);
+
+    // Enviar respuesta JSON
+    res.json({});
+  } catch (error) {
+    console.error(error); // Manejo de errores
+    res.status(500).json({ error: 'Error al eliminar el pedido' });
+  }
+});
