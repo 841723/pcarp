@@ -244,9 +244,14 @@ class DAOproducto {
 
     async eliminar(id) {
         try {
+            const queryCont = 'DELETE FROM contenido_pedido WHERE id_producto = $1';
+            const queryType = 'SELECT tipo FROM producto WHERE id_producto = $1';
+            const result = await this.database.query(queryType, [id]);
+            const type = result.rows[0].tipo;
+            const queryDelete = `DELETE FROM ${type} WHERE id_producto = $1`;
+            await this.database.query(queryDelete, [id]);
             const query = 'DELETE FROM producto WHERE id_producto = $1';
-            const values = [id];
-            await this.database.query(query, values);
+            await this.database.query(query, [id]);
         } catch (error) {
             throw error;
         }

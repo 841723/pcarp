@@ -37,17 +37,6 @@ function crearTarjetaProducto(producto) {
     div_product.classList.add("product-link-admin");
     div_product.classList.add("product-admin");
     div_product.id = 'id-producto-'+producto.id_producto;
-
-    const button_eliminar = document.createElement('button');
-    button_eliminar.classList.add("button-eliminar");
-    button_eliminar.id = "button-eliminar-"+producto.id_producto;
-    const i_eliminar = document.createElement('i');
-    i_eliminar.classList.add("fa");
-    i_eliminar.classList.add("fa-trash");
-    button_eliminar.appendChild(i_eliminar);
-    div_product.appendChild(button_eliminar);
-    
-    
        
     for (key in producto) {
         if (producto[key] !== null) {
@@ -232,6 +221,17 @@ function createEventListenersDelete() {
             .catch(error => console.error('Error:', error));
         });
     });
+}
+
+function eliminarProducto() {
+    const id_producto = document.getElementById('id_producto').value;
+    const url = `/eliminar_objeto?id=${id_producto}&objeto=products`;
+    console.log(url)
+    fetch(url)
+    .then(() => {
+        window.location.reload();
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 function loadOrders(product_details) {

@@ -97,6 +97,7 @@
     position: absolute;
     top: 0;
     right: 0;
+    /* pointer-events: none; */
 }
 .product-admin:hover {
     border: 2px solid #fb7319;
@@ -275,3 +276,18 @@
     margin-bottom: 10px;
     text-decoration: none;
 }
+
+.eliminar-producto-btn {
+    padding: 10px;
+    background-color: #fb7319; /* Color de fondo del botón */
+    color: #ffffff; /* Color del texto */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between; /* Distribuye los elementos en ambos extremos */
+    align-items: center;
+}
+  
