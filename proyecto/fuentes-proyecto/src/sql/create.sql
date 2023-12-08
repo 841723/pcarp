@@ -3,8 +3,8 @@
  * Authors: Diego Raul Roldan Uruena,	841723
  * 			Pablo Moreno Munoz, 841972
  * 			Abel Romeo Lancina,	846088
- * Date: abril 2023
- * Coms: Sentencias que crean las tablas de la base de datos de obras cinematográficas
+ * Date: diciembre 2023
+ * Coms: Sentencias que crean las tablas de la base de datos de PCarp
 */
 
 CREATE TABLE usuario (
@@ -96,16 +96,6 @@ CREATE TABLE fuente_alimentacion (
 	potencia		INT NOT NULL -- en W
 );
 
-
-
-CREATE TABLE resena (
-	id_resena  		    SERIAL PRIMARY KEY,
-    id_usuario          INT REFERENCES Usuario (id_usuario),
-    id_producto         INT REFERENCES Producto (id_producto),
-	contenido 		    VARCHAR (200),
-	estrellas	        INT NOT NULL CHECK (estrellas >= 0 AND estrellas <= 5)
-);
-
 CREATE TABLE contenido_pedido (
 	id_pedido		INT REFERENCES Pedido (id_pedido),
 	id_producto		INT REFERENCES Producto (id_producto),
@@ -113,21 +103,10 @@ CREATE TABLE contenido_pedido (
 	PRIMARY KEY (id_pedido, id_producto)
 );
 
-CREATE TABLE incompatibilidad (
-	id_producto_1		INT REFERENCES Producto (id_producto),
-	id_producto_2		INT REFERENCES Producto (id_producto),
-	CHECK (id_producto_1 != id_producto_2),
-	PRIMARY KEY (id_producto_1, id_producto_2)
-);
-
 /*
 DELETE FROM Incompatibilidad;
 DELETE FROM Contenido_Pedido;
 DELETE FROM Pedido_Usuario;
-
-
-DELETE FROM Resena;
-ALTER SEQUENCE Resena_id_resena_seq RESTART WITH 1;
 
 DELETE FROM Producto;
 ALTER SEQUENCE Producto_id_producto_seq RESTART WITH 1;
