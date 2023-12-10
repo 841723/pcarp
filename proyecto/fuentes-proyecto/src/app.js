@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const {Client} = require('pg')
 const DAOusuario = require('./DAO/DAOusuario');
 const DAOPedido = require('./DAO/DAOpedido');
@@ -18,6 +19,7 @@ const client = new Client ({
 
 client.connect();
 
+app.use(cors());
 app.use(express.static(__dirname +'/public'));
 
 
