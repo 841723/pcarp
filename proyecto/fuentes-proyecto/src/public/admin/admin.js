@@ -212,7 +212,6 @@ function createEventListenersDelete() {
             event.preventDefault();
             const id = button.id.replace("button-eliminar-", "");
             const url = `/eliminar_objeto?id=${id}&objeto=${sessionStorage.getItem('admin_view')}`;
-            console.log(url)
             fetch(url)
             .then(() => {
                 // showChangesHaveBeenSaved();
@@ -226,10 +225,10 @@ function createEventListenersDelete() {
 function eliminarProducto() {
     const id_producto = document.getElementById('id_producto').value;
     const url = `/eliminar_objeto?id=${id_producto}&objeto=products`;
-    console.log(url)
     fetch(url)
     .then(() => {
-        window.location.reload();
+        mostrarCambios("exito");
+        ocultarEditarProducto();
     })
     .catch(error => console.error('Error:', error));
 }
@@ -263,7 +262,6 @@ function loadOrders(product_details) {
 
 
 function createEventListenersProducts() {
-    console.log("create event listeners products");
     const products = document.querySelectorAll('.product-link-admin');
     products.forEach(product => {
         product.addEventListener('click', (event) => {
@@ -356,7 +354,6 @@ function mostrarCamposEditarProducto(tipo) {
 function cargarCamposEditarProducto() {
     let id_producto = sessionStorage.getItem('id-producto-admin');
     id_producto = id_producto.replace("id-producto-", "");
-    console.log(id_producto);
     if (id_producto === null || id_producto === "null" || id_producto === "") {
         return;
     }
@@ -392,11 +389,9 @@ function cargarCamposEditarProducto() {
 }
 
 function guardarCambios() {
-    console.log("guardar cambios");
     const fields = document.querySelectorAll('.editable-field');
     let attributes = []
     fields.forEach(field => {
-        console.log(field.id);
         attributes.push(field.id +":"+ field.value);
     });
 
@@ -406,13 +401,10 @@ function guardarCambios() {
         attributes.push(field.id +":"+ field.value);
     });
 
-    console.log(attributes);
-
     let string_a_enviar = "";
     attributes.forEach(attribute => {
         string_a_enviar += attribute + ";";
     });
-    console.log(string_a_enviar);
     let url = '';
     if (sessionStorage.getItem('id-producto-admin') === "nuevo-producto") {
         url = '/anadir_producto?attributes='+encodeURIComponent(string_a_enviar);
@@ -420,7 +412,6 @@ function guardarCambios() {
     else {
         url = '/editar_producto?attributes='+encodeURIComponent(string_a_enviar);
     }
-    console.log(url);
     fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -436,7 +427,6 @@ function guardarCambios() {
 }
 
 function anadirProducto() {
-    console.log("anadir producto");
     sessionStorage.setItem('id-producto-admin', "nuevo-producto");
     mostrarEditarProducto();
 
@@ -453,11 +443,9 @@ function anadirProducto() {
 
 
 function recargarPagina() {
-    console.log("recargar pagina"); 
     if (document.getElementById('edit-product').style.visibility === "hidden" || document.getElementById('edit-product').style.visibility === "") {
         window.location.reload();
     }
-    console.log(document.getElementById('edit-product').style.visibility);
 }
 
 function mostrarCambios(tipo, error) {
@@ -469,7 +457,6 @@ function mostrarCambios(tipo, error) {
         document.getElementById('button-error').style.visibility = "hidden";
     }
     else if (tipo === "error") {
-        console.log(error);
         div = document.getElementById('changes-saved-error');
         div_error = document.getElementById('error-log');
         div_error.innerHTML = "";

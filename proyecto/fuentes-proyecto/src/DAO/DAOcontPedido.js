@@ -48,8 +48,12 @@ class DAOcont_pedido {
     async eliminar(id) {
         try {
             const query = 'DELETE FROM contenido_pedido WHERE id_pedido = $1';
-            const values = [id];
-            await this.database.query(query, values);
+            const queryProd = 'UPDATE producto SET stock = (stock+$1), ventas = (ventas-$2) WHERE id_producto = $3;';
+            const result = await this.database.query('SELECT * FROM contenido_pedido WHERE id_pedido = $1', [id]);
+            for (let i = 0; i < result.rows.length; i++) {
+                await this.database.query(queryProd, [result.rows[i].cantidad, result.rows[i].cantidad, result.rows[i].id_producto]);
+            }
+            await this.database.query(query, [id]);
         } catch (error) {
             throw error;
         }

@@ -40,16 +40,16 @@ app.get('/consulta1', (req, res) => {
   });
 });
 
-// app.get('/consulta2', (req, res) => {
-//   const daoP = new DAOProducto(client);
-//   daoP.obtenerTodos()
-//     .then((resultadoObtenido) => {
-//       res.json(resultadoObtenido);
-//     })
-//     .catch((error) => {
-//       console.error(error); // Manejo de errores
-//     });
-// });
+app.get('/consulta2', (req, res) => {
+  const daoP = new DAOProducto(client);
+  daoP.obtenerTodos()
+    .then((resultadoObtenido) => {
+      res.json(resultadoObtenido);
+    })
+    .catch((error) => {
+      console.error(error); // Manejo de errores
+    });
+});
 
 app.get('/consulta3', (req, res) => {
   // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.

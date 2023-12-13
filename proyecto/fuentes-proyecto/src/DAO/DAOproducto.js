@@ -158,14 +158,11 @@ class DAOproducto {
             query = query.slice(0, -2);
             query += ') RETURNING id_producto';
             values.shift()
-            console.log(query)
-            console.log(values)
             const result = await this.database.query(query, values);
 
             let result_extra = null
             if (result != null) {
                 let query_extra = 'INSERT INTO '+ tipo +' (id_producto, '//(marca, modelo, precio, descuento, descripcion, ventas, stock, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ';
-                console.log(keys_extra)
                 for (let i = 0; i < keys_extra.length; i++) {
                     query_extra += keys_extra[i] + ', ';
                 }
@@ -176,9 +173,7 @@ class DAOproducto {
                 }
                 query_extra = query_extra.slice(0, -2);
                 query_extra += ') RETURNING id_producto';
-                console.log(query_extra)
                 values_extra.unshift(result.rows[0].id_producto)
-                console.log(values_extra)
 
                 const result_extra = await this.database.query(query_extra, values_extra);
             }
@@ -198,8 +193,6 @@ class DAOproducto {
             }
             query = query.slice(0, -2);
             query += ' WHERE id_producto = $' + (1) + ' RETURNING id_producto';
-            // console.log(query)
-            // console.log(values)
             const result = await this.database.query(query, values);
             let result_extra = null
             if (result != null) {
@@ -312,7 +305,6 @@ class DAOproducto {
             tipo = this.transform(tipo)
 
             if (tipo == "none" ) {
-                // console.log('SELECT * FROM producto WHERE ' + precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT '+ cantidad)
                 const query = 'SELECT * FROM producto WHERE ' + precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT $1';
                 const values = [cantidad];
                 const result = await this.database.query(query, values);
@@ -331,7 +323,6 @@ class DAOproducto {
             }
             else { 
 
-                // console.log('SELECT * FROM producto WHERE tipo=\''+tipo+'\' AND '+ precio_query + ' ' +brands_query + ' ' + order_query + ' LIMIT '+ cantidad)
                 const query = 'SELECT * FROM producto WHERE (tipo= $1) AND '+ precio_query + ' AND ' + brands_query + ' ' + order_query + ' LIMIT $2';
                 const values = [tipo,cantidad];
                 const result = await this.database.query(query, values);
