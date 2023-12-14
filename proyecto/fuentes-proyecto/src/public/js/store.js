@@ -332,6 +332,7 @@ function search_products_by_header(search_for_to_search,query_to_search) {
 
         showing_number.textContent = "Mostrando " + i + " productos";
         createEventosModificarCantidad();
+        crearEventsListenersProductos();
     })
     .catch(error => console.error('Error:', error));
 }
