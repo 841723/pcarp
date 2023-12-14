@@ -47,14 +47,6 @@ function crearImagenProducto(item) {
         div_stars.appendChild(i_star);
     }
 
-
-    a_review = document.createElement('a');
-    a_review.classList.add("review-link");
-    a_review.href = "#";
-    a_review.textContent = " 10 Review(s) | Add your review";
-
-    div_stars.appendChild(a_review);
-
     div_empty = document.createElement('div');
     h3_price = document.createElement('h3');
     h3_price.classList.add("product-price");
