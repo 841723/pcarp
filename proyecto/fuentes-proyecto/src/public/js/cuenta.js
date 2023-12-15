@@ -104,6 +104,9 @@ async function updateUser(){
 function logout(){
   event.preventDefault();
   sessionStorage.setItem('userToken', false);
+  //borrar el mail
+  sessionStorage.removeItem('email');
+  sessionStorage.removeItem('id');
   console.log("userToken: "+sessionStorage.getItem('userToken'));
   window.location.href = "/index.html";
 }

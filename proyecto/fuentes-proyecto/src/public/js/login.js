@@ -109,6 +109,14 @@ function signupUser() {
       fetch(url)
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('userToken', true);
+      const url2 = `/user_mail?data=${mailCodificado}`;
+      fetch(url2)
+      .then(response => response.json())
+      .then(data => {
+        if (data!=null) {
+          sessionStorage.setItem('id', data.id_usuario);
+        }
+      })
       alert("usuario creado correctamente")
       window.location.href = "/";
     }

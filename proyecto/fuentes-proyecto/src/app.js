@@ -28,63 +28,41 @@ app.listen(33029, () => {
 });
 
 
-app.get('/consulta1', (req, res) => {
-    // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
-  client.query(`SELECT * FROM public.usuario`, (error, result) => {
-    if (error) {  // Si hay un error, se lanza una excepción.
-      throw error;
-    }
-    // Envía los resultados como respuesta al cliente en formato JSON.
-    //   res.send(result.rows);
-    res.json(result.rows);
-  });
-});
-
-app.get('/consulta2', (req, res) => {
-  const daoP = new DAOProducto(client);
-  daoP.obtenerTodos()
-    .then((resultadoObtenido) => {
-      res.json(resultadoObtenido);
-    })
-    .catch((error) => {
-      console.error(error); // Manejo de errores
-    });
-});
-
-app.get('/consulta3', (req, res) => {
-  // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
-client.query(`SELECT * FROM public.pedido`, (error, result) => {
-  if (error) {  // Si hay un error, se lanza una excepción.
-    throw error;
-  }
-  // Envía los resultados como respuesta al cliente en formato JSON.
-  //   res.send(result.rows);
-  res.json(result.rows);
-});
-});
-
-// app.get('/endpoint', (req, res) => {
-//   const data = req.query.data; // Aquí obtendrás el string enviado
-//   const daoP = new DAOPedido(client);
-//   if (data=="") {
-//     daoP.obtenerTodos()
-//     .then((resultadoObtenido) => {
-//       res.json(resultadoObtenido);
-//     })
-//     .catch((error) => {
-//       console.error(error); // Manejo de errores
-//     });
-//   }
-//   else {
-//     daoP.obtenerPorId(data)
-//     .then((resultadoObtenido) => {
-//       res.json(resultadoObtenido);
-//     })
-//     .catch((error) => {
-//       console.error(error); // Manejo de errores
-//     });
-//   }
+// app.get('/consulta1', (req, res) => {
+//     // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
+//   client.query(`SELECT * FROM public.usuario`, (error, result) => {
+//     if (error) {  // Si hay un error, se lanza una excepción.
+//       throw error;
+//     }
+//     // Envía los resultados como respuesta al cliente en formato JSON.
+//     //   res.send(result.rows);
+//     res.json(result.rows);
+//   });
 // });
+
+// app.get('/consulta2', (req, res) => {
+//   const daoP = new DAOProducto(client);
+//   daoP.obtenerTodos()
+//     .then((resultadoObtenido) => {
+//       res.json(resultadoObtenido);
+//     })
+//     .catch((error) => {
+//       console.error(error); // Manejo de errores
+//     });
+// });
+
+// app.get('/consulta3', (req, res) => {
+//   // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
+// client.query(`SELECT * FROM public.pedido`, (error, result) => {
+//   if (error) {  // Si hay un error, se lanza una excepción.
+//     throw error;
+//   }
+//   // Envía los resultados como respuesta al cliente en formato JSON.
+//   //   res.send(result.rows);
+//   res.json(result.rows);
+// });
+// });
+
 
 app.get('/top_selling', (req, res) => {
   const daoP = new DAOProducto(client);
@@ -252,6 +230,8 @@ app.get('/crear_pedido', (req, res) => {
   cantidades.shift()
 
   const daoP = new DAOPedido(client);
+  console.log(id_usuario,fecha_llegada,estado)
+  
   daoP.insertar(id_usuario,fecha_llegada,estado)
   .then((resultadoObtenido) => {
     const daoCP = new DAOcontPedido(client);

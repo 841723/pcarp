@@ -146,6 +146,7 @@ function crearPedido() {
     id = sessionStorage.getItem('id');
 
     url = `/crear_pedido?id_usuario=${encodeURIComponent(id)}&fecha=${encodeURIComponent(fecha_en_4_dias)}&estado=${encodeURIComponent(estado)}&cart=${encodeURIComponent(sessionStorage.getItem('cart'))}`;
+    console.log(url);
     fetch(url)
     .catch(error => console.error('Error:', error));
 }

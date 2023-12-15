@@ -148,7 +148,7 @@ async function mostrarCarrito() {
         botones_carrito_vacio.style.marginTop = "25px"
         botones_carrito_vacio.textContent = "Buscar productos"
         botones_carrito_vacio.addEventListener('click', () => {
-            window.location.href = '/store.html';
+            window.location.href = '/';
         });
         div_carrito_vacio.appendChild(botones_carrito_vacio)
         list_carrito_list.appendChild(div_carrito_vacio)
