@@ -179,22 +179,22 @@ public class IndexadorYBuscador{
 	 * @throws IOException
 	 */
 	private void buscarQueryEnIndice(Directory directorioDelIndice, 
-										int paginas, 
-										int hitsPorPagina, 
-										String queryAsString)
-	throws IOException{
+									 int paginas, 
+									 int hitsPorPagina, 
+									 String queryAsString)
+	throws IOException {
 
 		DirectoryReader directoryReader = DirectoryReader.open(directorioDelIndice);
 		IndexSearcher buscador = new IndexSearcher(directoryReader);
 		
 		QueryParser queryParser = new QueryParser("contenido", analizador); 
 		Query query = null;
-		try{
+		try {
 			query = queryParser.parse(queryAsString);
 			TopDocs resultado = buscador.search(query, paginas * hitsPorPagina);
 			ScoreDoc[] hits = resultado.scoreDocs;
 		      
-			System.out.println("\nBuscando " + queryAsString + ": Encontrados " + hits.length + " hits.");
+			System.out.println("\nBuscando \"" + queryAsString + "\": Encontrados " + hits.length + " hits.");
 			int i = 0;
 			for (ScoreDoc hit: hits) {
 				int docId = hit.doc;
@@ -228,10 +228,14 @@ public class IndexadorYBuscador{
 		}
 	}
 	
-	private static void mostrarMenu() {
-		 System.out.println("---------------------------------");
-		 System.out.println("MENÚ INICIAL");
-		 System.out.println("1. Indexar un directorio");
+	private static void mostrarMenu(boolean first) {
+		if (!first) {
+			System.out.print("\n\n\n\n\n");
+
+		}
+		System.out.println("---------------------------------");
+		System.out.println("MENÚ INICIAL");
+		System.out.println("1. Indexar un directorio");
 		System.out.println("2. Buscar un término");
 		System.out.println("3. Salir");
 		System.out.println("---------------------------------");
@@ -275,14 +279,15 @@ public class IndexadorYBuscador{
 	}
 	*/
 	public static void main(String[]args) throws IOException{
-			boolean exit = false;
+			boolean exit = false, first = true;
 
 			while (!exit) {
-				mostrarMenu();
-				int option = scanner.nextInt();
-				scanner.nextLine(); // Consume the newline character
-
-				switch (option) {
+				mostrarMenu(first);
+				first = false;
+				try {
+					int option = scanner.nextInt();
+					scanner.nextLine(); // Consume the newline character
+					switch (option) {
 					case 1:
 						indexDirectory();
 						break;
@@ -294,8 +299,13 @@ public class IndexadorYBuscador{
 						break;
 					default:
 						System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
-						mostrarMenu();
 						break;
+					
+					}
+				}
+				catch(Exception e) {
+					System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+					scanner.nextLine();
 				}
 			}
 
@@ -306,22 +316,28 @@ public class IndexadorYBuscador{
 		try {
 			System.out.print("Introduzca el directorio: ");
 			String dir = scanner.nextLine();
+			
 			Collection<String> ficheros = new ArrayList<String>();
 			File documentsDir = new File("./" + dir);
 			File[] files = documentsDir.listFiles();
 
 			if (files != null) {
 				for (File file : files) {
+
 					if (file.isFile()){
-						ficheros.add("./" + dir+file.getName());
+						ficheros.add("./"+dir+"/"+file.getName());
 					}
 				}
-			}
-			IndexadorYBuscador index = new IndexadorYBuscador(ficheros);
-			index.crearIndiceEnUnDirectorio(dir);
-			 System.out.println("Índice creado\n");
+				IndexadorYBuscador index = new IndexadorYBuscador(ficheros);
+				index.crearIndiceEnUnDirectorio(dir);
+				System.out.println("Índice creado\n");
 
-			System.out.println("Directorio indexado correctamente.");
+				System.out.println("Directorio indexado correctamente.");
+			}
+			else {
+				System.out.println("Directorio vacio.");	
+			}
+			
 		} catch (IOException e) {
 			System.out.println("Error al indexar el directorio: " + e.getMessage());
 		}
@@ -350,14 +366,13 @@ public class IndexadorYBuscador{
 				IndexadorYBuscador index = new IndexadorYBuscador(ficheros);
 				 System.out.println("Termino a buscar: ");
 				 String query= scanner.nextLine();
-				if(!Files.isDirectory(Paths.get("./" + dir + "/indice"))){
+				if(!Files.isDirectory(Paths.get("./" + dir + "/indice"))) {
 					indexDirect = index.crearIndiceEnUnDirectorio(dir);
-				}else{
+				} 
+				else {
 					indexDirect= MMapDirectory.open(Paths.get("./" + dir + "/indice")); 
-				}
+				} 
 				index.buscarQueryEnIndice(indexDirect, ficheros.size(), 1, query);
-
-
 
 			}
 		} catch (IOException e) {
