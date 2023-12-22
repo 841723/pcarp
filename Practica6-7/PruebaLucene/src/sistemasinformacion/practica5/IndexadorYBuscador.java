@@ -92,21 +92,8 @@ public class IndexadorYBuscador{
 	 */
 	public IndexadorYBuscador(Collection<String> ficherosAIndexar/*, Collection<String> queries*/){
 		this.ficherosAIndexar = ficherosAIndexar;
-		//this.queries = queries;
-		
-		//analizador = new SimpleAnalyzer();
-
-		/*try {
-			FileReader reader = new FileReader("./ficheros/stopwords.txt");
-			analizador = new StandardAnalyzer(reader);
-		} catch (Exception e) {
-			System.out.println("Error leyendo fichero de Stop Words. Usando valor por defecto");
-			analizador = new StandardAnalyzer();
-		} */
 
 		analizador = new SpanishAnalyzer();
-
-	
 	}
 	
 	
@@ -130,29 +117,7 @@ public class IndexadorYBuscador{
 	}
 	
 	
-	
-	/**
-	 * Indexa los ficheros incluidos en "ficherosAIndexar"
-	 * @return un índice (Directory) en memoria, con los índices de los ficheros
-	 * @throws IOException
-	 */
-	/*ESTA ES LA QUE TE DAN private Directory crearIndiceEnUnDirectorio() throws IOException{
-		IndexWriter indice = null;
-		Directory directorioAlmacenarIndice = new MMapDirectory(Paths.get(INDEXDIR));
 
-		IndexWriterConfig configuracionIndice = new IndexWriterConfig(analizador);
-
-		indice = new IndexWriter(directorioAlmacenarIndice, configuracionIndice);
-		
-		for (String fichero : ficherosAIndexar) {
-			anhadirFichero(indice, fichero);
-		}
-		
-		indice.close();
-		return directorioAlmacenarIndice;
-	}
-	*/
-	
 	private Directory crearIndiceEnUnDirectorio(String dir) throws IOException{
 		IndexWriter indice = null;
 		Directory directorioAlmacenarIndice = new MMapDirectory(Paths.get("./"+dir+"/indice"));
@@ -210,23 +175,6 @@ public class IndexadorYBuscador{
 	
 	
 	
-	/**
-	 * Ejecuta en el índice una búsqueda por cada una de las palabras clave solicitadas. <p>
-	 * Las palabras clave solicitadas están en la propiedad global "queries". 
-	 * @param directorioDelIndice índice
-	 * @param paginas 
-	 * @param hitsPorPagina
-	 * @throws IOException
-	 */
-	private void buscarQueries(Directory directorioDelIndice, int paginas, int hitsPorPagina)
-	throws IOException{
-		for (String palabra : queries) {
-			buscarQueryEnIndice(directorioDelIndice, 
-								paginas, 
-								hitsPorPagina, 
-								palabra);			
-		}
-	}
 	
 	private static void mostrarMenu(boolean first) {
 		if (!first) {
@@ -242,42 +190,7 @@ public class IndexadorYBuscador{
 		System.out.print("Seleccione una opción: ");
 	}
 	
-	/**
-	 * Programa principal de prueba. Rellena las colecciones "ficheros" y "queries"
-	 * @param args
-	 * @throws IOException
-	 */
-	/*MAIN QUE TE DAN public static void main(String[]args) throws IOException{
-		// Establecemos la lista de ficheros a indexar
-		Collection <String> ficheros = new ArrayList <String>();
-		ficheros.add("./ficheros/uno.txt");
-		ficheros.add("./ficheros/dos.txt");
-		ficheros.add("./ficheros/tres.txt");
-		ficheros.add("./ficheros/cuatro.txt");
-
-		// Establecemos las palabras clave a utilizar en la búsqueda
-		Collection <String> queries = new ArrayList <String>();
-		queries.add("Contaminación");
-		queries.add("cambio climatico");
-		queries.add("cambio climático");
-		queries.add("cambio");
-		queries.add("climatico");
-		queries.add("por");
-		queries.add("aeropuerto");
-
-		// Creamos el idexador / buscador
-		IndexadorYBuscador ejemplo = new IndexadorYBuscador(ficheros, queries);
-
-		// Indexamos los ficheros
-		Directory directorioDelIndiceCreado = ejemplo.crearIndiceEnUnDirectorio();
-		
-		// Abrimos un ficher indexado previamente
-		//Directory directorioDelIndiceCreado = MMapDirectory.open(Paths.get(INDEXDIR));
-		
-		// Ejecutamos la búsqueda de las palabras clave
-		ejemplo.buscarQueries(directorioDelIndiceCreado, ficheros.size(), 1);
-	}
-	*/
+	
 	public static void main(String[]args) throws IOException{
 			boolean exit = false, first = true;
 
