@@ -314,6 +314,11 @@ public class IndexadorYBuscador{
 
 	private static void indexDirectory() {
 		try {
+			
+			String rutaActual = System.getProperty("user.dir");
+	        // Imprimir la ruta actual
+	        System.out.println("Ruta actual: " + rutaActual);
+	        
 			System.out.print("Introduzca el directorio: ");
 			String dir = scanner.nextLine();
 			
