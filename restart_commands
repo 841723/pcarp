@@ -1,8 +1,0 @@
-
-alias refresh='cd /var/www && rm -Rf * && $REFRESH_COMMAND'
-echo $REFRESH_COMMAND -> git clone http://github.com/841972/Sisinf
-
-
-
-pm2 restart app
-systemctl restart nginx.service
