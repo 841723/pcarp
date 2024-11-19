@@ -148,7 +148,7 @@ function new_products () {
 
 function top_selling () {
     try {
-        fetch("https://localhost:33029/top_selling")
+        fetch("top_selling")
         .then(response => response.json())
         .then(data => {
             top_selling_user = document.getElementById('top_selling_user');
