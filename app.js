@@ -24,7 +24,7 @@ app.use(express.static(__dirname +'/public'));
 
 
 app.listen(33029, () => {
-    console.log('servidor iniciado...');
+    console.log('servidor iniciado en el puerto 33029...');
 });
 
 
