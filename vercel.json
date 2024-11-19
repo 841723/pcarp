@@ -3,11 +3,11 @@
     "routes": [
         {
             "src": "/top_selling",
-            "dest": "/index.js"
+            "dest": "/app.js"
         },
         {
             "src": "/(.*)",
-            "dest": "/index.js"
+            "dest": "/app.js"
         }
     ]
 }
