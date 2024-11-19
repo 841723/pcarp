@@ -23,10 +23,13 @@ app.use(cors());
 app.use(express.static(__dirname +'/public'));
 
 
-app.listen(33029, () => {
-    console.log('servidor iniciado en el puerto 33029...');
-});
+// app.listen(33029, () => {
+//     console.log('servidor iniciado en el puerto 33029...');
+// });
 
+module.exports = (req, res) => {
+    app(req, res);
+};
 
 // app.get('/consulta1', (req, res) => {
 //     // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
