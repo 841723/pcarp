@@ -23,10 +23,6 @@ app.use(cors());
 app.use(express.static(__dirname +'/public'));
 
 
-app.listen(33029, () => {
-    console.log('servidor iniciado en el puerto 33029...');
-});
-
 
 // app.get('/consulta1', (req, res) => {
 //     // Aquí ejecutas la consulta SQL a la base de datos y obtienes los resultados.
@@ -422,5 +418,12 @@ app.get('/cancelar_pedido', async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar el pedido' });
   }
 });
+
+
+
+app.listen(33029, () => {
+    console.log("servidor iniciado en el puerto 33029...");
+});
+
 
 module.exports = app;
